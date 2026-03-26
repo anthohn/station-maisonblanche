@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
+
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM — Station Maison-Blanche
+   One place to edit colours, fonts & radii
+───────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand colours */
+  --color-brand-orange:   #f97316;   /* Shell orange */
+  --color-brand-orange-hover: #ea6c0a;
+  --color-brand-amber:    #f59e0b;
+  --color-brand-dark:     #0f172a;   /* Near-black for headings */
+  --color-brand-blue:     #303F9F;   /* Garage accent */
+
+  /* Neutrals */
+  --color-bg:             #ffffff;
+  --color-bg-subtle:      #f8f9fa;
+  --color-bg-muted:       #f1f5f9;
+  --color-border:         #e2e8f0;
+  --color-border-muted:   #f1f5f9;
+
+  /* Text */
+  --color-text-primary:   #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted:     #94a3b8;
+
+  /* Dark footer */
+  --color-footer-bg:      #0f172a;
+  --color-footer-border:  #1e293b;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Radius */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-card-hover: 0 4px 24px rgba(0,0,0,.10);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─────────────────────────────────────────────
+   Tailwind custom tokens
+───────────────────────────────────────────── */
+@theme {
+  --color-orange-primary:  var(--color-brand-orange);
+  --color-navy:            var(--color-brand-dark);
+  --color-brand-orange:    var(--color-brand-orange);
+  --color-brand-amber:     var(--color-brand-amber);
+  --color-brand-blue:      var(--color-brand-blue);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ─────────────────────────────────────────────
+   Base resets
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────
+   Utility classes (reusable across every page)
+───────────────────────────────────────────── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-brand-orange);
+  color: #fff;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-brand-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(249,115,22,.30);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--color-brand-orange);
+  background: rgba(249,115,22,.05);
+}
+
+/* ─────────────────────────────────────────────
+   Orange pill / badge
+───────────────────────────────────────────── */
+.pill-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(249,115,22,.10);
+  color: var(--color-brand-orange);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(249,115,22,.20);
 }
