@@ -45,7 +45,7 @@ export default function HomeRestOfPage() {
                             <div>
                                 <h3 className="text-2xl font-medium text-white mb-2">Le Shop</h3>
                                 <p className="text-white/80 text-sm mb-4 line-clamp-2">Épicerie, produits frais et locaux, café chaud. Ouvert de 6h à 20h tous les jours.</p>
-                                <Link href="/shop" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-300 transition-colors">
+                                <Link href="/shop" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-500 transition-colors">
                                     Découvrir les rayons <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </div>
@@ -71,7 +71,7 @@ export default function HomeRestOfPage() {
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
                                 <p className="text-white/80 text-sm mb-4">La qualité Shell garantie, disponible 24h/24 et 7j/7 via nos terminaux de paiement automatiques.</p>
-                                <Link href="/services" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-300 transition-colors">
+                                <Link href="/services" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-500 transition-colors">
                                     Voir nos carburants <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </div>
@@ -96,7 +96,7 @@ export default function HomeRestOfPage() {
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Lavage Auto</h3>
                                 <p className="text-white/80 text-sm mb-4">Pistes haute pression et aspirateurs industriels pour faire briller votre véhicule en quelques minutes.</p>
-                                <Link href="/lavage" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-300 transition-colors">
+                                <Link href="/lavage" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-500 transition-colors">
                                     Voir les installations <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </div>
@@ -155,7 +155,7 @@ export default function HomeRestOfPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <a
-                            href="https://maps.google.com" // URL GOOGLE MAPS EXACTE
+                            href="https://maps.app.goo.gl/WKU8p8fe4wCEhn2t6"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-xl font-medium hover:bg-orange-600 transition-colors"

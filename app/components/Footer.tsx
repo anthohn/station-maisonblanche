@@ -54,11 +54,11 @@ export default function FooterStation() {
                         <div className="mt-8 pt-6 border-t border-slate-100">
                             <p className="text-sm text-slate-500 mb-4">Rejoignez-nous</p>
                             <div className="flex gap-3">
-                                <a href="#" className="bg-slate-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
-                                    <Facebook size={20} />
+                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
+                                    <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="#" className="bg-slate-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
-                                    <Instagram size={20} />
+                                <a href="#" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
+                                    <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>
                         </div>
@@ -70,11 +70,11 @@ export default function FooterStation() {
                         {/* Bloc Horaires */}
                         <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
-                                <Clock3 size={18} className="text-[--color-brand-dark]" />
+                                {/* <Clock3 size={18} className="text-[--color-brand-dark]" /> */}
                                 <h3 className="text-lg font-medium text-[--color-brand-dark]">Horaires</h3>
                             </div>
                             <div className="space-y-2">
-                                <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                                <div className="flex justify-between items-center py-2">
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
                                     <span className="font-medium text-slate-800">06:00 – 20:00</span>
                                 </div>
@@ -85,6 +85,10 @@ export default function FooterStation() {
                                 <div className="flex justify-between items-center py-2">
                                     <span className="text-slate-500">Lavage</span>
                                     <span className="font-medium text-slate-800">06:00 – 22:00</span>
+                                </div>
+                                <div className="flex justify-between items-center py-2">
+                                    <span className="text-slate-500">Carburant</span>
+                                    <span className="font-medium text-orange-400">24h/24</span>
                                 </div>
                             </div>
                         </div>
@@ -110,6 +114,6 @@ export default function FooterStation() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer >
     );
 }

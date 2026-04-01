@@ -79,7 +79,7 @@ export default function ServicesPage() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src="/lavage.jpg" alt="Lavage Haute Pression" fill className="object-cover" />
+                            <Image src="/lavage.png" alt="Lavage Haute Pression" fill className="object-cover" />
                         </div>
                         <div className="lg:pl-10">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
@@ -106,8 +106,8 @@ export default function ServicesPage() {
 
                         {/* Borne Pneus */}
                         <div className="bg-white p-8 rounded-3xl shadow-sm flex items-start gap-6">
-                            <div className="bg-slate-50 w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl">
-                                <Wind size={24} className="text-[--color-brand-dark]" />
+                            <div className="bg-orange-100 w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl">
+                                <Wind size={24} className="text-orange-500" />
                             </div>
                             <div>
                                 <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Borne de gonflage</h4>
@@ -119,8 +119,8 @@ export default function ServicesPage() {
 
                         {/* Gaz */}
                         <div className="bg-white p-8 rounded-3xl shadow-sm flex items-start gap-6">
-                            <div className="bg-slate-50 w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl">
-                                <Flame size={24} className="text-[--color-brand-dark]" />
+                            <div className="bg-orange-100 w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl">
+                                <Flame size={24} className="text-orange-500" />
                             </div>
                             <div>
                                 <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Vente de gaz</h4>

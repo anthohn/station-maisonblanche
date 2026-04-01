@@ -1,7 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Wrench, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { MapPin, Phone, Mail, Clock, Wrench, ArrowRight } from 'lucide-react';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -55,7 +54,7 @@ export default function ContactPage() {
                                 </p>
                             </div>
                             <a
-                                href="https://maps.google.com/?q=Route+de+Chancy+500,+1242+Chancy"
+                                href="https://maps.app.goo.gl/WKU8p8fe4wCEhn2t6"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center gap-2 bg-white text-orange-600 px-6 py-3 rounded-xl font-medium hover:bg-orange-50 transition-colors w-full"
@@ -105,29 +104,17 @@ export default function ContactPage() {
                                     <span className="font-medium text-orange-500">24h/24</span>
                                 </div>
                             </div>
-
-                            <div>
-                                <p className="text-sm text-slate-500 mb-3">Rejoignez-nous</p>
-                                <div className="flex gap-3">
-                                    <a href="#" className="bg-white p-3 rounded-xl text-[--color-brand-dark] hover:text-orange-500 transition-colors shadow-sm">
-                                        <Facebook size={20} />
-                                    </a>
-                                    <a href="#" className="bg-white p-3 rounded-xl text-[--color-brand-dark] hover:text-orange-500 transition-colors shadow-sm">
-                                        <Instagram size={20} />
-                                    </a>
-                                </div>
-                            </div>
                         </motion.div>
 
                         {/* Carte Synergie Garage Maison Blanche (Bleu Sombre) */}
-                        <motion.div variants={itemVariants} className="bg-[--color-brand-dark] p-8 rounded-4xl shadow-sm text-white">
+                        <motion.div variants={itemVariants} className="bg-[--color-brand-dark] p-8 rounded-4xl shadow-sm text-[--color-brand-dark]">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="bg-white/10 w-12 h-12 flex items-center justify-center rounded-2xl">
-                                    <Wrench size={24} className="text-orange-100" />
+                                    <Wrench size={24} className="text-orange-500" />
                                 </div>
                                 <h3 className="text-xl font-medium">Besoin d'un mécanicien ?</h3>
                             </div>
-                            <p className="text-white/80 text-sm mb-6">
+                            <p className="text-slate-500 text-sm mb-6">
                                 Pour l'entretien, les réparations ou les pneus, découvrez l'expertise de notre garage partenaire, juste à côté.
                             </p>
                             <a href="https://garage-maisonblanche.ch" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium text-orange-400 hover:text-orange-300 transition-colors">
@@ -146,7 +133,7 @@ export default function ContactPage() {
                     >
                         {/* Iframe Google Maps avec vos coordonnées */}
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2764.12345!2d5.973!3d46.148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDA4JzUyLjgiTiA1wrA1OCcyMi44IkU!5e0!3m2!1sfr!2sch!4v1700000000000!5m2!1sfr!2sch"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7014972910897!2d5.987427575994064!3d46.156689886969644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c87fabc861e13%3A0x2e523f818adbbf7!2sStation%20Maison%20Blanche%20SA!5e0!3m2!1sfr!2sit!4v1775029984316!5m2!1sfr!2sit"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
