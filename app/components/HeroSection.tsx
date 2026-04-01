@@ -64,7 +64,7 @@ export default function HeroSection() {
                                 <MapPin size={18} />
                                 Itinéraire
                             </a>
-                            <Link href="#services" className="btn-secondary">
+                            <Link href="/services" className="btn-secondary">
                                 Nos services
                                 <ArrowRight size={18} />
                             </Link>

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fuel, ShoppingBasket, Droplets, Wind, Flame } from 'lucide-react';
-import pompes from '@/public/pompes.jpg';
+import pompes from '@/public/pompes0.jpg';
 import terrasse from '@/public/terrasse.jpg';
 
 

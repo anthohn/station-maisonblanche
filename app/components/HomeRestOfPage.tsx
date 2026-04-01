@@ -26,20 +26,19 @@ export default function HomeRestOfPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    {/* Carte 1 : Le Shop (Image de fond) */}
+                    {/* Carte 1 : Le Shop */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="relative h-[380px] rounded-4xlerflow-hidden group shadow-sm"
+                        className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm"
                     >
-                        {/* Remplacez le src par votre photo du shop */}
-                        {/* <Image src="/shop-interieur.jpg" alt="Le Shop" fill className="object-cover transition-transform duration-700 group-hover:scale-105" /> */}
-                        <div className="absolute inset-0 bg-slate-800" /> {/* Placeholder si pas d'image */}
-                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                        <Image src="/shop-devant.jpg" alt="Le Shop" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        {/* Voile sombre pour la lisibilité */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
 
-                        <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                        <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                             <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
                                 <ShoppingBasket size={24} className="text-white" />
                             </div>
@@ -53,43 +52,54 @@ export default function HomeRestOfPage() {
                         </div>
                     </motion.div>
 
-                    {/* Carte 2 : Carburant (Orange massif) */}
+                    {/* Carte 2 : Carburant */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="relative h-[380px] rounded-4xl-orange-500 p-8 flex flex-col justify-between group shadow-sm text-white"
+                        className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
-                        <div className="bg-white/20 w-12 h-12 flex items-center justify-center rounded-2xl">
-                            <Fuel size={24} className="text-white" />
-                        </div>
-                        <div>
-                            <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
-                            <p className="text-orange-50 text-sm mb-4">La qualité Shell garantie, disponible 24h/24 et 7j/7 via nos terminaux de paiement automatiques.</p>
-                            <Link href="/services" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-100 transition-colors">
-                                Voir nos carburants <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                            </Link>
+                        <Image src="/pompes0.jpg" alt="Carburant Shell" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        {/* Voile avec une très légère teinte orange pour garder l'identité */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+
+                        <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+                            <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
+                                <Fuel size={24} className="text-white" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
+                                <p className="text-white/80 text-sm mb-4">La qualité Shell garantie, disponible 24h/24 et 7j/7 via nos terminaux de paiement automatiques.</p>
+                                <Link href="/services" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-300 transition-colors">
+                                    Voir nos carburants <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
 
-                    {/* Carte 3 : Lavage (Sombre élégant) */}
+                    {/* Carte 3 : Lavage */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
-                        className="relative h-[380px] rounded-4xl bg-[--color-brand-dark] p-8 flex flex-col justify-between group shadow-sm text-white hover:bg-slate-800 transition-colors"
+                        className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
-                        <div className="bg-white/10 w-12 h-12 flex items-center justify-center rounded-2xl">
-                            <Droplets size={24} className="text-orange-100" />
-                        </div>
-                        <div>
-                            <h3 className="text-2xl font-medium mb-2">Lavage Auto</h3>
-                            <p className="text-slate-300 text-sm mb-4">Pistes haute pression et aspirateurs industriels pour faire briller votre véhicule en quelques minutes.</p>
-                            <Link href="/lavage" className="inline-flex items-center text-sm font-medium text-orange-400 hover:text-orange-300 transition-colors">
-                                Voir les installations <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                            </Link>
+                        <Image src="/lavage.png" alt="Lavage Haute Pression" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+
+                        <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+                            <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
+                                <Droplets size={24} className="text-white" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-medium mb-2">Lavage Auto</h3>
+                                <p className="text-white/80 text-sm mb-4">Pistes haute pression et aspirateurs industriels pour faire briller votre véhicule en quelques minutes.</p>
+                                <Link href="/lavage" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-300 transition-colors">
+                                    Voir les installations <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
 
