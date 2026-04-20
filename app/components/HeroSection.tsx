@@ -7,7 +7,7 @@ import { ArrowRight, MapPin } from 'lucide-react';
 const stats = [
     { value: '24h/24', label: 'Carburant disponible' },
     { value: '7j/7', label: 'Shop ouvert' },
-    { value: '06–20h', label: 'Horaires shop' },
+    // { value: '06–20h', label: 'Horaires shop' },
 ];
 
 export default function HeroSection() {
@@ -75,7 +75,7 @@ export default function HeroSection() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="border-t border-slate-100 pt-8 grid grid-cols-3 gap-6"
+                            className="border-t border-slate-100 pt-8 grid grid-cols-2 gap-6"
                         >
                             {stats.map((s) => (
                                 <div key={s.label}>

@@ -40,11 +40,11 @@ export default function FooterStation() {
                             <h3 className="text-lg font-medium text-[--color-brand-dark] mb-6">Nous contacter</h3>
                             <div className="space-y-5">
                                 <a href="tel:+41216521361" className="flex items-center gap-4 text-slate-600 hover:text-orange-500 transition-colors">
-                                    <div className="bg-orange-50 p-2.5 rounded-xl shrink-0"><Phone className="size-5 text-orange-500" /></div>
+                                    <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0"><Phone className="size-5 text-orange-500" /></div>
                                     <span className="font-medium text-base">+41 21 652 13 61</span>
                                 </a>
                                 <a href="mailto:contact@station-maisonblanche.ch" className="flex items-center gap-4 text-slate-600 hover:text-orange-500 transition-colors">
-                                    <div className="bg-orange-50 p-2.5 rounded-xl shrink-0"><Mail className="size-5 text-orange-500" /></div>
+                                    <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0"><Mail className="size-5 text-orange-500" /></div>
                                     <span className="font-medium truncate text-base">contact@station-maisonblanche.ch</span>
                                 </a>
                             </div>
@@ -54,10 +54,10 @@ export default function FooterStation() {
                         <div className="mt-8 pt-6 border-t border-slate-100">
                             <p className="text-sm text-slate-500 mb-4">Rejoignez-nous</p>
                             <div className="flex gap-3">
-                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
+                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 hover:scale-105 transition-transform">
                                     <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
+                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 hover:scale-105 transition-transform">
                                     <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>
@@ -67,39 +67,42 @@ export default function FooterStation() {
                     {/* COLONNE 3 : Horaires & Navigation */}
                     <div className="flex flex-col gap-6">
 
-                        {/* Bloc Horaires */}
+                        {/* Bloc Horaires (Modifié avec les 3 créneaux du shop) */}
                         <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
-                                {/* <Clock3 size={18} className="text-[--color-brand-dark]" /> */}
                                 <h3 className="text-lg font-medium text-[--color-brand-dark]">Horaires</h3>
                             </div>
-                            <div className="space-y-2">
-                                <div className="flex justify-between items-center py-2">
+                            <div className="space-y-1.5">
+                                <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
                                     <span className="font-medium text-slate-800">06:00 – 20:00</span>
                                 </div>
-                                <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                                    <span className="text-slate-500">Shop (Sam–Dim)</span>
+                                <div className="flex justify-between items-center py-1">
+                                    <span className="text-slate-500">Shop (Samedi)</span>
+                                    <span className="font-medium text-slate-800">07:00 – 20:00</span>
+                                </div>
+                                <div className="flex justify-between items-center py-1 border-b border-slate-200 pb-3 mb-2">
+                                    <span className="text-slate-500">Shop (Dimanche)</span>
                                     <span className="font-medium text-slate-800">07:30 – 20:00</span>
                                 </div>
-                                <div className="flex justify-between items-center py-2">
+                                <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Lavage</span>
                                     <span className="font-medium text-slate-800">06:00 – 22:00</span>
                                 </div>
-                                <div className="flex justify-between items-center py-2">
+                                <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Carburant</span>
-                                    <span className="font-medium text-orange-400">24h/24</span>
+                                    <span className="font-medium text-orange-500">24h/24</span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Bloc Navigation (Clair et lisible) */}
-                        <div className="bg-[--color-brand-dark] px-8 py-6 rounded-[2rem] shadow-sm flex-1 flex flex-col justify-center">
-                            <div className="flex justify-between items-center">
-                                <Link href="/services" className="text-slate-500 hover:text-orange-500 transition-colors text-sm font-medium">Services</Link>
-                                <Link href="/shop" className="text-slate-500 hover:text-orange-500 transition-colors text-sm font-medium">Le Shop</Link>
-                                <Link href="/lavage" className="text-slate-500 hover:text-orange-500 transition-colors text-sm font-medium">Lavage</Link>
-                                <Link href="/contact" className="text-slate-500 hover:text-orange-500 transition-colors text-sm font-medium">Contact</Link>
+                        {/* Bloc Navigation (Corrigé : textes clairs sur fond sombre) */}
+                        <div className="bg-white px-8 py-6 rounded-[2rem] border border-slate-100 shadow-sm flex-1 flex flex-col justify-center">
+                            <div className="flex flex-wrap justify-between items-center gap-2">
+                                <Link href="/services" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Services</Link>
+                                <Link href="/shop" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Le Shop</Link>
+                                <Link href="/lavage" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Lavage</Link>
+                                <Link href="/contact" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Contact</Link>
                             </div>
                         </div>
                     </div>

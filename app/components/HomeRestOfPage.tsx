@@ -39,8 +39,8 @@ export default function HomeRestOfPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
-                            <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
-                                <ShoppingBasket size={24} className="text-white" />
+                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                                <ShoppingBasket size={24} className="text-orange-500" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium text-white mb-2">Le Shop</h3>
@@ -65,8 +65,8 @@ export default function HomeRestOfPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
-                            <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
-                                <Fuel size={24} className="text-white" />
+                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                                <Fuel size={24} className="text-orange-500" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
@@ -90,8 +90,8 @@ export default function HomeRestOfPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
-                            <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
-                                <Droplets size={24} className="text-white" />
+                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                                <Droplets size={24} className="text-orange-500" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Lavage Auto</h3>
