@@ -5,7 +5,7 @@ export default function FooterStation() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="w-full bg-slate-50 text-slate-500 border-t border-slate-200">
+        <footer className="w-full bg-slate-50 text-slate-500">
             <div className="container mx-auto px-6 py-16 md:py-20 max-w-7xl relative z-10">
 
                 {/* --- GRILLE MODULAIRE --- */}
@@ -54,10 +54,10 @@ export default function FooterStation() {
                         <div className="mt-8 pt-6 border-t border-slate-100">
                             <p className="text-sm text-slate-500 mb-4">Rejoignez-nous</p>
                             <div className="flex gap-3">
-                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 hover:scale-105 transition-transform">
+                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600">
                                     <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 hover:scale-105 transition-transform">
+                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600">
                                     <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>
@@ -75,15 +75,18 @@ export default function FooterStation() {
                             <div className="space-y-1.5">
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
-                                    <span className="font-medium text-slate-800">06:00 – 20:00</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full font-medium">Été</span>
+                                        <span className="font-medium text-slate-800">06:00 – 21:00</span>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Samedi)</span>
-                                    <span className="font-medium text-slate-800">07:00 – 20:00</span>
+                                    <span className="font-medium text-slate-800">06:30 – 20:00</span>
                                 </div>
                                 <div className="flex justify-between items-center py-1 border-b border-slate-200 pb-3 mb-2">
                                     <span className="text-slate-500">Shop (Dimanche)</span>
-                                    <span className="font-medium text-slate-800">07:30 – 20:00</span>
+                                    <span className="font-medium text-slate-800">07:00 – 20:00</span>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Lavage</span>

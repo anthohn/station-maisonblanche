@@ -73,20 +73,20 @@ export default function LavagePage() {
                     </motion.div>
 
                     {/* 3. Petite Carte : Paiement */}
-                    <motion.div variants={itemVariants} className="bg-neutral-800 p-8 rounded-[2rem] shadow-sm flex flex-col justify-between text-white">
-                        <div className="bg-white/10 w-12 h-12 flex items-center justify-center rounded-2xl">
-                            <HandCoins size={24} className="text-orange-100" />
+                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                            <HandCoins size={24} className="text-orange-500" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-medium mb-1">Paiement Facile</h3>
-                            <p className="text-slate-300 text-sm">Acceptons pièces, jetons (disponibles au shop) et cartes bancaires.</p>
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Paiement Facile</h3>
+                            <p className="text-slate-500 text-sm">Acceptons pièces, jetons (disponibles au shop) et cartes bancaires.</p>
                         </div>
                     </motion.div>
 
                     {/* 4. Petite Carte : Horaires */}
                     <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
-                        <div className="bg-slate-50 w-12 h-12 flex items-center justify-center rounded-2xl">
-                            <Clock3 size={24} className="text-[--color-brand-dark]" />
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                            <Clock3 size={24} className="text-orange-500" />
                         </div>
                         <div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Large Amplitude</h3>
@@ -110,13 +110,13 @@ export default function LavagePage() {
                     </motion.div>
 
                     {/* 6. Petite Carte : Puissance Aspi */}
-                    <motion.div variants={itemVariants} className="bg-orange-500 p-8 rounded-[2rem] shadow-sm flex flex-col justify-between text-white">
-                        <div className="bg-white/20 w-12 h-12 flex items-center justify-center rounded-2xl">
-                            <Zap size={24} className="text-white" />
+                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                            <Zap size={24} className="text-orange-500" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-medium mb-1">Aspirateurs</h3>
-                            <p className="text-orange-50 text-sm">Puissance d'aspiration industrielle pour un intérieur impeccable.</p>
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Aspirateurs</h3>
+                            <p className="text-slate-500 text-sm">Puissance d'aspiration industrielle pour un intérieur impeccable.</p>
                         </div>
                     </motion.div>
 

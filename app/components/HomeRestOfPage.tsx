@@ -115,8 +115,8 @@ export default function HomeRestOfPage() {
                     className="bg-white rounded-4xl border border-slate-200 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm"
                 >
                     <div className="flex items-center gap-6">
-                        <div className="hidden md:flex bg-slate-50 w-20 h-20 shrink-0 items-center justify-center rounded-3xl">
-                            <Wrench size={32} className="text-slate-400" />
+                        <div className="hidden md:flex bg-orange-100 w-20 h-20 shrink-0 items-center justify-center rounded-3xl">
+                            <Wrench size={32} className="text-orange-500" />
                         </div>
                         <div>
                             <p className="text-orange-500 font-medium text-sm tracking-wide uppercase mb-2">Le combo parfait</p>
