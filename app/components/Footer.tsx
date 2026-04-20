@@ -76,8 +76,8 @@ export default function FooterStation() {
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
                                     <div className="flex items-center gap-2">
-                                        <span className="bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full font-medium">Été</span>
-                                        <span className="font-medium text-slate-800">06:00 – 21:00</span>
+                                        {/* <span className="bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full font-medium">Été</span> */}
+                                        <span className="font-medium text-slate-800">06:00 – 20:00</span>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
