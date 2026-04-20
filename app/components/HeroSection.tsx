@@ -75,7 +75,7 @@ export default function HeroSection() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="border-t border-slate-100 pt-8 grid grid-cols-2 gap-6"
+                            className="border-t border-slate-200 pt-8 grid grid-cols-2 gap-6"
                         >
                             {stats.map((s) => (
                                 <div key={s.label}>

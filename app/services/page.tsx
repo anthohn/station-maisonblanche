@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fuel, ShoppingBasket, Droplets, Wind, Flame } from 'lucide-react';
 import pompes from '@/public/pompes0.jpg';
-import devanture from '@/public/devanture.jpeg';
+// import devanture from '@/public/devanture.jpeg';
 
 
 export default function ServicesPage() {
     return (
-        <main className="min-h-screen bg-slate-50 pt-32 pb-24">
+        <main className="bg-slate-50 pt-32">
             <div className="container mx-auto px-6 max-w-7xl">
 
                 {/* En-tête de la page */}

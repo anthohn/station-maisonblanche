@@ -12,7 +12,7 @@ const itemVariants = {
 
 export default function LavagePage() {
     return (
-        <main className="min-h-screen bg-slate-50 pt-32 pb-24">
+        <main className="bg-slate-50 pt-32">
             <div className="container mx-auto px-6 max-w-7xl">
 
                 {/* --- HEADER --- */}
