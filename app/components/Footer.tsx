@@ -57,7 +57,7 @@ export default function FooterStation() {
                                 <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
                                     <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="#" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
+                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-50 p-3.5 rounded-xl text-slate-600 hover:text-orange-500 hover:bg-orange-50 transition-colors shadow-xs">
                                     <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>

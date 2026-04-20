@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fuel, ShoppingBasket, Droplets, Wind, Flame } from 'lucide-react';
 import pompes from '@/public/pompes0.jpg';
-import terrasse from '@/public/terrasse.jpg';
+import devanture from '@/public/devanture.jpeg';
 
 
 export default function ServicesPage() {
@@ -67,7 +67,7 @@ export default function ServicesPage() {
                             </p>
                         </div>
                         <div className="order-1 lg:order-2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src={terrasse} alt="Intérieur du Shop Maison Blanche" fill className="object-cover" />
+                            <Image src="/devanture.jpeg" alt="Intérieur du Shop Maison Blanche" fill className="object-cover" />
                         </div>
                     </motion.div>
 
@@ -79,7 +79,7 @@ export default function ServicesPage() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src="/lavage.png" alt="Lavage Haute Pression" fill className="object-cover" />
+                            <Image src="/lavage.jpeg" alt="Lavage Haute Pression" fill className="object-cover" />
                         </div>
                         <div className="lg:pl-10">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">

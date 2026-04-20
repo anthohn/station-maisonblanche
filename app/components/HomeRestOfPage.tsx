@@ -34,9 +34,9 @@ export default function HomeRestOfPage() {
                         transition={{ delay: 0.1 }}
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm"
                     >
-                        <Image src="/shop-devant.jpg" alt="Le Shop" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <Image src="/devanture.jpeg" alt="Le Shop" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         {/* Voile sombre pour la lisibilité */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                             <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
@@ -62,7 +62,7 @@ export default function HomeRestOfPage() {
                     >
                         <Image src="/pompes0.jpg" alt="Carburant Shell" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         {/* Voile avec une très légère teinte orange pour garder l'identité */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                             <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">
@@ -86,8 +86,8 @@ export default function HomeRestOfPage() {
                         transition={{ delay: 0.3 }}
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
-                        <Image src="/lavage.png" alt="Lavage Haute Pression" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                        <Image src="/lavage.jpeg" alt="Lavage Haute Pression" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                             <div className="bg-white/20 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl">

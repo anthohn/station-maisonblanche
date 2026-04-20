@@ -22,7 +22,7 @@ export default function ShopPage() {
                 >
                     {/* Placeholder pour la grande photo de l'intérieur */}
                     <div className="absolute inset-0 bg-slate-800">
-                        {/* <Image src="/shop-hero.jpg" alt="Intérieur du Shop Maison Blanche" fill className="object-cover opacity-60" priority /> */}
+                        <Image src="/devanture.jpeg" alt="Intérieur du Shop Maison Blanche" fill className="object-cover opacity-60" priority />
                         {/* Note: Décommentez la ligne ci-dessus quand vous aurez la photo */}
                     </div>
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
