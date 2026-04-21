@@ -109,8 +109,9 @@ export default function FooterStation() {
                         {/* Bloc Navigation */}
                         <div className="bg-white px-8 py-6 rounded-[2rem] border border-slate-100 shadow-sm flex-1 flex flex-col justify-center">
                             <div className="flex flex-wrap justify-between items-center gap-2">
+                                <Link href="/" className={`text-sm font-medium transition-colors ${pathname === '/' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Accueil</Link>
                                 <Link href="/services" className={`text-sm font-medium transition-colors ${pathname === '/services' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Services</Link>
-                                <Link href="/shop" className={`text-sm font-medium transition-colors ${pathname === '/shop' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Le Shop</Link>
+                                <Link href="/shop" className={`text-sm font-medium transition-colors ${pathname === '/shop' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Shop</Link>
                                 <Link href="/lavage" className={`text-sm font-medium transition-colors ${pathname === '/lavage' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Lavage</Link>
                                 <Link href="/contact" className={`text-sm font-medium transition-colors ${pathname === '/contact' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Contact</Link>
                             </div>
