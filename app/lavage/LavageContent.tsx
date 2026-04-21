@@ -53,7 +53,7 @@ export default function LavageContent() {
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-8 text-white">
                             <h2 className="text-3xl font-medium mb-2">Lavage Haute Pression</h2>
-                            <p className="text-white/80 max-w-sm">4 pistes équipées de lances ergonomiques pour un nettoyage précis et puissant.</p>
+                            <p className="text-white/80 max-w-sm">Une piste de lavage équipée d'une lance ergonomique pour un nettoyage précis et puissant.</p>
                         </div>
                     </motion.div>
 
@@ -63,8 +63,8 @@ export default function LavageContent() {
                             <Sparkles size={24} className="text-orange-500" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">5 Programmes</h3>
-                            <p className="text-slate-500 text-sm">Shampoing, Brosse, Rinçage, Cire de finition et Eau déminéralisée.</p>
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">6 Programmes</h3>
+                            <p className="text-slate-500 text-sm">Shampoing, Brosse, Rinçage, Cire de finition, Eau déminéralisée et Nettoyant Jantes.</p>
                         </div>
                     </motion.div>
 
@@ -100,8 +100,8 @@ export default function LavageContent() {
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-8 text-white">
-                            <h2 className="text-3xl font-medium mb-2">Zone Aspirateurs</h2>
-                            <p className="text-white/80 max-w-sm">4 postes d&apos;aspiration abrités avec longs tuyaux pour atteindre tous les recoins.</p>
+                            <h2 className="text-3xl font-medium mb-2">Zone Aspirateur</h2>
+                            <p className="text-white/80 max-w-sm">Un poste d&apos;aspiration abrité avec un long tuyau pour atteindre tous les recoins.</p>
                         </div>
                     </motion.div>
 

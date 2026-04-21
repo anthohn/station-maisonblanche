@@ -4,7 +4,7 @@ import LavageContent from "./LavageContent";
 export const metadata: Metadata = {
     title: "Lavage Auto — Haute Pression & Aspirateurs en Libre-Service à Chancy",
     description:
-        "Centre de lavage en libre-service à Chancy (Genève). 4 pistes haute pression avec 5 programmes (shampoing, brosse, rinçage, cire, eau déminéralisée). 4 postes d'aspiration industrielle abrités. Ouvert 7j/7 de 06h à 22h. Paiement par pièces, jetons ou carte bancaire.",
+        "Centre de lavage en libre-service à Chancy (Genève). Une piste haute pression avec 6 programmes (shampoing, brosse, rinçage, cire, eau déminéralisée). Un poste d'aspiration industrielle. Ouvert 7j/7 de 06h à 22h. Paiement par pièces, jetons ou carte bancaire.",
     keywords: [
         "lavage auto Chancy",
         "lavage haute pression Genève",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Lavage Auto — Haute Pression & Aspirateurs | Station Maison-Blanche",
         description:
-            "4 pistes haute pression et 4 postes d'aspiration en libre-service. Ouvert 7j/7 de 06h à 22h à Chancy, Genève.",
+            "Une piste haute pression et un poste d'aspiration en libre-service. Ouvert 7j/7 de 06h à 22h à Chancy, Genève.",
         url: "https://station-maisonblanche.ch/lavage",
         images: [
             {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Lavage Auto | Station Maison-Blanche — Chancy, Genève",
         description:
-            "4 pistes haute pression, 5 programmes, aspirateurs industriels. Ouvert 7j/7 de 06h à 22h.",
+            "Une piste haute pression, 6 programmes, aspirateur industriel. Ouvert 7j/7 de 06h à 22h.",
         images: ["/lavage.jpeg"],
     },
     alternates: {

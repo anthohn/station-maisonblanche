@@ -5,7 +5,7 @@ export default function JsonLd() {
         name: "Station Maison-Blanche SA",
         alternateName: "Station Maison Blanche",
         url: "https://station-maisonblanche.ch",
-        telephone: "+41216521361",
+        telephone: "+41227561522",
         email: "contact@station-maisonblanche.ch",
         image: "https://station-maisonblanche.ch/shop.JPG",
         logo: "https://station-maisonblanche.ch/logo-station.png",
@@ -134,7 +134,7 @@ export default function JsonLd() {
                         "@type": "Service",
                         name: "Lavage haute pression",
                         description:
-                            "4 pistes haute pression en libre-service avec 5 programmes. Ouvert de 06h à 22h.",
+                            "1 piste haute pression en libre-service avec 6 programmes. Ouvert de 06h à 22h.",
                     },
                 },
                 {
@@ -143,7 +143,7 @@ export default function JsonLd() {
                         "@type": "Service",
                         name: "Aspirateurs industriels",
                         description:
-                            "4 postes d'aspiration abrités avec puissance industrielle pour l'intérieur des véhicules.",
+                            "1 poste d'aspiration abrité avec puissance industrielle pour l'intérieur des véhicules.",
                     },
                 },
                 {

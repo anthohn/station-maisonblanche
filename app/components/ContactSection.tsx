@@ -44,8 +44,8 @@ export default function ContactSection() {
                             {
                                 icon: FaPhone,
                                 title: 'Téléphone',
-                                content: '+41 21 652 13 61',
-                                href: 'tel:+41216521361',
+                                content: '+41 22 756 15 22',
+                                href: 'tel:+41227561522',
                                 linkLabel: 'Appeler',
                             },
                             {

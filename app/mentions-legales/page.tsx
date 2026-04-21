@@ -17,7 +17,7 @@ export default function MentionsLegalesPage() {
                     <h1 className="text-3xl md:text-4xl font-medium text-[--color-brand-dark] tracking-tight mb-8">
                         Mentions légales
                     </h1>
-                    
+
                     <div className="space-y-8 text-slate-600 leading-relaxed">
                         <section>
                             <h2 className="text-xl font-medium text-[--color-brand-dark] mb-3">
@@ -40,7 +40,7 @@ export default function MentionsLegalesPage() {
                                 Pour toute question ou demande d'information, vous pouvez nous contacter :
                             </p>
                             <ul className="list-disc pl-5 mt-2 space-y-1">
-                                <li><strong>Téléphone :</strong> <a href="tel:+41216521361" className="text-orange-500 hover:underline">+41 21 652 13 61</a></li>
+                                <li><strong>Téléphone :</strong> <a href="tel:+41227561522" className="text-orange-500 hover:underline">+41 22 756 15 22</a></li>
                                 <li><strong>Email :</strong> <a href="mailto:contact@station-maisonblanche.ch" className="text-orange-500 hover:underline">contact@station-maisonblanche.ch</a></li>
                             </ul>
                         </section>
@@ -50,7 +50,7 @@ export default function MentionsLegalesPage() {
                                 3. Hébergement
                             </h2>
                             <p>
-                                L'hébergement du site est assuré dans un environnement sécurisé. 
+                                L'hébergement du site est assuré dans un environnement sécurisé.
                                 Pour toute information concernant l'hébergement, veuillez nous contacter directement via les coordonnées figurant ci-dessus.
                             </p>
                         </section>

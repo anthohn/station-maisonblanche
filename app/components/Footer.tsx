@@ -39,9 +39,9 @@ export default function FooterStation() {
                         <div>
                             <h3 className="text-lg font-medium text-[--color-brand-dark] mb-6">Nous contacter</h3>
                             <div className="space-y-5">
-                                <a href="tel:+41216521361" className="flex items-center gap-4 text-slate-600 hover:text-orange-500 transition-colors">
+                                <a href="tel:+41227561522" className="flex items-center gap-4 text-slate-600 hover:text-orange-500 transition-colors">
                                     <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0"><Phone className="size-5 text-orange-500" /></div>
-                                    <span className="font-medium text-base">+41 21 652 13 61</span>
+                                    <span className="font-medium text-base">+41 22 756 15 22</span>
                                 </a>
                                 <a href="mailto:contact@station-maisonblanche.ch" className="flex items-center gap-4 text-slate-600 hover:text-orange-500 transition-colors">
                                     <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0"><Mail className="size-5 text-orange-500" /></div>

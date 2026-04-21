@@ -4,7 +4,7 @@ import ContactContent from "./ContactContent";
 export const metadata: Metadata = {
     title: "Contact & Accès — Route de Chancy 500, 1242 Chancy (GE)",
     description:
-        "Contactez la Station Maison-Blanche : Route de Chancy 500, 1242 Chancy, Genève. Téléphone : +41 21 652 13 61. Email : contact@station-maisonblanche.ch. Trouvez-nous facilement avec Google Maps. Garage Maison Blanche juste à côté pour vos besoins mécaniques.",
+        "Contactez la Station Maison-Blanche : Route de Chancy 500, 1242 Chancy, Genève. Téléphone : +41 22 756 15 22. Email : contact@station-maisonblanche.ch. Trouvez-nous facilement avec Google Maps. Garage Maison Blanche juste à côté pour vos besoins mécaniques.",
     keywords: [
         "contact station service Chancy",
         "adresse Station Maison Blanche",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Contact & Accès | Station Maison-Blanche — Chancy, Genève",
         description:
-            "Route de Chancy 500, 1242 Chancy. Tél: +41 21 652 13 61. Retrouvez-nous sur Google Maps.",
+            "Route de Chancy 500, 1242 Chancy. Tél: +41 22 756 15 22. Retrouvez-nous sur Google Maps.",
         url: "https://station-maisonblanche.ch/contact",
         images: [
             {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Contact & Accès | Station Maison-Blanche — Chancy, Genève",
         description:
-            "Route de Chancy 500, 1242 Chancy. Tél: +41 21 652 13 61.",
+            "Route de Chancy 500, 1242 Chancy. Tél: +41 22 756 15 22.",
         images: ["/devanture.jpeg"],
     },
     alternates: {

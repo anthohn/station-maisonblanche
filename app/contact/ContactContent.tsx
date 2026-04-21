@@ -50,7 +50,7 @@ export default function ContactContent() {
                                 </div>
                                 <div className="overflow-hidden">
                                     <p className="text-sm text-slate-400 mb-1">Téléphone</p>
-                                    <a href="tel:+41216521361" className="text-lg font-medium text-[--color-brand-dark] hover:text-orange-500 transition-colors block truncate">+41 21 652 13 61</a>
+                                    <a href="tel:+41227561522" className="text-lg font-medium text-[--color-brand-dark] hover:text-orange-500 transition-colors block truncate">+41 22 756 15 22</a>
                                 </div>
                             </div>
 
