@@ -1,0 +1,47 @@
+import type { Metadata } from "next";
+import ContactContent from "./ContactContent";
+
+export const metadata: Metadata = {
+    title: "Contact & Accès — Route de Chancy 500, 1242 Chancy (GE)",
+    description:
+        "Contactez la Station Maison-Blanche : Route de Chancy 500, 1242 Chancy, Genève. Téléphone : +41 21 652 13 61. Email : contact@station-maisonblanche.ch. Trouvez-nous facilement avec Google Maps. Garage Maison Blanche juste à côté pour vos besoins mécaniques.",
+    keywords: [
+        "contact station service Chancy",
+        "adresse Station Maison Blanche",
+        "Route de Chancy 500",
+        "1242 Chancy",
+        "station service Genève contact",
+        "téléphone station Chancy",
+        "garage Maison Blanche Chancy",
+        "itinéraire Chancy",
+        "horaires station Chancy",
+    ],
+    openGraph: {
+        title: "Contact & Accès | Station Maison-Blanche — Chancy, Genève",
+        description:
+            "Route de Chancy 500, 1242 Chancy. Tél: +41 21 652 13 61. Retrouvez-nous sur Google Maps.",
+        url: "https://station-maisonblanche.ch/contact",
+        images: [
+            {
+                url: "/devanture.jpeg",
+                width: 1200,
+                height: 630,
+                alt: "Station Maison-Blanche vue extérieure, Route de Chancy 500, Chancy",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Contact & Accès | Station Maison-Blanche — Chancy, Genève",
+        description:
+            "Route de Chancy 500, 1242 Chancy. Tél: +41 21 652 13 61.",
+        images: ["/devanture.jpeg"],
+    },
+    alternates: {
+        canonical: "https://station-maisonblanche.ch/contact",
+    },
+};
+
+export default function ContactPage() {
+    return <ContactContent />;
+}
