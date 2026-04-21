@@ -34,7 +34,7 @@ export default function HomeRestOfPage() {
                         transition={{ delay: 0.1 }}
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm"
                     >
-                        <Image src="/devanture.jpeg" alt="Le Shop" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <Image src="/devanture.jpeg" alt="Devanture du shop épicerie Station Maison-Blanche à Chancy, Genève" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         {/* Voile sombre pour la lisibilité */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
@@ -60,7 +60,7 @@ export default function HomeRestOfPage() {
                         transition={{ delay: 0.2 }}
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
-                        <Image src="/pompes0.jpg" alt="Carburant Shell" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <Image src="/pompes0.jpg" alt="Pompes à carburant Shell V-Power et diesel, Station Maison-Blanche Chancy" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         {/* Voile avec une très légère teinte orange pour garder l'identité */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
@@ -86,7 +86,7 @@ export default function HomeRestOfPage() {
                         transition={{ delay: 0.3 }}
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
-                        <Image src="/lavage.jpeg" alt="Lavage Haute Pression" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <Image src="/lavage.jpeg" alt="Pistes de lavage haute pression en libre-service, Station Maison-Blanche Chancy" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
@@ -134,7 +134,7 @@ export default function HomeRestOfPage() {
                         rel="noopener noreferrer"
                         className="shrink-0 inline-flex items-center justify-center gap-2 bg-[--color-brand-dark] text-white px-6 py-4 rounded-xl font-medium hover:bg-slate-800 transition-colors w-full md:w-auto"
                     >
-                        Visiter le Garage <ArrowRight size={18} />
+                        Garage Maison Blanche — réparation auto à Chancy <ArrowRight size={18} />
                     </a>
                 </motion.div>
             </section>

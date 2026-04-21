@@ -97,7 +97,7 @@ export default function HeroSection() {
                         <div className="relative rounded-2xl overflow-hidden h-[520px] shadow-2xl">
                             <Image
                                 src="/shop.JPG"
-                                alt="Shop & Épicerie Station Maison-Blanche"
+                                alt="Shop et épicerie de proximité à la Station Maison-Blanche, Chancy, Genève"
                                 fill
                                 className="object-cover"
                                 priority
