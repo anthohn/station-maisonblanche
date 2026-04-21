@@ -2,14 +2,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import Image from "next/image";
-// import SantaHat from '@/public/santaHat.png'
-import ModernButton from "@/app/components/ui/ModernButton";
-// import OpenStatus from "@/app/components/ui/OpenStatus";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -59,7 +58,7 @@ export default function Header() {
                                 <Link
                                     key={link.href + idx}
                                     href={link.href}
-                                    className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50"
+                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                 >
                                     {link.label}
                                 </Link>
@@ -127,7 +126,7 @@ export default function Header() {
                                     <Link
                                         key={link.href + idx}
                                         href={link.href}
-                                        className="block text-gray-700 hover:text-[#303F9F] font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50"
+                                        className={`block font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         {link.label}

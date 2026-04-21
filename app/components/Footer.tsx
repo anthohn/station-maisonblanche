@@ -1,9 +1,10 @@
+"use client";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MapPin, Phone, Mail, ArrowRight, Facebook, Instagram } from 'lucide-react';
-
 export default function FooterStation() {
     const currentYear = new Date().getFullYear();
-
+    const pathname = usePathname();
     return (
         <footer className="w-full bg-slate-50 text-slate-500">
             <div className="container mx-auto px-6 py-16 md:py-20 max-w-7xl relative z-10">
@@ -108,10 +109,10 @@ export default function FooterStation() {
                         {/* Bloc Navigation */}
                         <div className="bg-white px-8 py-6 rounded-[2rem] border border-slate-100 shadow-sm flex-1 flex flex-col justify-center">
                             <div className="flex flex-wrap justify-between items-center gap-2">
-                                <Link href="/services" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Services</Link>
-                                <Link href="/shop" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Le Shop</Link>
-                                <Link href="/lavage" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Lavage</Link>
-                                <Link href="/contact" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Contact</Link>
+                                <Link href="/services" className={`text-sm font-medium transition-colors ${pathname === '/services' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Services</Link>
+                                <Link href="/shop" className={`text-sm font-medium transition-colors ${pathname === '/shop' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Le Shop</Link>
+                                <Link href="/lavage" className={`text-sm font-medium transition-colors ${pathname === '/lavage' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Lavage</Link>
+                                <Link href="/contact" className={`text-sm font-medium transition-colors ${pathname === '/contact' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Contact</Link>
                             </div>
                         </div>
                     </div>
@@ -122,7 +123,7 @@ export default function FooterStation() {
                 <div className="mt-16 pt-8 border-t border-slate-200 text-xs text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p>© {currentYear} Station Maison Blanche SA. Tous droits réservés à Chancy (Genève).</p>
                     <div className="flex gap-6">
-                        <Link href="/mentions-legales" className="hover:text-slate-600 transition-colors">Mentions Légales</Link>
+                        <Link href="/mentions-legales" className={`hover:text-slate-600 transition-colors ${pathname === '/mentions-legales' ? 'text-orange-500' : ''}`}>Mentions Légales</Link>
                     </div>
                 </div>
             </div>
