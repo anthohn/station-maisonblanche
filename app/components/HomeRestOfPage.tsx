@@ -16,7 +16,7 @@ export default function HomeRestOfPage() {
                     viewport={{ once: true }}
                     className="mb-12"
                 >
-                    <h2 className="text-3xl md:text-5xl font-medium text-[--color-brand-dark] tracking-tight mb-4">
+                    <h2 className="text-3xl md:text-5xl font-medium text-slate-900 tracking-tight mb-4">
                         L'essentiel, <span className="text-orange-500">sans compromis.</span>
                     </h2>
                     <p className="text-lg text-slate-500 max-w-2xl">
@@ -35,7 +35,6 @@ export default function HomeRestOfPage() {
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm"
                     >
                         <Image src="/devanture.jpeg" alt="Devanture du shop épicerie Station Maison-Blanche à Chancy, Genève" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                        {/* Voile sombre pour la lisibilité */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
@@ -61,7 +60,6 @@ export default function HomeRestOfPage() {
                         className="relative h-[380px] rounded-[2rem] overflow-hidden group shadow-sm text-white"
                     >
                         <Image src="/pompes0.jpg" alt="Pompes à carburant Shell V-Power et diesel, Station Maison-Blanche Chancy" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                        {/* Voile avec une très légère teinte orange pour garder l'identité */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
@@ -106,24 +104,24 @@ export default function HomeRestOfPage() {
                 </div>
             </section>
 
-            {/* --- 2. BANDEAU SYNERGIE GARAGE --- */}
+            {/* --- 2. BANDEAU SYNERGIE GARAGE (Design Premium) --- */}
             <section className="container mx-auto px-6 max-w-7xl mt-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-4xl border border-slate-200 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm"
+                    className="bg-slate-100 rounded-[2rem] border border-slate-200 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm"
                 >
-                    <div className="flex items-center gap-6">
-                        <div className="hidden md:flex bg-orange-100 w-20 h-20 shrink-0 items-center justify-center rounded-3xl">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                        <div className="bg-white w-16 h-16 md:w-20 md:h-20 shrink-0 flex items-center justify-center rounded-2xl shadow-sm">
                             <Wrench size={32} className="text-orange-500" />
                         </div>
                         <div>
                             <p className="text-orange-500 font-medium text-sm tracking-wide uppercase mb-2">Le combo parfait</p>
-                            <h3 className="text-2xl md:text-3xl font-medium text-[--color-brand-dark] mb-2">
+                            <h3 className="text-2xl md:text-3xl font-medium text-slate-900 mb-2">
                                 Station + Garage Maison Blanche
                             </h3>
-                            <p className="text-slate-500 max-w-xl">
+                            <p className="text-slate-500 max-w-xl text-base leading-relaxed">
                                 Au-delà du carburant, confiez-nous l'entretien complet de votre véhicule. Révisions, pneus, mécanique : découvrez l'expertise de notre garage multimarques attenant.
                             </p>
                         </div>
@@ -132,9 +130,9 @@ export default function HomeRestOfPage() {
                         href="https://garage-maisonblanche.ch"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center justify-center gap-2 bg-[--color-brand-dark] text-white px-6 py-4 rounded-xl font-medium hover:bg-slate-800 transition-colors w-full md:w-auto"
+                        className="shrink-0 inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-slate-800 transition-colors w-full md:w-auto shadow-md"
                     >
-                        Garage Maison Blanche — réparation auto à Chancy <ArrowRight size={18} />
+                        Visiter le Garage <ArrowRight size={18} />
                     </a>
                 </motion.div>
             </section>
@@ -145,9 +143,9 @@ export default function HomeRestOfPage() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-orange-50 rounded-4xl p-12 md:p-20"
+                    className="bg-orange-50 rounded-[2rem] p-12 md:p-20 shadow-sm"
                 >
-                    <h2 className="text-3xl md:text-4xl font-medium text-[--color-brand-dark] mb-4">
+                    <h2 className="text-3xl md:text-4xl font-medium text-slate-900 mb-4">
                         Prêt à faire un arrêt ?
                     </h2>
                     <p className="text-slate-600 mb-8 max-w-md mx-auto">
@@ -158,14 +156,14 @@ export default function HomeRestOfPage() {
                             href="https://maps.app.goo.gl/WKU8p8fe4wCEhn2t6"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-xl font-medium hover:bg-orange-600 transition-colors"
+                            className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-xl font-medium hover:bg-orange-600 transition-colors shadow-sm"
                         >
                             <MapPin size={18} />
                             Lancer l'itinéraire
                         </a>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center gap-2 bg-white text-[--color-brand-dark] px-8 py-4 rounded-xl font-medium hover:bg-slate-50 transition-colors border border-slate-200 shadow-xs"
+                            className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-xl font-medium hover:bg-slate-50 transition-colors border border-slate-200 shadow-sm"
                         >
                             Voir les horaires
                         </Link>
