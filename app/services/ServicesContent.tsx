@@ -39,7 +39,7 @@ export default function ServicesContent() {
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
                             <Image src={pompes} alt="Pompes à essence Shell V-Power et diesel à la Station Maison-Blanche, Chancy, Genève" fill className="object-cover" priority />
                         </div>
-                        <div className="lg:pl-10">
+                        <div className="lg:pl-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
                                 <Fuel size={28} className="text-orange-500" />
                             </div>
@@ -57,7 +57,7 @@ export default function ServicesContent() {
                         viewport={{ once: true, margin: "-100px" }}
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
-                        <div className="order-2 lg:order-1 lg:pr-10">
+                        <div className="order-2 lg:order-1 lg:pr-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
                                 <ShoppingBasket size={28} className="text-orange-500" />
                             </div>
@@ -81,7 +81,7 @@ export default function ServicesContent() {
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
                             <Image src="/lavage.jpeg" alt="Piste de lavage haute pression en libre-service, Station Maison-Blanche Chancy" fill className="object-cover" />
                         </div>
-                        <div className="lg:pl-10">
+                        <div className="lg:pl-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
                                 <Droplets size={28} className="text-orange-500" />
                             </div>
