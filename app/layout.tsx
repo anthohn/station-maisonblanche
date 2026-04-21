@@ -105,7 +105,7 @@ export default function RootLayout({
         <JsonLd />
 
         {/* BANDEAU TOP BAR FIXE (Élégant et non-défilant) */}
-        <div className="bg-orange-500 text-white text-center py-2 px-4 text-xs sm:text-sm font-medium flex justify-center items-center gap-2 relative z-50">
+        <div className="bg-orange-500 text-white text-center py-2 px-4 text-xs sm:text-sm flex justify-center items-center gap-2 relative z-50">
           <span aria-hidden="true">☀️</span>
           <p>
             <strong>Horaires d'été :</strong> Du 1er mai au 31 août, le shop reste ouvert jusqu'à <strong>21h00</strong>

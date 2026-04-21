@@ -12,7 +12,7 @@ export default function FooterStation() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-sm">
 
                     {/* COLONNE 1 : Adresse Orange */}
-                    <div className="bg-orange-500 p-8 md:p-10 rounded-[2rem] shadow-sm flex flex-col justify-between text-white">
+                    <div className="bg-orange-600 p-8 md:p-10 rounded-[2rem] shadow-sm flex flex-col justify-between text-white">
                         <div>
                             <div className="bg-white/20 w-12 h-12 flex items-center justify-center rounded-2xl mb-6">
                                 <MapPin size={24} className="text-white" />
@@ -54,10 +54,10 @@ export default function FooterStation() {
                         <div className="mt-8 pt-6 border-t border-slate-100">
                             <p className="text-sm text-slate-500 mb-4">Rejoignez-nous</p>
                             <div className="flex gap-3">
-                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
+                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" aria-label="Notre page Facebook" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
                                     <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
+                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" aria-label="Notre page Instagram" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
                                     <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>
