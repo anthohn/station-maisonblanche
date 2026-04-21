@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MapPin, Phone, Mail, Clock3, ArrowRight, Facebook, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight, Facebook, Instagram } from 'lucide-react';
 
 export default function FooterStation() {
     const currentYear = new Date().getFullYear();
@@ -54,10 +54,10 @@ export default function FooterStation() {
                         <div className="mt-8 pt-6 border-t border-slate-100">
                             <p className="text-sm text-slate-500 mb-4">Rejoignez-nous</p>
                             <div className="flex gap-3">
-                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600">
+                                <a href="https://www.facebook.com/profile.php?id=61580606409294" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
                                     <Facebook size={20} className="text-orange-500" />
                                 </a>
-                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600">
+                                <a href="https://www.instagram.com/station_maisonblanche" target="_blank" rel="noopener noreferrer" className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl text-slate-600 transition-transform hover:scale-105">
                                     <Instagram size={20} className="text-orange-500" />
                                 </a>
                             </div>
@@ -67,7 +67,7 @@ export default function FooterStation() {
                     {/* COLONNE 3 : Horaires & Navigation */}
                     <div className="flex flex-col gap-6">
 
-                        {/* Bloc Horaires (Modifié avec les 3 créneaux du shop) */}
+                        {/* Bloc Horaires (100% Été) */}
                         <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
                                 <h3 className="text-lg font-medium text-[--color-brand-dark]">Horaires</h3>
@@ -76,17 +76,23 @@ export default function FooterStation() {
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
                                     <div className="flex items-center gap-2">
-                                        {/* <span className="bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full font-medium">Été</span> */}
-                                        <span className="font-medium text-slate-800">06:00 – 20:00</span>
+                                        <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span>
+                                        <span className="font-medium text-slate-800">06:00 – 21:00</span>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Samedi)</span>
-                                    <span className="font-medium text-slate-800">06:30 – 20:00</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span>
+                                        <span className="font-medium text-slate-800">06:30 – 21:00</span>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1 border-b border-slate-200 pb-3 mb-2">
                                     <span className="text-slate-500">Shop (Dimanche)</span>
-                                    <span className="font-medium text-slate-800">07:00 – 20:00</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span>
+                                        <span className="font-medium text-slate-800">07:00 – 21:00</span>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Lavage</span>
@@ -99,7 +105,7 @@ export default function FooterStation() {
                             </div>
                         </div>
 
-                        {/* Bloc Navigation (Corrigé : textes clairs sur fond sombre) */}
+                        {/* Bloc Navigation */}
                         <div className="bg-white px-8 py-6 rounded-[2rem] border border-slate-100 shadow-sm flex-1 flex flex-col justify-center">
                             <div className="flex flex-wrap justify-between items-center gap-2">
                                 <Link href="/services" className="text-slate-600 hover:text-orange-500 transition-colors text-sm font-medium">Services</Link>
@@ -120,6 +126,6 @@ export default function FooterStation() {
                     </div>
                 </div>
             </div>
-        </footer >
+        </footer>
     );
 }

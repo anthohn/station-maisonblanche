@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
+import SummerHoursToast from "@/app/components/SummerHoursToast";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -99,12 +100,24 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} antialiased selection:bg-orange-500/30`}
+        className={`${inter.variable} antialiased selection:bg-orange-500/30 flex flex-col min-h-screen`}
       >
         <JsonLd />
+
+        {/* BANDEAU TOP BAR FIXE (Élégant et non-défilant) */}
+        <div className="bg-orange-500 text-white text-center py-2 px-4 text-xs sm:text-sm font-medium flex justify-center items-center gap-2 relative z-50">
+          <span aria-hidden="true">☀️</span>
+          <p>
+            <strong>Horaires d'été :</strong> Du 1er mai au 31 août, le shop reste ouvert jusqu'à <strong>21h00</strong>
+          </p>
+        </div>
+
         <Header />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
+
+        {/* Le Toast en bas à droite */}
+        <SummerHoursToast />
       </body>
     </html>
   );

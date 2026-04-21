@@ -19,7 +19,7 @@ export default function Header() {
         <>
             {/* Header full width fixed top */}
             <motion.nav
-                className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+                className="sticky top-0 left-0 right-0 z-50 transition-all duration-300"
                 initial={{ opacity: 0, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
