@@ -24,11 +24,11 @@ export default function SummerHoursToast() {
                     <div className="bg-white px-6 py-4 rounded-full shadow-xl border border-slate-100 flex items-center gap-4">
                         <Sun size={22} className="text-orange-500 shrink-0" />
 
-                        <p className="text-base text-slate-700 font-medium">
-                            Horaires d'été : le shop ouvert jusqu'à <span className="text-orange-500 font-bold">21h00</span>
+                        <p className="text-sm text-slate-700 font-medium">
+                            Du 1er mai au 31 août, le shop est ouvert jusqu'à <span className="text-orange-500 font-bold">21h00</span>
                         </p>
 
-                        <div className="w-px h-5 bg-slate-200 mx-1 shrink-0"></div>
+                        {/* <div className="w-px h-5 bg-slate-200 mx-1 shrink-0"></div> */}
 
                         <button
                             onClick={() => setIsVisible(false)}
