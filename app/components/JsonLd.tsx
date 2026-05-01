@@ -158,7 +158,7 @@ export default function JsonLd() {
                 {
                     "@type": "Offer",
                     itemOffered: {
-                        "@type": "Product",
+                        "@type": "Service",
                         name: "Bouteilles de gaz Vitogaz",
                         description:
                             "Bouteilles de gaz disponibles en plusieurs formats pour barbecues et chauffages.",
