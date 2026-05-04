@@ -122,7 +122,11 @@ export default function FooterStation() {
 
                 {/* --- BARRE DE COPYRIGHT --- */}
                 <div className="mt-16 pt-8 border-t border-slate-200 text-xs text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p>© {currentYear} Station Maison Blanche SA. Tous droits réservés à Chancy (Genève).</p>
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+                        <p>© {currentYear} Station Maison Blanche SA. Tous droits réservés à Chancy (Genève).</p>
+                        <span className="hidden sm:inline text-slate-300">|</span>
+                        <p>Réalisé par <a href="https://anthony-hohn.ch" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors font-medium">Anthony Höhn</a></p>
+                    </div>
                     <div className="flex gap-6">
                         <Link href="/mentions-legales" className={`hover:text-slate-600 transition-colors ${pathname === '/mentions-legales' ? 'text-orange-500' : ''}`}>Mentions Légales</Link>
                     </div>
