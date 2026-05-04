@@ -119,7 +119,7 @@ export default function HomeRestOfPage() {
                         <div>
                             <p className="text-orange-500 font-medium text-sm tracking-wide uppercase mb-2">Le combo parfait</p>
                             <h3 className="text-2xl md:text-3xl font-medium text-slate-900 mb-2">
-                                Station + Garage Maison Blanche
+                                Station-Service Maison-Blanche + Garage Maison-Blanche
                             </h3>
                             <p className="text-slate-500 max-w-xl text-base leading-relaxed">
                                 Au-delà du carburant, confiez-nous l'entretien complet de votre véhicule. Révisions, pneus, mécanique : découvrez l'expertise de notre garage multimarques attenant.

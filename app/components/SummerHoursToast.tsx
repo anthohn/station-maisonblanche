@@ -25,7 +25,7 @@ export default function SummerHoursToast() {
                         <Sun size={22} className="text-orange-500 shrink-0" />
 
                         <p className="text-sm text-slate-700 font-medium">
-                            Du 1er mai au 31 août, le shop est ouvert jusqu'à <span className="text-orange-500 font-bold">21h00</span>
+                            Du 1er mai au 31 août, le shop est ouvert pour vous jusqu'à <span className="text-orange-500 font-bold">21h00</span>
                         </p>
 
                         {/* <div className="w-px h-5 bg-slate-200 mx-1 shrink-0"></div> */}

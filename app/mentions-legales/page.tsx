@@ -27,7 +27,7 @@ export default function MentionsLegalesPage() {
                                 Le présent site web est édité et géré par :<br />
                                 <strong>Station Maison-Blanche SA</strong><br />
                                 Route de Chancy 500<br />
-                                1242 Chancy<br />
+                                1284 Chancy<br />
                                 Suisse
                             </p>
                         </section>

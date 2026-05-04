@@ -47,8 +47,8 @@ export default function Header() {
                                         className="absolute -top-4 -right-4 rotate-12 drop-shadow-sm pointer-events-none"
                                     /> */}
                                 </div>
-                                <span className="hidden sm:block">Station-service Maison-Blanche</span>
-                                <span className="sm:hidden">Station-service Maison-Blanche</span>
+                                <span className="hidden sm:block">Station-Service Maison-Blanche</span>
+                                <span className="sm:hidden">Station-Service Maison-Blanche</span>
                             </Link>
                         </div>
 

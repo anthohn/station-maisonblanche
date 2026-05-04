@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "Station Maison Blanche",
     "garage Maison Blanche",
     "garage-maisonblanche.ch",
-    "station service 1242 Chancy",
+    "station service 1284 Chancy",
     "Route de Chancy 500",
     "borne gonflage pneus Chancy",
     "Vitogaz Chancy",
@@ -108,7 +108,7 @@ export default function RootLayout({
         <div className="bg-orange-500 text-white text-center py-2 px-4 text-xs sm:text-sm flex justify-center items-center gap-2 relative z-50">
           <span aria-hidden="true">☀️</span>
           <p>
-            <strong>Horaires d'été :</strong> Du 1er mai au 31 août, le shop reste ouvert jusqu'à <strong>21h00</strong>
+            <strong>Horaires d'été :</strong> Du 1er mai au 31 août, le shop est ouvert pour vous jusqu'à <strong>21h00</strong>
           </p>
         </div>
 

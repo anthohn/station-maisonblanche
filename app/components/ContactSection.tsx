@@ -37,8 +37,8 @@ export default function ContactSection() {
                             {
                                 icon: FaLocationDot,
                                 title: 'Adresse',
-                                content: 'Route de Chancy 500\n1242 Chancy, Suisse',
-                                href: 'https://maps.google.com/?q=Route+d\'Oron+105+1010+Chancy',
+                                content: 'Route de Chancy 500\n1284 Chancy, Suisse',
+                                href: 'https://maps.app.goo.gl/WKU8p8fe4wCEhn2t6',
                                 linkLabel: 'Voir sur Maps',
                             },
                             {
@@ -103,7 +103,7 @@ export default function ContactSection() {
                         className="lg:col-span-3 card overflow-hidden p-0 h-[440px]"
                     >
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2745.1234567890!2d6.673!3d46.534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c2f0e3b9a1234%3A0x0!2sRoute+d'Oron+105%2C+1010+Chancy!5e0!3m2!1sfr!2sch!4v1000000000000"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7014972910897!2d5.987427575994064!3d46.156689886969644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c87fabc861e13%3A0x2e523f818adbbf7!2sStation%20Maison%20Blanche%20SA!5e0!3m2!1sfr!2sit!4v1775029984316!5m2!1sfr!2sit"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}

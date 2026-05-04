@@ -6,7 +6,7 @@ import { ArrowRight, MapPin } from 'lucide-react';
 
 const stats = [
     { value: '24h/24', label: 'Carburant disponible' },
-    { value: '7j/7', label: 'Shop ouvert' },
+    { value: '7/7', label: 'Shop ouvert' },
     // { value: '06–20h', label: 'Horaires shop' },
 ];
 
