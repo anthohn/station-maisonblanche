@@ -58,7 +58,7 @@ export default function ServicesSection() {
                         </h2>
                     </div>
                     <p className="text-slate-500 max-w-sm text-base leading-relaxed">
-                        Carburant, épicerie, lavage — la Station Maison-Blanche couvre tous vos besoins en un seul arrêt.
+                        Carburant, épicerie, lavage — la Station-Service Maison-Blanche couvre tous vos besoins en un seul arrêt.
                     </p>
                 </motion.div>
 

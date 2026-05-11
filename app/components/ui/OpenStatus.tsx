@@ -14,7 +14,7 @@ const OpenStatus = () => {
             const minutes = now.getMinutes();
             const currentTimeInMinutes = hour * 60 + minutes;
 
-            // Station Maison Blanche: Lun-Dim 06:00 - 20:00
+            // Station-Service Maison-Blanche: Lun-Dim 06:00 - 20:00
             const openTime = 6 * 60;   // 360
             const closeTime = 20 * 60; // 1200
 

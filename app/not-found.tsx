@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Page non trouvée | Station Maison-Blanche",
+    title: "Page non trouvée | Station-Service Maison-Blanche",
     description: "La page que vous recherchez n'existe pas ou a été déplacée.",
 };
 

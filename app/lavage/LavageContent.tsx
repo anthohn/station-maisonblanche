@@ -45,7 +45,7 @@ export default function LavageContent() {
                     <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group">
                         <Image
                             src={lavage}
-                            alt="Pistes de lavage haute pression en libre-service à la Station Maison-Blanche, Chancy, Genève"
+                            alt="Pistes de lavage haute pression en libre-service à la Station-Service Maison-Blanche, Chancy, Genève"
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             priority
@@ -94,7 +94,7 @@ export default function LavageContent() {
                     <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group">
                         <Image
                             src="/aspirateur.jpeg"
-                            alt="Zone aspirateurs industriels couverte, Station Maison-Blanche Chancy"
+                            alt="Zone aspirateurs industriels couverte, Station-Service Maison-Blanche Chancy"
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />

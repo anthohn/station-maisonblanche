@@ -63,7 +63,7 @@ export default function ShopContent() {
                     {/* 1. Grande Carte : Fleurs & Région (Haut Gauche - 2x2) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-2 md:row-span-2 flex flex-col overflow-hidden group">
                         <div className="relative h-[55%] w-full overflow-hidden shrink-0">
-                            <Image src="/IMG_6700.JPEG" alt="Fleurs et plantes de saison en vente à la Station Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/IMG_6700.JPEG" alt="Fleurs et plantes de saison en vente à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="p-8 md:px-10 md:py-8 flex-1 flex flex-col justify-center">
                             <div className="flex items-center gap-4 mb-4">
@@ -103,7 +103,7 @@ export default function ShopContent() {
                     {/* 4. Nouvelle Carte Verticale : La Terrasse (Bas Gauche - 1x2) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-1 md:row-span-2 flex flex-col overflow-hidden group">
                         <div className="relative h-[50%] w-full overflow-hidden shrink-0">
-                            <Image src="/terrasse.jpg" alt="Terrasse ensoleillée avec glaces Mövenpick à la Station Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/terrasse.jpg" alt="Terrasse ensoleillée avec glaces Mövenpick à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="p-8 flex-1 flex flex-col justify-center">
                             <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl mb-4 transition-colors group-hover:bg-orange-100">
@@ -119,7 +119,7 @@ export default function ShopContent() {
                     {/* 5. Grande Carte Horizontale : Bunker Dépannage (Bas Milieu/Droite - 2x1) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-2 flex flex-col sm:flex-row overflow-hidden group">
                         <div className="relative h-48 sm:h-full sm:w-1/3 overflow-hidden shrink-0">
-                            <Image src="/bunker 1.JPG" alt="Dépannage gaz bouteilles Vitogaz et charbon de bois, Station Maison-Blanche Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/bunker 1.JPG" alt="Dépannage gaz bouteilles Vitogaz et charbon de bois, Station-Service Maison-Blanche Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="p-8 md:px-10 flex-1 flex flex-col justify-center">
                             <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-3">Gaz, Gril & Auto</h3>

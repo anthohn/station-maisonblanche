@@ -22,7 +22,7 @@ export default function ServicesContent() {
                         Tous nos services <span className="text-orange-500">au même endroit.</span>
                     </h1>
                     <p className="text-xl text-slate-500">
-                        De l&apos;essence 24h/24 au café chaud de 06h00, découvrez tout ce que la Station Maison Blanche met à votre disposition à Chancy.
+                        De l&apos;essence 24h/24 au café chaud de 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
                     </p>
                 </motion.div>
 
@@ -37,7 +37,7 @@ export default function ServicesContent() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src={pompes} alt="Pompes à essence Shell V-Power et diesel à la Station Maison-Blanche, Chancy, Genève" fill className="object-cover" priority />
+                            <Image src={pompes} alt="Pompes à essence Shell V-Power et diesel à la Station-Service Maison-Blanche, Chancy, Genève" fill className="object-cover" priority />
                         </div>
                         <div className="lg:pl-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
@@ -67,7 +67,7 @@ export default function ServicesContent() {
                             </p>
                         </div>
                         <div className="order-1 lg:order-2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src="/devanture.jpeg" alt="Devanture et intérieur du shop épicerie Station Maison-Blanche, Chancy" fill className="object-cover" />
+                            <Image src="/devanture.jpeg" alt="Devanture et intérieur du shop épicerie Station-Service Maison-Blanche, Chancy" fill className="object-cover" />
                         </div>
                     </motion.div>
 
@@ -79,7 +79,7 @@ export default function ServicesContent() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
                         <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
-                            <Image src="/lavage.jpeg" alt="Piste de lavage haute pression en libre-service, Station Maison-Blanche Chancy" fill className="object-cover" />
+                            <Image src="/lavage.jpeg" alt="Piste de lavage haute pression en libre-service, Station-Service Maison-Blanche Chancy" fill className="object-cover" />
                         </div>
                         <div className="lg:pl-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">

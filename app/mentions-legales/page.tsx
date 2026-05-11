@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Mentions Légales | Station Maison-Blanche",
-    description: "Mentions légales et informations de contact de la Station Maison-Blanche SA, située à Chancy (Genève).",
+    title: "Mentions Légales | Station-Service Maison-Blanche",
+    description: "Mentions légales et informations de contact de la Station-Service Maison-Blanche SA, située à Chancy (Genève).",
     robots: {
         index: false,
         follow: true,
@@ -25,7 +25,7 @@ export default function MentionsLegalesPage() {
                             </h2>
                             <p>
                                 Le présent site web est édité et géré par :<br />
-                                <strong>Station Maison-Blanche SA</strong><br />
+                                <strong>Station-Service Maison-Blanche SA</strong><br />
                                 Route de Chancy 500<br />
                                 1284 Chancy<br />
                                 Suisse
@@ -61,7 +61,7 @@ export default function MentionsLegalesPage() {
                             </h2>
                             <p>
                                 L'ensemble du contenu de ce site (textes, images, logos, photographies, etc.) est protégé par le droit d'auteur.
-                                Toute reproduction, modification, ou distribution totale ou partielle de ces éléments sans l'autorisation écrite préalable de Station Maison-Blanche SA est strictement interdite.
+                                Toute reproduction, modification, ou distribution totale ou partielle de ces éléments sans l'autorisation écrite préalable de Station-Service Maison-Blanche SA est strictement interdite.
                             </p>
                         </section>
 

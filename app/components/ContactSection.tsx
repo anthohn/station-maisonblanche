@@ -110,7 +110,7 @@ export default function ContactSection() {
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title="Station Maison Blanche - Localisation"
+                            title="Station-Service Maison-Blanche - Localisation"
                             className="w-full h-full"
                         />
                     </motion.div>

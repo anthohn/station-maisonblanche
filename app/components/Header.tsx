@@ -34,7 +34,7 @@ export default function Header() {
                                 <div className="relative">
                                     <Image
                                         src="/logo-station.png"
-                                        alt="Logo Station Maison-Blanche"
+                                        alt="Logo Station-Service Maison-Blanche"
                                         width={50}
                                         height={50}
                                         className="object-contain"

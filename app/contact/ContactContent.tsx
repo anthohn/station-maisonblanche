@@ -107,7 +107,7 @@ export default function ContactContent() {
                             allowFullScreen={true}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title="Station Maison-Blanche SA — Route de Chancy 500, 1284 Chancy, Genève"
+                            title="Station-Service Maison-Blanche SA — Route de Chancy 500, 1284 Chancy, Genève"
                             className="absolute inset-0"
                         ></iframe>
                     </motion.div>

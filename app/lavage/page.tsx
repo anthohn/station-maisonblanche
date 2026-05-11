@@ -14,11 +14,11 @@ export const metadata: Metadata = {
         "nettoyage voiture Chancy",
         "lavage auto 7j/7",
         "piste haute pression",
-        "Station Maison Blanche lavage",
+        "Station-Service Maison-Blanche lavage",
         "centre lavage Genève campagne",
     ],
     openGraph: {
-        title: "Lavage Auto — Haute Pression & Aspirateurs | Station Maison-Blanche",
+        title: "Lavage Auto — Haute Pression & Aspirateurs | Station-Service Maison-Blanche",
         description:
             "Une piste haute pression et un poste d'aspiration en libre-service. Ouvert 7j/7 de 06h à 22h à Chancy, Genève.",
         url: "https://station-maisonblanche.ch/lavage",
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
                 url: "/lavage.jpeg",
                 width: 1200,
                 height: 630,
-                alt: "Pistes de lavage haute pression Station Maison-Blanche, Chancy",
+                alt: "Pistes de lavage haute pression Station-Service Maison-Blanche, Chancy",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Lavage Auto | Station Maison-Blanche — Chancy, Genève",
+        title: "Lavage Auto | Station-Service Maison-Blanche — Chancy, Genève",
         description:
             "Une piste haute pression, 6 programmes, aspirateur industriel. Ouvert 7j/7 de 06h à 22h.",
         images: ["/lavage.jpeg"],

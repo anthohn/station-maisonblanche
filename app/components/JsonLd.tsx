@@ -2,8 +2,8 @@ export default function JsonLd() {
     const gasStationSchema = {
         "@context": "https://schema.org",
         "@type": "GasStation",
-        name: "Station Maison-Blanche SA",
-        alternateName: "Station Maison Blanche",
+        name: "Station-Service Maison-Blanche SA",
+        alternateName: "Station-Service Maison-Blanche",
         url: "https://station-maisonblanche.ch",
         telephone: "+41227561522",
         email: "contact@station-maisonblanche.ch",
@@ -95,7 +95,7 @@ export default function JsonLd() {
                 name: "Garage Maison Blanche",
                 url: "https://garage-maisonblanche.ch",
                 description:
-                    "Garage automobile multimarques attenant à la station. Révisions, mécanique générale, pneus et réparations. Même propriétaire que la Station Maison-Blanche.",
+                    "Garage automobile multimarques attenant à la station. Révisions, mécanique générale, pneus et réparations. Même propriétaire que la Station-Service Maison-Blanche.",
                 address: {
                     "@type": "PostalAddress",
                     streetAddress: "Route de Chancy 500",
@@ -108,7 +108,7 @@ export default function JsonLd() {
         ],
         hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "Services Station Maison-Blanche",
+            name: "Services Station-Service Maison-Blanche",
             itemListElement: [
                 {
                     "@type": "Offer",
