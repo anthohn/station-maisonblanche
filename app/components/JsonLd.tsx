@@ -168,55 +168,12 @@ export default function JsonLd() {
         },
     };
 
-    const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-            {
-                "@type": "ListItem",
-                position: 1,
-                name: "Accueil",
-                item: "https://station-maisonblanche.ch",
-            },
-            {
-                "@type": "ListItem",
-                position: 2,
-                name: "Services",
-                item: "https://station-maisonblanche.ch/services",
-            },
-            {
-                "@type": "ListItem",
-                position: 3,
-                name: "Le Shop",
-                item: "https://station-maisonblanche.ch/shop",
-            },
-            {
-                "@type": "ListItem",
-                position: 4,
-                name: "Lavage Auto",
-                item: "https://station-maisonblanche.ch/lavage",
-            },
-            {
-                "@type": "ListItem",
-                position: 5,
-                name: "Contact",
-                item: "https://station-maisonblanche.ch/contact",
-            },
-        ],
-    };
-
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(gasStationSchema),
-                }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(breadcrumbSchema),
                 }}
             />
         </>

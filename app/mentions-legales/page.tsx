@@ -7,6 +7,9 @@ export const metadata: Metadata = {
         index: false,
         follow: true,
     },
+    alternates: {
+        canonical: "https://station-maisonblanche.ch/mentions-legales",
+    },
 };
 
 export default function MentionsLegalesPage() {
