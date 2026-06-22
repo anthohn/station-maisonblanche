@@ -62,7 +62,7 @@ export default function ShopContent() {
 
                 {/* --- GRILLE BENTO SHOP (3 colonnes x 4 rangées) --- */}
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[240px]"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -73,51 +73,51 @@ export default function ShopContent() {
 
                     {/* 1. Grande Carte : Fleurs & Région (Haut Gauche - 2x2) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-2 md:row-span-2 flex flex-col overflow-hidden group">
-                        <div className="relative h-[55%] w-full overflow-hidden shrink-0">
+                        <div className="relative h-52 md:h-[55%] w-full overflow-hidden shrink-0">
                             <Image src="/IMG_6700.JPEG" alt="Fleurs et plantes de saison en vente à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
-                        <div className="p-8 md:px-10 md:py-8 flex-1 flex flex-col justify-center">
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl transition-colors group-hover:bg-orange-100">
+                        <div className="p-6 md:px-10 md:py-8 flex flex-col justify-center">
+                            <div className="flex items-center gap-4 mb-3">
+                                <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0 transition-colors group-hover:bg-orange-100">
                                     <HeartHandshake size={24} className="text-orange-500" />
                                 </div>
                                 <h2 className="text-2xl md:text-3xl font-medium text-[--color-brand-dark]">Boutique & Fleurs</h2>
                             </div>
-                            <p className="text-slate-500 max-w-md text-base leading-relaxed">
+                            <p className="text-slate-500 text-sm md:text-base leading-relaxed">
                                 Un accueil chaleureux et des produits sélectionnés pour vous. Retrouvez nos compositions florales de saison, idéales pour offrir ou décorer, ainsi qu'une sélection de spécialités locales.
                             </p>
                         </div>
                     </motion.div>
 
-                    {/* 2. Petite Carte : Café & Boulangerie (Haut Droite) */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100 group">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl transition-colors group-hover:bg-orange-100">
+                    {/* 2. Petite Carte : Café & Boulangerie */}
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100 group">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0 transition-colors group-hover:bg-orange-100">
                             <Coffee size={24} className="text-orange-500" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-2">Café & Viennoiseries</h3>
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Café & Viennoiseries</h3>
                             <p className="text-slate-500 text-sm leading-relaxed">Le repaire des lève-tôt. Café chaud et croissants frais dès 6h00.</p>
                         </div>
                     </motion.div>
 
-                    {/* 3. Petite Carte : Moyens de paiement (Milieu Droite) */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100 group">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                    {/* 3. Petite Carte : Moyens de paiement */}
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100 group">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <CreditCard size={24} className="text-orange-500" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-2">Paiements acceptés</h3>
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Paiements acceptés</h3>
                             <p className="text-slate-500 text-sm leading-relaxed">Cartes bancaires, TWINT et espèces (CHF/EUR).</p>
                         </div>
                     </motion.div>
 
-                    {/* 4. Nouvelle Carte Verticale : La Terrasse (Bas Gauche - 1x2) */}
+                    {/* 4. Carte Terrasse (Bas Gauche - 1x2 sur desktop) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-1 md:row-span-2 flex flex-col overflow-hidden group">
-                        <div className="relative h-[50%] w-full overflow-hidden shrink-0">
+                        <div className="relative h-48 md:h-[50%] w-full overflow-hidden shrink-0">
                             <Image src="/terrasse.jpg" alt="Terrasse ensoleillée avec glaces Mövenpick à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
-                        <div className="p-8 flex-1 flex flex-col justify-center">
-                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl mb-4 transition-colors group-hover:bg-orange-100">
+                        <div className="p-6 flex flex-col justify-center">
+                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl mb-3 transition-colors group-hover:bg-orange-100">
                                 <Sun size={24} className="text-orange-500" />
                             </div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-2">Espace Détente</h3>
@@ -127,13 +127,13 @@ export default function ShopContent() {
                         </div>
                     </motion.div>
 
-                    {/* 5. Grande Carte Horizontale : Bunker Dépannage (Bas Milieu/Droite - 2x1) */}
+                    {/* 5. Carte Gaz & Dépannage */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-2 flex flex-col sm:flex-row overflow-hidden group">
                         <div className="relative h-48 sm:h-full sm:w-1/3 overflow-hidden shrink-0">
                             <Image src="/bunker 1.JPG" alt="Dépannage gaz bouteilles Vitogaz et charbon de bois, Station-Service Maison-Blanche Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
-                        <div className="p-8 md:px-10 flex-1 flex flex-col justify-center">
-                            <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-3">Gaz, Gril & Auto</h3>
+                        <div className="p-6 md:px-10 flex-1 flex flex-col justify-center">
+                            <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-2">Gaz, Gril & Auto</h3>
                             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
                                 Le dépannage par excellence. Charbon de bois pour l'été, bouteilles Vitogaz, lave-glace et huiles. L'essentiel, toujours disponible.
                             </p>
@@ -161,9 +161,9 @@ export default function ShopContent() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mt-16"
+                    className="mt-12 md:mt-16"
                 >
-                    {/* Grille principale : gauche = texte + photo paysage / droite = photo portrait */}
+                    {/* Grille principale : 1 colonne mobile, 2 colonnes desktop */}
                     <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 items-start">
 
                         {/* COLONNE GAUCHE : bloc texte + photo paysage empilés */}
@@ -213,10 +213,10 @@ export default function ShopContent() {
 
                         </div>
 
-                        {/* COLONNE DROITE : photo portrait en pleine hauteur */}
+                        {/* COLONNE DROITE : photo portrait — cachée sur mobile (déjà visible en pleine largeur via la colonne gauche empilée) */}
                         <motion.div
                             variants={itemVariants}
-                            className="relative rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 group"
+                            className="relative rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 group hidden md:block"
                         >
                             <Image
                                 src="/cdm-2026/PHOTO-2026-06-13-19-34-32 (1).jpg"
