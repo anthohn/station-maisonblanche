@@ -104,7 +104,46 @@ export default function HomeRestOfPage() {
                 </div>
             </section>
 
-            {/* --- 2. BANDEAU SYNERGIE GARAGE (Design Premium) --- */}
+            {/* --- 2. CARTE ÉVÉNEMENT CDM 2026 --- */}
+            <section className="container mx-auto px-6 max-w-7xl mt-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="relative rounded-[2rem] overflow-hidden shadow-sm h-[280px] md:h-[240px] group"
+                >
+                    {/* Photo de fond */}
+                    <Image
+                        src="/cdm-2026/PHOTO-2026-06-13-19-34-32.jpg"
+                        alt="Plateau apéro stade de foot Coupe du Monde 2026 disponible à la Station-Service Maison-Blanche"
+                        fill
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 1200px"
+                    />
+                    {/* Overlay vert sombre */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/75 to-emerald-800/40" />
+
+                    {/* Contenu */}
+                    <div className="relative z-10 h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 md:p-10">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-medium text-white leading-tight mb-2">
+                                Plateaux apéro <span className="text-emerald-300">stade de foot</span>
+                            </h2>
+                            <p className="text-white/70 text-sm md:text-base max-w-md">
+                                Boîtes de Panini &amp; plateaux apéro thème foot disponibles en boutique — parfait pour vos soirées matchs !
+                            </p>
+                        </div>
+                        <Link
+                            href="/shop"
+                            className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-emerald-800 px-7 py-3.5 rounded-xl font-medium hover:bg-emerald-50 transition-colors shadow-md text-sm whitespace-nowrap"
+                        >
+                            Voir en boutique <ArrowRight size={16} />
+                        </Link>
+                    </div>
+                </motion.div>
+            </section>
+
+            {/* --- 3. BANDEAU SYNERGIE GARAGE (Design Premium) --- */}
             <section className="container mx-auto px-6 max-w-7xl mt-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
