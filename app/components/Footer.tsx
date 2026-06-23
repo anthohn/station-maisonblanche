@@ -69,7 +69,7 @@ export default function FooterStation() {
                     <div className="flex flex-col gap-6">
 
                         {/* Bloc Horaires (100% Été) */}
-                        <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
+                        <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
                                 <h3 className="text-lg font-medium text-[--color-brand-dark]">Horaires</h3>
                             </div>
