@@ -22,7 +22,7 @@ export default function ServicesContent() {
                         Tous nos services <span className="text-orange-500">au même endroit.</span>
                     </h1>
                     <p className="text-xl text-slate-500">
-                        De l&apos;essence 24h/24 au café chaud de 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
+                        De l&apos;essence 24h/24 au café chaud dès 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
                     </p>
                 </motion.div>
 
