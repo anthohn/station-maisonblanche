@@ -110,7 +110,7 @@ export default function HomeRestOfPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="relative rounded-[2rem] overflow-hidden shadow-sm h-[280px] md:h-[240px] group"
+                    className="relative rounded-[2rem] overflow-hidden shadow-sm h-[260px] md:h-[220px] group"
                 >
                     {/* Photo de fond */}
                     <Image
@@ -124,18 +124,21 @@ export default function HomeRestOfPage() {
                     <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/75 to-emerald-800/40" />
 
                     {/* Contenu */}
-                    <div className="relative z-10 h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 md:p-10">
+                    <div className="relative z-10 h-full flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-6 md:p-10">
                         <div>
-                            <h2 className="text-2xl md:text-3xl font-medium text-white leading-tight mb-2">
+                            <h2 className="text-xl md:text-3xl font-medium text-white leading-tight mb-1.5">
                                 Plateaux apéro <span className="text-emerald-300">stade de foot</span>
                             </h2>
-                            <p className="text-white/70 text-sm md:text-base max-w-md">
+                            <p className="text-white/70 text-sm max-w-md hidden sm:block">
                                 Boîtes de Panini &amp; plateaux apéro thème foot disponibles en boutique — parfait pour vos soirées matchs !
+                            </p>
+                            <p className="text-white/70 text-xs sm:hidden">
+                                Boîtes de Panini &amp; plateaux foot disponibles en boutique !
                             </p>
                         </div>
                         <Link
                             href="/shop"
-                            className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-emerald-800 px-7 py-3.5 rounded-xl font-medium hover:bg-emerald-50 transition-colors shadow-md text-sm whitespace-nowrap"
+                            className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-emerald-800 px-5 py-3 md:px-7 md:py-3.5 rounded-xl font-medium hover:bg-emerald-50 transition-colors shadow-md text-sm whitespace-nowrap"
                         >
                             Voir en boutique <ArrowRight size={16} />
                         </Link>

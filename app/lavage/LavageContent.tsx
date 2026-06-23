@@ -32,7 +32,7 @@ export default function LavageContent() {
 
                 {/* --- GRILLE BENTO LAVAGE --- */}
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[240px]"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -42,7 +42,7 @@ export default function LavageContent() {
                 >
 
                     {/* 1. Grande Carte : Pistes HP */}
-                    <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group">
+                    <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group h-64 md:h-auto">
                         <Image
                             src={lavage}
                             alt="Pistes de lavage haute pression en libre-service à la Station-Service Maison-Blanche, Chancy, Genève"
@@ -58,8 +58,8 @@ export default function LavageContent() {
                     </motion.div>
 
                     {/* 2. Petite Carte : Programmes */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <Sparkles size={24} className="text-orange-500" />
                         </div>
                         <div>
@@ -69,8 +69,8 @@ export default function LavageContent() {
                     </motion.div>
 
                     {/* 3. Petite Carte : Paiement */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <HandCoins size={24} className="text-orange-500" />
                         </div>
                         <div>
@@ -80,8 +80,8 @@ export default function LavageContent() {
                     </motion.div>
 
                     {/* 4. Petite Carte : Horaires */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <Clock3 size={24} className="text-orange-500" />
                         </div>
                         <div>
@@ -91,7 +91,7 @@ export default function LavageContent() {
                     </motion.div>
 
                     {/* 5. Grande Carte : Aspirateurs */}
-                    <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group">
+                    <motion.div variants={itemVariants} className="relative md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-sm group h-64 md:h-auto">
                         <Image
                             src="/aspirateur.jpeg"
                             alt="Zone aspirateurs industriels couverte, Station-Service Maison-Blanche Chancy"
@@ -106,8 +106,8 @@ export default function LavageContent() {
                     </motion.div>
 
                     {/* 6. Petite Carte : Puissance Aspi */}
-                    <motion.div variants={itemVariants} className="bg-white p-8 rounded-[2rem] shadow-sm flex flex-col justify-between border border-slate-100">
-                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100">
+                        <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <Zap size={24} className="text-orange-500" />
                         </div>
                         <div>
