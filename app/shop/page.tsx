@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ShopContent from "./ShopContent";
 
 export const metadata: Metadata = {
-    title: "Le Shop — Épicerie 7j/7 ouverte de 06h à 20h à Chancy",
+    title: "Le Shop — Épicerie 7j/7 ouverte de 06h à 21h à Chancy",
     description:
         "Épicerie indépendante ouverte 7 jours sur 7 à Chancy (Genève). Produits frais, café, viennoiseries, fleurs de saison, bouteilles de gaz Vitogaz, dépannage auto. Terrasse avec glaces Mövenpick. Paiement par carte, TWINT et espèces (CHF/EUR).",
     keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Le Shop — Épicerie 7j/7 à Chancy | Station-Service Maison-Blanche",
         description:
-            "Produits frais, café, fleurs et dépannage auto. Ouvert tous les jours de 06h à 20h à Chancy, Genève.",
+            "Produits frais, café, fleurs et dépannage auto. Ouvert tous les jours de 06h à 21h à Chancy, Genève.",
         url: "https://station-maisonblanche.ch/shop",
         images: [
             {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Le Shop — Épicerie 7j/7 à Chancy | Station-Service Maison-Blanche",
         description:
-            "Produits frais, café, fleurs et dépannage auto. Ouvert tous les jours de 06h à 20h.",
+            "Produits frais, café, fleurs et dépannage auto. Ouvert tous les jours de 06h à 21h.",
         images: ["/shop.jpg"],
     },
     alternates: {

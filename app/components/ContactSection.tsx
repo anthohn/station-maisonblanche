@@ -20,7 +20,7 @@ export default function ContactSection() {
                         Venez nous rendre visite.
                     </h2>
                     <p className="text-slate-500 text-lg max-w-md mx-auto">
-                        Retrouvez-nous facilement à Chancy — ouverts tous les jours de 06h00 à 20h00.
+                        Retrouvez-nous facilement à Chancy — ouverts tous les jours de 06h00 à <span className="line-through text-slate-400">20h00</span> <span className="text-orange-500 font-semibold">21h00</span>.
                     </p>
                 </motion.div>
 

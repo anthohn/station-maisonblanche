@@ -45,7 +45,12 @@ export default function HeroSection() {
                             transition={{ duration: 0.55, delay: 0.15 }}
                             className="text-lg md:text-xl text-slate-500 max-w-lg mb-10 leading-relaxed"
                         >
-                            Épicerie de proximité, carburants Shell et lavage auto. Tout ce dont vous avez besoin, tous les jours de 06h à 20h.
+                            Épicerie de proximité, carburants Shell et lavage auto. Tout ce dont vous avez besoin, tous les jours de 06h00 à{' '}
+                            <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                                <span className="line-through text-slate-400">20h00</span>
+                                <span className="text-orange-500 font-semibold">21h00</span>
+                                <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Horaire d'été</span>
+                            </span>.
                         </motion.p>
 
                         {/* CTAs */}

@@ -86,7 +86,7 @@ export default function LavageContent() {
                         </div>
                         <div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Large Amplitude</h3>
-                            <p className="text-slate-500 text-sm">Nos installations de lavage sont accessibles 7j/7 de 06h à 22h.</p>
+                            <p className="text-slate-500 text-sm">Nos installations de lavage sont accessibles 7j/7 de 06h00 à 22h00.</p>
                         </div>
                     </motion.div>
 

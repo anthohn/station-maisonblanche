@@ -63,7 +63,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Épicerie & Dépannage</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Ouvert tous les jours de 06h à 20h. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses de dépannage de dernière minute le dimanche, notre shop indépendant vous accueille avec le sourire.
+                                Ouvert tous les jours de 06h00 à <span className="line-through text-slate-400">20h00</span> <span className="text-orange-500 font-semibold">21h00</span>. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses de dépannage de dernière minute le dimanche, notre shop indépendant vous accueille avec le sourire.
                             </p>
                         </div>
                         <div className="order-1 lg:order-2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">

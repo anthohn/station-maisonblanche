@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Station-Service Maison-Blanche",
   },
   description:
-    "Station service Shell à Chancy, Genève. Carburants Shell V-Power et diesel 24h/24, épicerie de proximité ouverte 7j/7 de 06h à 20h, centre de lavage haute pression en libre-service et aspirateurs industriels. Attenant au Garage Maison Blanche — même propriétaire.",
+    "Station service Shell à Chancy, Genève. Carburants Shell V-Power et diesel 24h/24, épicerie de proximité ouverte 7j/7 de 06h00 à 21h00, centre de lavage haute pression en libre-service et aspirateurs industriels. Attenant au Garage Maison Blanche — même propriétaire.",
   keywords: [
     "station service Chancy",
     "Shell Chancy",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title:
       "Station-Service Maison-Blanche | Shell, Épicerie & Lavage Auto à Chancy (GE)",
     description:
-      "Station service Shell à Chancy, Genève. Carburants 24h/24, épicerie 7j/7 de 06h à 20h, lavage haute pression en libre-service. Attenant au Garage Maison Blanche.",
+      "Station service Shell à Chancy, Genève. Carburants 24h/24, épicerie 7j/7 de 06h00 à 21h00, lavage haute pression en libre-service. Attenant au Garage Maison Blanche.",
     images: [
       {
         url: "/pompes0.jpg",

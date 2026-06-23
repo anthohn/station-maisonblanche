@@ -96,7 +96,7 @@ export default function ShopContent() {
                         </div>
                         <div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Café & Viennoiseries</h3>
-                            <p className="text-slate-500 text-sm leading-relaxed">Le repaire des lève-tôt. Café chaud et croissants frais dès 6h00.</p>
+                            <p className="text-slate-500 text-sm leading-relaxed">Le repaire des lève-tôt. Café chaud et croissants frais dès 06h00.</p>
                         </div>
                     </motion.div>
 

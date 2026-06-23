@@ -43,7 +43,7 @@ export default function HomeRestOfPage() {
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium text-white mb-2">Le Shop</h3>
-                                <p className="text-white/80 text-sm mb-4 line-clamp-2">Épicerie, produits frais et locaux, café chaud. Ouvert de 6h à 20h tous les jours.</p>
+                                <p className="text-white/80 text-sm mb-4 line-clamp-2">Épicerie, produits frais et locaux, café chaud. Ouvert de 06h00 à <span className="line-through opacity-60">20h00</span> <span className="text-orange-300 font-semibold">21h00</span> tous les jours.</p>
                                 <Link href="/shop" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-500 transition-colors">
                                     Découvrir les rayons <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                                 </Link>
