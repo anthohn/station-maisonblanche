@@ -104,14 +104,6 @@ export default function RootLayout({
       >
         <JsonLd />
 
-        {/* BANDEAU Boîtes de Panini — Coupe du Monde 2026 */}
-        <div className="bg-emerald-600 text-white text-center py-2 px-4 text-xs sm:text-sm flex justify-center items-center gap-2 relative z-50">
-          <span aria-hidden="true">⚽</span>
-          <p>
-            <strong>Coupe du Monde 2026 :</strong> Boîtes de Panini disponibles en boutique — venez compléter votre collection !
-          </p>
-          <span aria-hidden="true">⚽</span>
-        </div>
 
         <Header />
         <main className="flex-1">{children}</main>

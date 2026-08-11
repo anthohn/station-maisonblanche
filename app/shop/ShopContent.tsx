@@ -1,18 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Coffee, CreditCard, ShoppingBag, HeartHandshake, MapPin, Sun, Icon } from 'lucide-react';
-
-// soccerBall icon from @lucide/lab — copied directly, no extra install needed
-const soccerBallIcon = [
-    ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-    ["path", { d: "M11.9 6.7s-3 1.3-5 3.6c0 0 0 3.6 1.9 5.9 0 0 3.1.7 6.2 0 0 0 1.9-2.3 1.9-5.9 0 .1-2-2.3-5-3.6", key: "1mg18b" }],
-    ["path", { d: "M11.9 6.7V2", key: "1t12cm" }],
-    ["path", { d: "M16.9 10.4s3-1.4 4.5-1.6", key: "8aq2q9" }],
-    ["path", { d: "M15 16.3s1.9 2.7 2.9 3.7", key: "volqrc" }],
-    ["path", { d: "M8.8 16.3S6.9 19 6 20", key: "1atvv1" }],
-    ["path", { d: "M2.6 8.7C4 9 7 10.4 7 10.4", key: "1uixp3" }],
-] as Parameters<typeof Icon>[0]['iconNode'];
+import { Coffee, CreditCard, ShoppingBag, HeartHandshake, MapPin, Sun } from 'lucide-react';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -155,86 +144,7 @@ export default function ShopContent() {
 
                 </motion.div>
 
-                {/* --- SECTION SPÉCIALE CDM 2026 --- */}
-                <motion.section
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mt-12 md:mt-16"
-                >
-                    {/* Grille principale : 1 colonne mobile, 2 colonnes desktop */}
-                    <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 items-start">
 
-                        {/* COLONNE GAUCHE : bloc texte + photo paysage empilés */}
-                        <div className="flex flex-col gap-6">
-
-                            {/* Bloc texte */}
-                            <div>
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="bg-emerald-100 w-14 h-14 flex items-center justify-center rounded-2xl shrink-0">
-                                        <Icon iconNode={soccerBallIcon} size={28} className="text-emerald-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-emerald-600 text-sm font-semibold uppercase tracking-widest mb-1">Coupe du Monde 2026</p>
-                                        <h2 className="text-3xl md:text-4xl font-medium text-[--color-brand-dark] tracking-tight">
-                                            Plateaux apéro <span className="text-emerald-600">stade de foot</span>
-                                        </h2>
-                                    </div>
-                                </div>
-                                <p className="text-lg text-slate-500 leading-relaxed">
-                                    Pour animer vos soirées foot, nous avons composé des plateaux apéro sur le thème du stade de foot — idéals pour regarder les matchs entre amis ou en famille !
-                                </p>
-                                <div className="mt-5">
-                                    <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 px-5 py-3 rounded-2xl text-sm font-medium">
-                                        ✅ Disponibles en boutique
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Photo PAYSAGE — 1600x1050 */}
-                            <motion.div
-                                variants={itemVariants}
-                                className="relative rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 group"
-                            >
-                                <Image
-                                    src="/cdm-2026/PHOTO-2026-06-13-19-34-32.jpg"
-                                    alt="Plateau apéro stade de foot Coupe du Monde 2026 - Station-Service Maison-Blanche"
-                                    width={1600}
-                                    height={1050}
-                                    className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
-                                />
-                                <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/50 to-transparent">
-                                    <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-xl border border-white/30">
-                                        ⚽ Plateau Foot
-                                    </span>
-                                </div>
-                            </motion.div>
-
-                        </div>
-
-                        {/* COLONNE DROITE : photo portrait — cachée sur mobile (déjà visible en pleine largeur via la colonne gauche empilée) */}
-                        <motion.div
-                            variants={itemVariants}
-                            className="relative rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 group hidden md:block"
-                        >
-                            <Image
-                                src="/cdm-2026/PHOTO-2026-06-13-19-34-32 (1).jpg"
-                                alt="Présentoir plateaux apéro football avec boissons et snacks - Station-Service Maison-Blanche"
-                                width={779}
-                                height={1600}
-                                className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/50 to-transparent">
-                                <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-xl border border-white/30">
-                                    🏟️ Ambiance boutique
-                                </span>
-                            </div>
-                        </motion.div>
-
-                    </div>
-
-                </motion.section>
 
                 {/* --- CTA FINAL --- */}
                 <motion.section
