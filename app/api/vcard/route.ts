@@ -31,7 +31,10 @@ export async function GET() {
         ];
 
         if (photoBase64) {
-            vcardLines.push(`PHOTO;TYPE=PNG;ENCODING=b:${photoBase64}`);
+            // Fold base64 string at 75 chars per RFC 2426 specification for iOS parser compatibility
+            const photoRaw = `PHOTO;TYPE=PNG;ENCODING=b:${photoBase64}`;
+            const foldedPhoto = photoRaw.match(/.{1,75}/g)?.join('\r\n ') || photoRaw;
+            vcardLines.push(foldedPhoto);
         }
 
         vcardLines.push('END:VCARD');

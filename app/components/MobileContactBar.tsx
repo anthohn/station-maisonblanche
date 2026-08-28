@@ -32,6 +32,25 @@ export default function MobileContactBar() {
         }
     };
 
+    const handleAddContact = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (typeof window !== 'undefined' && navigator.canShare) {
+            try {
+                const res = await fetch('/api/vcard');
+                const vcardText = await res.text();
+                const file = new File([vcardText], 'station-maisonblanche.vcf', { type: 'text/vcard' });
+                if (navigator.canShare({ files: [file] })) {
+                    e.preventDefault();
+                    await navigator.share({
+                        files: [file],
+                        title: 'Station Service Maison-Blanche S.A.',
+                    });
+                }
+            } catch {
+                // Fallback direct navigation
+            }
+        }
+    };
+
     return (
         <>
             {/* Barre flottante mobile épurée & lumineuse */}
@@ -60,6 +79,7 @@ export default function MobileContactBar() {
                     {/* Primary Action Button: Ajouter aux contacts */}
                     <a
                         href="/api/vcard"
+                        onClick={handleAddContact}
                         className="flex-1 h-11 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-98 text-white font-semibold text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all px-4 cursor-pointer"
                     >
                         <UserPlus size={17} />

@@ -15,6 +15,25 @@ export default function ContactContent() {
     const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
     const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
 
+    const handleAddContact = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (typeof window !== 'undefined' && navigator.canShare) {
+            try {
+                const res = await fetch('/api/vcard');
+                const vcardText = await res.text();
+                const file = new File([vcardText], 'station-maisonblanche.vcf', { type: 'text/vcard' });
+                if (navigator.canShare({ files: [file] })) {
+                    e.preventDefault();
+                    await navigator.share({
+                        files: [file],
+                        title: 'Station Service Maison-Blanche S.A.',
+                    });
+                }
+            } catch {
+                // Fallback direct navigation
+            }
+        }
+    };
+
     return (
         <main className="bg-slate-50 pt-32 pb-24">
             <div className="container mx-auto px-6 max-w-7xl">
@@ -99,6 +118,7 @@ export default function ContactContent() {
                             <div className="flex flex-col gap-3">
                                 <a
                                     href="/api/vcard"
+                                    onClick={handleAddContact}
                                     className="w-full py-3.5 px-5 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm shadow-orange-500/20 transition-all cursor-pointer"
                                 >
                                     <Download size={16} />
