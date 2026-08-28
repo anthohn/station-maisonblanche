@@ -41,8 +41,8 @@ export async function GET() {
         return new NextResponse(vcardString, {
             headers: {
                 'Content-Type': 'text/vcard; charset=utf-8',
-                'Content-Disposition': 'attachment; filename="station-maisonblanche.vcf"',
-                'Cache-Control': 'public, max-age=3600',
+                'Content-Disposition': 'inline; filename="station-maisonblanche.vcf"',
+                'Cache-Control': 'no-cache',
             },
         });
     } catch (error) {

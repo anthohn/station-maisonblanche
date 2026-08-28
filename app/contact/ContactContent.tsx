@@ -48,7 +48,7 @@ export default function ContactContent() {
                     >
 
                         {/* Carte Contact Direct */}
-                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1">
+                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-200 flex-1">
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-8">Nous contacter</h3>
 
                             <div className="flex items-center gap-5 mb-8">
@@ -75,7 +75,7 @@ export default function ContactContent() {
                         </motion.div>
 
                         {/* Carte de Visite Digitale (Bento Blanc & Orange) */}
-                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1 flex flex-col justify-between">
+                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-200 flex-1 flex flex-col justify-between">
                             <div>
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100 p-2.5 relative flex items-center justify-center shrink-0">
@@ -99,7 +99,6 @@ export default function ContactContent() {
                             <div className="flex flex-col gap-3">
                                 <a
                                     href="/api/vcard"
-                                    download="station-maisonblanche.vcf"
                                     className="w-full py-3.5 px-5 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm shadow-orange-500/20 transition-all cursor-pointer"
                                 >
                                     <Download size={16} />
@@ -125,7 +124,7 @@ export default function ContactContent() {
                         </motion.div>
 
                         {/* Carte Synergie Garage */}
-                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1 flex flex-col justify-between">
+                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-200 flex-1 flex flex-col justify-between">
                             <div>
                                 <div className="flex items-center gap-5 mb-8">
                                     <div className="bg-orange-50 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">

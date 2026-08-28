@@ -54,10 +54,10 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: '100%' }}
                             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-                            className="relative w-full max-w-lg bg-white text-slate-900 rounded-t-[2rem] sm:rounded-[2rem] shadow-2xl z-10 border border-slate-100 max-h-[90vh] overflow-y-auto"
+                            className="relative w-full max-w-lg bg-white text-slate-900 rounded-t-[2rem] sm:rounded-[2rem] shadow-2xl z-10 border border-slate-200 max-h-[90vh] overflow-y-auto"
                         >
                             {/* Header avec bouton fermer & partager */}
-                            <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur-md border-b border-slate-100">
+                            <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur-md border-b border-slate-200">
                                 <span className="section-tag mb-0">Fiche Contact Officielle</span>
                                 <div className="flex items-center gap-2">
                                     <button
@@ -207,7 +207,6 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
                                 {/* Action Principale : Bouton Orange Pill Signature du site */}
                                 <a
                                     href="/api/vcard"
-                                    download="station-maisonblanche.vcf"
                                     className="w-full py-4 px-6 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-sm flex items-center justify-center gap-2.5 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                                 >
                                     <UserPlus size={19} />

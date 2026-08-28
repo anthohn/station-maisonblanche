@@ -73,7 +73,7 @@ export default function QrCodeModal({ isOpen, onClose }: QrCodeModalProps) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="relative w-full max-w-sm bg-white rounded-[2rem] p-6 sm:p-8 shadow-2xl z-10 border border-slate-100 overflow-hidden text-center"
+                        className="relative w-full max-w-sm bg-white rounded-[2rem] p-6 sm:p-8 shadow-2xl z-10 border border-slate-200 overflow-hidden text-center"
                     >
                         {/* Header Close */}
                         <button
@@ -127,7 +127,6 @@ export default function QrCodeModal({ isOpen, onClose }: QrCodeModalProps) {
                             <div className="w-full space-y-2.5">
                                 <a
                                     href="/api/vcard"
-                                    download="station-maisonblanche.vcf"
                                     className="w-full py-3.5 px-4 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                                 >
                                     <Download size={16} />

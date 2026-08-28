@@ -17,8 +17,8 @@
   --color-bg:             #ffffff;
   --color-bg-subtle:      #f8f9fa;
   --color-bg-muted:       #f1f5f9;
-  --color-border:         #e2e8f0;
-  --color-border-muted:   #f1f5f9;
+  --color-border:         #cbd5e1;   /* 📍 SOURCE UNIQUE : Bordure Slate 300 nette et bien visible sur tous les fonds */
+  --color-border-muted:   #e2e8f0;
 
   /* Text */
   --color-text-primary:   #0f172a;
@@ -45,7 +45,7 @@
 }
 
 /* ─────────────────────────────────────────────
-   Tailwind custom tokens
+   Tailwind custom tokens (Single Source of Truth)
 ───────────────────────────────────────────── */
 @theme {
   --color-orange-primary:  var(--color-brand-orange);
@@ -53,6 +53,15 @@
   --color-brand-orange:    var(--color-brand-orange);
   --color-brand-amber:     var(--color-brand-amber);
   --color-brand-blue:      var(--color-brand-blue);
+  --color-border:          var(--color-border);
+  --color-border-muted:    var(--color-border-muted);
+}
+
+/* 📍 Règle unique pour toutes les bordures de cartes sans altérer les fonds (bg-slate-100) */
+.border-slate-100,
+.border-slate-200,
+.border-gray-200 {
+  border-color: var(--color-border);
 }
 
 /* ─────────────────────────────────────────────

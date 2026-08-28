@@ -94,7 +94,6 @@ export default function ContactSection() {
 
                             <a
                                 href="/api/vcard"
-                                download="station-maisonblanche.vcf"
                                 className="w-full py-3 px-4 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                             >
                                 Enregistrer la fiche contact (.vcf)
