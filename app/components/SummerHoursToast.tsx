@@ -9,9 +9,26 @@ export default function SummerHoursToast() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 1500);
-        return () => clearTimeout(timer);
+        try {
+            const isDismissed = localStorage.getItem('summer_hours_toast_dismissed');
+            if (!isDismissed) {
+                const timer = setTimeout(() => setIsVisible(true), 1500);
+                return () => clearTimeout(timer);
+            }
+        } catch {
+            const timer = setTimeout(() => setIsVisible(true), 1500);
+            return () => clearTimeout(timer);
+        }
     }, []);
+
+    const handleClose = () => {
+        setIsVisible(false);
+        try {
+            localStorage.setItem('summer_hours_toast_dismissed', 'true');
+        } catch {
+            // Ignore error
+        }
+    };
 
     return (
         <AnimatePresence>
@@ -30,10 +47,8 @@ export default function SummerHoursToast() {
                             Du 1er mai au 31 août, le shop est ouvert pour vous jusqu'à <span className="text-orange-500 font-bold">21h00</span>
                         </p>
 
-                        {/* <div className="w-px h-5 bg-slate-200 mx-1 shrink-0"></div> */}
-
                         <button
-                            onClick={() => setIsVisible(false)}
+                            onClick={handleClose}
                             className="text-slate-400 hover:text-slate-700 transition-colors shrink-0 cursor-pointer p-1 rounded-full hover:bg-slate-50"
                             aria-label="Fermer"
                         >
