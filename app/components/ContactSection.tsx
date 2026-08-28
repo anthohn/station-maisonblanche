@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaLocationDot } from 'react-icons/fa6';
-import { Clock, ExternalLink } from 'lucide-react';
+import { Clock, ExternalLink, UserPlus } from 'lucide-react';
 
 export default function ContactSection() {
     return (
@@ -96,7 +96,8 @@ export default function ContactSection() {
                                 href="/api/vcard"
                                 className="w-full py-3 px-4 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                             >
-                                Enregistrer la fiche contact (.vcf)
+                                <UserPlus size={16} />
+                                Ajouter aux contacts
                             </a>
                         </div>
                     </motion.div>

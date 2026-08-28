@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, QrCode, Share2, Check } from 'lucide-react';
+import { X, UserPlus, QrCode, Share2, Check } from 'lucide-react';
 import QRCode from 'qrcode';
 import Image from 'next/image';
 
@@ -129,8 +129,8 @@ export default function QrCodeModal({ isOpen, onClose }: QrCodeModalProps) {
                                     href="/api/vcard"
                                     className="w-full py-3.5 px-4 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                                 >
-                                    <Download size={16} />
-                                    Télécharger le fichier .vcf
+                                    <UserPlus size={16} />
+                                    Ajouter aux contacts
                                 </a>
 
                                 <button

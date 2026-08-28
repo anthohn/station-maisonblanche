@@ -4,13 +4,11 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { QrCode, Share2, UserPlus, Check } from 'lucide-react';
 import QrCodeModal from './QrCodeModal';
-import ContactCardModal from './ContactCardModal';
 
 export default function MobileContactBar() {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
     const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
-    const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
     const [copied, setCopied] = useState<boolean>(false);
 
     useEffect(() => {
@@ -101,7 +99,6 @@ export default function MobileContactBar() {
 
             {/* Modals */}
             <QrCodeModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
-            <ContactCardModal isOpen={isCardOpen} onClose={() => setIsCardOpen(false)} />
         </>
     );
 }

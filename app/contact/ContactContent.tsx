@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, Wrench, ArrowRight, UserPlus, QrCode, Download } from 'lucide-react';
 import Image from 'next/image';
 import QrCodeModal from '@/app/components/QrCodeModal';
-import ContactCardModal from '@/app/components/ContactCardModal';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -13,7 +12,6 @@ const itemVariants = {
 
 export default function ContactContent() {
     const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
-    const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
 
     const handleAddContact = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         if (typeof window !== 'undefined' && navigator.canShare) {
@@ -121,25 +119,16 @@ export default function ContactContent() {
                                     onClick={handleAddContact}
                                     className="w-full py-3.5 px-5 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm shadow-orange-500/20 transition-all cursor-pointer"
                                 >
-                                    <Download size={16} />
-                                    Ajouter aux contacts (.vcf)
+                                    <UserPlus size={16} />
+                                    Ajouter aux contacts
                                 </a>
-                                <div className="grid grid-cols-2 gap-2.5">
-                                    <button
-                                        onClick={() => setIsCardOpen(true)}
-                                        className="py-2.5 px-3 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors border border-slate-200 cursor-pointer"
-                                    >
-                                        <UserPlus size={14} className="text-orange-500" />
-                                        <span>Aperçu Fiche</span>
-                                    </button>
-                                    <button
-                                        onClick={() => setIsQrOpen(true)}
-                                        className="py-2.5 px-3 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors border border-slate-200 cursor-pointer"
-                                    >
-                                        <QrCode size={14} className="text-orange-500" />
-                                        <span>QR Code</span>
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={() => setIsQrOpen(true)}
+                                    className="w-full py-2.5 px-4 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-xs flex items-center justify-center gap-2 transition-colors border border-slate-200 cursor-pointer"
+                                >
+                                    <QrCode size={15} className="text-orange-500" />
+                                    <span>Afficher le QR Code</span>
+                                </button>
                             </div>
                         </motion.div>
 
@@ -193,7 +182,6 @@ export default function ContactContent() {
 
             {/* Modals */}
             <QrCodeModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
-            <ContactCardModal isOpen={isCardOpen} onClose={() => setIsCardOpen(false)} />
         </main>
     );
 }
