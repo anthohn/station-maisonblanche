@@ -21,7 +21,6 @@ export async function GET() {
             'FN:Station Service Maison-Blanche S.A.',
             'ORG:Station Service Maison-Blanche S.A.',
             'X-ABShowAs:COMPANY',
-            'TITLE:Station-Service, Épicerie Shop & Lavage',
             'TEL;TYPE=WORK,VOICE;TYPE=PREF:+41227561522',
             'EMAIL;TYPE=WORK,INTERNET:contact@station-maisonblanche.ch',
             'URL:https://station-maisonblanche.ch',

@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { QrCode, Share2, UserPlus, Check } from 'lucide-react';
+import { QrCode, UserPlus } from 'lucide-react';
 import QrCodeModal from './QrCodeModal';
 
 export default function MobileContactBar() {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
     const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
-    const [copied, setCopied] = useState<boolean>(false);
 
     useEffect(() => {
         setMounted(true);
@@ -18,28 +17,6 @@ export default function MobileContactBar() {
     if (!mounted || pathname !== '/contact') {
         return null;
     }
-
-    const handleShare = async () => {
-        const vcardUrl = typeof window !== 'undefined'
-            ? `${window.location.origin}/api/vcard`
-            : 'https://station-maisonblanche.ch/api/vcard';
-
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'Station-Service Maison-Blanche S.A.',
-                    text: 'Contact et coordonnées de la Station-Service Maison-Blanche à Chancy',
-                    url: vcardUrl,
-                });
-            } catch {
-                // Share cancelled
-            }
-        } else {
-            await navigator.clipboard.writeText(vcardUrl);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }
-    };
 
     const handleAddContact = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         if (typeof window !== 'undefined' && navigator.canShare) {
@@ -73,16 +50,6 @@ export default function MobileContactBar() {
                         aria-label="Afficher le QR Code"
                     >
                         <QrCode size={19} />
-                    </button>
-
-                    {/* Share Action */}
-                    <button
-                        onClick={handleShare}
-                        className="w-11 h-11 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 flex items-center justify-center border border-slate-200/80 transition-all shrink-0 relative cursor-pointer"
-                        title="Partager"
-                        aria-label="Partager la fiche contact"
-                    >
-                        {copied ? <Check size={17} className="text-emerald-600" /> : <Share2 size={17} />}
                     </button>
 
                     {/* Primary Action Button: Ajouter aux contacts */}
