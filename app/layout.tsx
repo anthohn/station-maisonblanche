@@ -4,6 +4,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import SummerHoursToast from "@/app/components/SummerHoursToast";
+import MobileContactBar from "@/app/components/MobileContactBar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -104,13 +105,15 @@ export default function RootLayout({
       >
         <JsonLd />
 
-
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
 
         {/* Le Toast en bas à droite */}
         <SummerHoursToast />
+
+        {/* Barre d'action fixe mobile pour ajouter au contact & QR code */}
+        <MobileContactBar />
       </body>
     </html>
   );

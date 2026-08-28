@@ -1,6 +1,10 @@
 'use client';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, Wrench, ArrowRight } from 'lucide-react';
+import { Phone, Mail, Wrench, ArrowRight, UserPlus, QrCode, Download } from 'lucide-react';
+import Image from 'next/image';
+import QrCodeModal from '@/app/components/QrCodeModal';
+import ContactCardModal from '@/app/components/ContactCardModal';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -8,6 +12,9 @@ const itemVariants = {
 };
 
 export default function ContactContent() {
+    const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
+    const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+
     return (
         <main className="bg-slate-50 pt-32 pb-24">
             <div className="container mx-auto px-6 max-w-7xl">
@@ -28,10 +35,10 @@ export default function ContactContent() {
                     </p>
                 </motion.div>
 
-                {/* --- LAYOUT BENTO CONTACT (Épuré) --- */}
+                {/* --- LAYOUT BENTO CONTACT --- */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                    {/* COLONNE GAUCHE : INFOS DIRECTES (1 tiers) */}
+                    {/* COLONNE GAUCHE : INFOS DIRECTES */}
                     <motion.div
                         className="flex flex-col gap-6"
                         initial="hidden"
@@ -40,7 +47,7 @@ export default function ContactContent() {
                         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
                     >
 
-                        {/* Carte Contact Direct (Blanche) */}
+                        {/* Carte Contact Direct */}
                         <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1">
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-8">Nous contacter</h3>
 
@@ -67,7 +74,57 @@ export default function ContactContent() {
                             </div>
                         </motion.div>
 
-                        {/* Carte Synergie Garage (Blanche, calquée sur 'Nous Contacter') */}
+                        {/* Carte de Visite Digitale (Bento Blanc & Orange) */}
+                        <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100 p-2.5 relative flex items-center justify-center shrink-0">
+                                        <Image
+                                            src="/logo-station.png"
+                                            alt="Logo Station Maison-Blanche"
+                                            width={32}
+                                            height={32}
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-medium text-[--color-brand-dark]">Ajouter aux contacts</h3>
+                                    </div>
+                                </div>
+                                <p className="text-slate-500 text-base leading-relaxed mb-6">
+                                    Enregistrez en 1 clic la Station-Service Maison-Blanche dans le carnet d&apos;adresses de votre smartphone avec logo, téléphone et GPS.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col gap-3">
+                                <a
+                                    href="/api/vcard"
+                                    download="station-maisonblanche.vcf"
+                                    className="w-full py-3.5 px-5 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm shadow-orange-500/20 transition-all cursor-pointer"
+                                >
+                                    <Download size={16} />
+                                    Ajouter aux contacts (.vcf)
+                                </a>
+                                <div className="grid grid-cols-2 gap-2.5">
+                                    <button
+                                        onClick={() => setIsCardOpen(true)}
+                                        className="py-2.5 px-3 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors border border-slate-200 cursor-pointer"
+                                    >
+                                        <UserPlus size={14} className="text-orange-500" />
+                                        <span>Aperçu Fiche</span>
+                                    </button>
+                                    <button
+                                        onClick={() => setIsQrOpen(true)}
+                                        className="py-2.5 px-3 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors border border-slate-200 cursor-pointer"
+                                    >
+                                        <QrCode size={14} className="text-orange-500" />
+                                        <span>QR Code</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Carte Synergie Garage */}
                         <motion.div variants={itemVariants} className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-slate-100 flex-1 flex flex-col justify-between">
                             <div>
                                 <div className="flex items-center gap-5 mb-8">
@@ -92,12 +149,12 @@ export default function ContactContent() {
 
                     </motion.div>
 
-                    {/* COLONNE DROITE : LA CARTE GOOGLE MAPS (2 tiers) */}
+                    {/* COLONNE DROITE : LA CARTE GOOGLE MAPS */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="lg:col-span-2 h-[500px] lg:h-auto rounded-[2rem] overflow-hidden shadow-sm border border-slate-200 bg-white relative"
+                        className="lg:col-span-2 h-[500px] lg:h-auto rounded-[2rem] overflow-hidden shadow-sm border border-slate-200 bg-white relative min-h-[500px]"
                     >
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7014972910897!2d5.987427575994064!3d46.156689886969644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c87fabc861e13%3A0x2e523f818adbbf7!2sStation%20Maison%20Blanche%20SA!5e0!3m2!1sfr!2sit!4v1775029984316!5m2!1sfr!2sit"
@@ -114,6 +171,10 @@ export default function ContactContent() {
 
                 </div>
             </div>
+
+            {/* Modals */}
+            <QrCodeModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
+            <ContactCardModal isOpen={isCardOpen} onClose={() => setIsCardOpen(false)} />
         </main>
     );
 }

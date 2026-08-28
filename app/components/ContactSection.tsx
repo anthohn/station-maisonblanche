@@ -81,16 +81,24 @@ export default function ContactSection() {
                                 <Clock size={20} className="text-orange-400" />
                                 <h3 className="text-white font-bold">Horaires d'ouverture</h3>
                             </div>
-                            <div className="space-y-3">
+                            <div className="space-y-3 mb-6">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-slate-400">Lun – Dim (Shop)</span>
-                                    <span className="text-white font-semibold">06:00 – 20:00</span>
+                                    <span className="text-white font-semibold">06:00 – 21:00</span>
                                 </div>
                                 <div className="border-t border-slate-700 pt-3 flex justify-between text-sm">
-                                    <span className="text-slate-400">Carburant</span>
+                                    <span className="text-slate-400">Carburant & Lavage</span>
                                     <span className="text-orange-400 font-bold">24h/24</span>
                                 </div>
                             </div>
+
+                            <a
+                                href="/api/vcard"
+                                download="station-maisonblanche.vcf"
+                                className="w-full py-3 px-4 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
+                            >
+                                Enregistrer la fiche contact (.vcf)
+                            </a>
                         </div>
                     </motion.div>
 
