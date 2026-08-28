@@ -46,8 +46,8 @@ export default function MobileContactBar() {
                     <button
                         onClick={() => setIsQrOpen(true)}
                         className="w-11 h-11 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 flex items-center justify-center border border-slate-200/80 transition-all shrink-0 cursor-pointer"
-                        title="Afficher le QR Code"
-                        aria-label="Afficher le QR Code"
+                        title="Scanner avec votre téléphone"
+                        aria-label="Scanner avec votre téléphone"
                     >
                         <QrCode size={19} />
                     </button>
