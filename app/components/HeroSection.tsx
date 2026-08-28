@@ -12,7 +12,7 @@ const stats = [
 
 export default function HeroSection() {
     return (
-        <section className="relative pt-32 pb-20 overflow-hidden bg-white">
+        <section className="relative pt-20 sm:pt-24 md:pt-24 pb-20 overflow-hidden bg-white">
             {/* Subtle warm tint */}
             <div className="absolute inset-0 bg-linear-to-b from-orange-50/50 via-white to-white pointer-events-none" />
 
