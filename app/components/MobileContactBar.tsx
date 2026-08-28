@@ -1,14 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { QrCode, Share2, UserPlus, Check } from 'lucide-react';
 import QrCodeModal from './QrCodeModal';
 import ContactCardModal from './ContactCardModal';
 
 export default function MobileContactBar() {
+    const pathname = usePathname();
+    const [mounted, setMounted] = useState(false);
     const [isQrOpen, setIsQrOpen] = useState<boolean>(false);
     const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
     const [copied, setCopied] = useState<boolean>(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted || pathname !== '/contact') {
+        return null;
+    }
 
     const handleShare = async () => {
         const vcardUrl = typeof window !== 'undefined'
@@ -55,7 +66,7 @@ export default function MobileContactBar() {
         <>
             {/* Barre flottante mobile épurée & lumineuse */}
             <div className="fixed bottom-4 left-0 right-0 z-40 px-4 md:hidden pointer-events-none">
-                <div className="mx-auto max-w-sm bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full p-2 shadow-2xl shadow-slate-900/15 flex items-center justify-between gap-2 pointer-events-auto">
+                <div className="mx-auto max-w-sm bg-white/95 backdrop-blur-xl border border-slate-300 rounded-full p-2 shadow-2xl shadow-slate-900/15 flex items-center justify-between gap-2 pointer-events-auto">
                     {/* QR Code Action */}
                     <button
                         onClick={() => setIsQrOpen(true)}

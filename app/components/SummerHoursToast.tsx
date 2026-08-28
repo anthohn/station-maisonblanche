@@ -1,9 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sun } from 'lucide-react';
 
 export default function SummerHoursToast() {
+    const pathname = usePathname();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -19,7 +21,7 @@ export default function SummerHoursToast() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="fixed bottom-6 right-6 z-50"
+                    className={`fixed bottom-6 right-6 z-50 ${pathname === '/contact' ? 'hidden md:block' : ''}`}
                 >
                     <div className="bg-white px-6 py-4 rounded-full shadow-xl border border-slate-100 flex items-center gap-4">
                         <Sun size={22} className="text-orange-500 shrink-0" />
