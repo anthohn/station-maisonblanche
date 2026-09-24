@@ -110,7 +110,7 @@ export default function RootLayout({
         <Footer />
 
         {/* Le Toast en bas à droite */}
-        <SummerHoursToast />
+        {/* <SummerHoursToast /> */}
 
         {/* Barre d'action fixe mobile pour ajouter au contact & QR code */}
         <MobileContactBar />
