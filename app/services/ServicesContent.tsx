@@ -22,7 +22,7 @@ export default function ServicesContent() {
                         Tous nos services <span className="text-orange-500">au même endroit.</span>
                     </h1>
                     <p className="text-xl text-slate-500">
-                        De l&apos;essence 24h/24 au café chaud dès 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
+                        De l&apos;essence 24h/24 au café dès 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
                     </p>
                 </motion.div>
 
@@ -45,7 +45,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Carburants Shell 24/7</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Profitez de la qualité des carburants Shell à toute heure du jour et de la nuit. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
+                                Profitez de la qualité des carburants Shell à toute heure. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
                             </p>
                         </div>
                     </motion.div>
