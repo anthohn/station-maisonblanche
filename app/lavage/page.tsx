@@ -4,7 +4,7 @@ import LavageContent from "./LavageContent";
 export const metadata: Metadata = {
     title: "Lavage Auto — Haute Pression & Aspirateurs en Libre-Service à Chancy",
     description:
-        "Centre de lavage en libre-service à Chancy (Genève). Une piste haute pression avec 6 programmes (shampoing, brosse, rinçage, cire, eau déminéralisée). Un poste d'aspiration industrielle. Ouvert 7j/7 de 06h à 22h. Paiement par pièces, jetons ou carte bancaire.",
+        "Centre de lavage en libre-service à Chancy (Genève). Une piste haute pression avec 6 programmes. Un poste d'aspiration. Ouvert 7j/7 de 06h à 22h. Paiement par pièces en francs suisses (CHF).",
     keywords: [
         "lavage auto Chancy",
         "lavage haute pression Genève",
