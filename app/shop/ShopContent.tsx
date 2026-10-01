@@ -40,7 +40,7 @@ export default function ShopContent() {
                         <p className="text-sm text-slate-500 mt-1">Ouvert tous les jours</p>
                     </div>
                     <div>
-                        <p className="text-3xl md:text-4xl font-medium text-[--color-brand-dark]">06h-20h</p>
+                        <p className="text-3xl md:text-4xl font-medium text-[--color-brand-dark]">06h-20h30</p>
                         <p className="text-sm text-slate-500 mt-1">Horaires extra-larges</p>
                     </div>
                     <div>

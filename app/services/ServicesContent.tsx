@@ -63,7 +63,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Shop</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Ouvert tous les jours de 06h00 à 21h00. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses, notre shop vous accueille avec le sourire.
+                                Ouvert tous les jours de 06h00 à 20h30. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses, notre shop vous accueille avec le sourire.
                             </p>
                         </div>
                         <div className="order-1 lg:order-2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">

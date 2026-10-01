@@ -78,21 +78,21 @@ export default function FooterStation() {
                                     <span className="text-slate-500">Shop (Lun–Ven)</span>
                                     <div className="flex items-center gap-2">
                                         {/* <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span> */}
-                                        <span className="font-medium text-slate-800">06:00 – 21:00</span>
+                                        <span className="font-medium text-slate-800">06:00 – 20:30</span>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Shop (Samedi)</span>
                                     <div className="flex items-center gap-2">
                                         {/* <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span> */}
-                                        <span className="font-medium text-slate-800">07:00 – 21:00</span>
+                                        <span className="font-medium text-slate-800">07:00 – 20:30</span>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1 border-b border-slate-200 pb-3 mb-2">
                                     <span className="text-slate-500">Shop (Dimanche)</span>
                                     <div className="flex items-center gap-2">
                                         {/* <span className="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Été</span> */}
-                                        <span className="font-medium text-slate-800">07:30 – 21:00</span>
+                                        <span className="font-medium text-slate-800">07:30 – 20:30</span>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center py-1">

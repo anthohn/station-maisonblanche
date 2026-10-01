@@ -31,7 +31,7 @@ export async function GET() {
             'ADR;TYPE=WORK,POSTAL,PARCEL:;;Route de Chancy 500;Chancy;GE;1284;Suisse',
             'LABEL;TYPE=WORK,POSTAL,PARCEL:Route de Chancy 500\\n1284 Chancy\\nSuisse',
             'GEO:46.1566898;5.9874275',
-            'NOTE:Station-Service Maison-Blanche S.A.\\nShop: 7j/7 06h00 - 21h00 (du 1er mai au 31 août)\\nCarburant & Lavage: 24h/24',
+            'NOTE:Station-Service Maison-Blanche S.A.\\nShop: 7j/7 06h00 - 20h30\\nCarburant & Lavage: 24h/24',
         ];
 
         if (photoBase64) {
