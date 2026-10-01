@@ -87,7 +87,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Lavage Haute Pression</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Prenez soin de votre véhicule avec nos pistes de lavage haute pression. Un équipement performant pour éliminer les saletés les plus tenaces, complété par nos zones d&apos;aspiration puissantes pour l&apos;intérieur de votre habitacle.
+                                Prenez soin de votre véhicule avec notre piste de lavage haute pression. Un équipement performant pour éliminer les saletés les plus tenaces, complété par notre zone d&apos;aspiration puissante.
                             </p>
                         </div>
                     </motion.div>
@@ -110,7 +110,7 @@ export default function ServicesContent() {
                                 <Wind size={24} className="text-orange-500" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Borne de gonflage</h4>
+                                <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Borne de gonflage avec manomètre digital de précision</h4>
                                 <p className="text-slate-500">
                                     Vérifiez et ajustez la pression de vos pneus en toute autonomie pour rouler en toute sécurité et réduire votre consommation.
                                 </p>
@@ -125,7 +125,7 @@ export default function ServicesContent() {
                             <div>
                                 <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Vente de gaz</h4>
                                 <p className="text-slate-500">
-                                    Bouteilles de gaz disponibles en différents formats pour vos barbecues, chauffages d&apos;appoint ou équipements professionnels.
+                                    Bouteilles de gaz disponibles en différents formats pour vos barbecues, chauffages d&apos;appoint ou camping-cars.
                                 </p>
                             </div>
                         </div>
