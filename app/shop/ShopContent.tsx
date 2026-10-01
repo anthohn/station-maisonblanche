@@ -73,7 +73,10 @@ export default function ShopContent() {
                                 <h2 className="text-2xl md:text-3xl font-medium text-[--color-brand-dark]">Boutique & Fleurs</h2>
                             </div>
                             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-                                Un accueil chaleureux et des produits sélectionnés pour vous. Retrouvez nos compositions florales de saison, idéales pour offrir ou décorer, ainsi qu'une sélection de spécialités locales.
+                                Un accueil chaleureux et des produits sélectionnés pour vous. Retrouvez nos compositions florales de saison et locales, idéales pour offrir ou vous faire plaisir.
+                            </p>
+                            <p className="text-slate-500 text-sm md:text-base leading-relaxed mt-2">
+                                Vous avez la possibilité de réserver votre bouquet et de commander chez nous votre composition personnalisée.
                             </p>
                         </div>
                     </motion.div>
@@ -103,7 +106,7 @@ export default function ShopContent() {
                     {/* 4. Carte Terrasse (Bas Gauche - 1x2 sur desktop) */}
                     <motion.div variants={itemVariants} className="bg-white rounded-[2rem] shadow-sm border border-slate-100 md:col-span-1 md:row-span-2 flex flex-col overflow-hidden group">
                         <div className="relative h-48 md:h-[50%] w-full overflow-hidden shrink-0">
-                            <Image src="/terrasse.jpg" alt="Terrasse ensoleillée avec glaces Mövenpick à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/terrasse.jpg" alt="Terrasse agréable pour déguster glaces, viennoiseries et café à la Station-Service Maison-Blanche, Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="p-6 flex flex-col justify-center">
                             <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl mb-3 transition-colors group-hover:bg-orange-100">
@@ -111,7 +114,7 @@ export default function ShopContent() {
                             </div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-2">Espace Détente</h3>
                             <p className="text-slate-500 text-sm leading-relaxed">
-                                Profitez d'une pause ensoleillée. Installez-vous sur notre terrasse pour déguster une glace Mövenpick ou un café frais.
+                                Pour une pause agréable, installez-vous sur notre terrasse. Dégustez une glace, un café frais, votre sandwich ou une viennoiserie.
                             </p>
                         </div>
                     </motion.div>
@@ -122,9 +125,9 @@ export default function ShopContent() {
                             <Image src="/bunker 1.JPG" alt="Dépannage gaz bouteilles Vitogaz et charbon de bois, Station-Service Maison-Blanche Chancy" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="p-6 md:px-10 flex-1 flex flex-col justify-center">
-                            <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-2">Gaz, Gril & Auto</h3>
+                            <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-2">Gaz & Auto-Shop</h3>
                             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-                                Le dépannage par excellence. Charbon de bois pour l'été, bouteilles Vitogaz, lave-glace et huiles. L'essentiel, toujours disponible.
+                                Votre boutique par excellence. Charbon de bois, bouteilles de gaz, lave-glace et huiles Shell. L'essentiel, toujours disponible.
                             </p>
                         </div>
                     </motion.div>
@@ -137,7 +140,7 @@ export default function ShopContent() {
                         <div>
                             <h3 className="text-xl md:text-2xl font-medium text-[--color-brand-dark] mb-2">Épicerie & Frais</h3>
                             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-                                Un rayon frais bien approvisionné, des snacks et des boissons froides pour vos trajets. Tous les produits de première nécessité pour vous dépanner.
+                                Un rayon frais bien approvisionné, des snacks et des boissons. Tous les produits de première nécessité à portée de main, proches de chez vous.
                             </p>
                         </div>
                     </motion.div>
