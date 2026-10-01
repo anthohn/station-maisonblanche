@@ -28,7 +28,7 @@ export default function MobileContactBar() {
                     e.preventDefault();
                     await navigator.share({
                         files: [file],
-                        title: 'Station Service Maison-Blanche S.A.',
+                        title: 'Station Service Maison-Blanche',
                     });
                 }
             } catch {
