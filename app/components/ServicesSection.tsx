@@ -142,7 +142,7 @@ export default function ServicesSection() {
                         </div>
                         <div className="h-px w-12 bg-slate-700" />
                         <div className="text-center">
-                            <p className="text-4xl font-black text-orange-400">20:00</p>
+                            <p className="text-4xl font-black text-orange-400">20:30</p>
                             <p className="text-slate-500 text-xs mt-1 uppercase tracking-wider">Fermeture</p>
                         </div>
                     </div>

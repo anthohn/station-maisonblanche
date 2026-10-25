@@ -26,7 +26,7 @@ export default function LavageContent() {
                         Faites briller votre véhicule <span className="text-orange-500">en quelques minutes.</span>
                     </h1>
                     <p className="text-xl text-slate-500">
-                        Pistes haute pression professionnelles et aspirateurs puissants. Tout l&apos;équipement nécessaire pour un nettoyage impeccable, intérieur comme extérieur.
+                        Une piste haute pression et aspirateur. Tout l&apos;équipement nécessaire pour un nettoyage impeccable, intérieur comme extérieur.
                     </p>
                 </motion.div>
 
@@ -53,18 +53,25 @@ export default function LavageContent() {
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-8 text-white">
                             <h2 className="text-3xl font-medium mb-2">Lavage Haute Pression</h2>
-                            <p className="text-white/80 max-w-sm">Une piste de lavage équipée d'une lance ergonomique pour un nettoyage précis et puissant.</p>
+                            <p className="text-white/80 max-w-sm">Une piste de lavage pour un nettoyage impeccable.</p>
                         </div>
                     </motion.div>
 
                     {/* 2. Petite Carte : Programmes */}
-                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-center md:items-start md:justify-between gap-4 border border-slate-100">
+                    <motion.div variants={itemVariants} className="bg-white p-6 rounded-[2rem] shadow-sm flex flex-row md:flex-col items-start md:justify-between gap-4 border border-slate-100">
                         <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                             <Sparkles size={24} className="text-orange-500" />
                         </div>
-                        <div>
-                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">6 Programmes</h3>
-                            <p className="text-slate-500 text-sm">Shampoing, Brosse, Rinçage, Cire de finition, Eau déminéralisée et Nettoyant Jantes.</p>
+                        <div className="w-full">
+                            <h3 className="text-xl font-medium text-[--color-brand-dark] mb-2.5">6 Programmes</h3>
+                            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm text-slate-600">
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">1.</strong> Lavage</span>
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">2.</strong> Brosse à mousse</span>
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">3.</strong> Pré-rinçage</span>
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">4.</strong> Rinçage lustrant</span>
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">5.</strong> Cire protection</span>
+                                <span className="flex items-center gap-1.5"><strong className="text-orange-500 font-semibold">6.</strong> Rinçage après cire</span>
+                            </div>
                         </div>
                     </motion.div>
 
@@ -75,7 +82,7 @@ export default function LavageContent() {
                         </div>
                         <div>
                             <h3 className="text-xl font-medium text-[--color-brand-dark] mb-1">Paiement Facile</h3>
-                            <p className="text-slate-500 text-sm">Acceptons pièces, jetons (disponibles au shop) et cartes bancaires.</p>
+                            <p className="text-slate-500 text-sm">Paiement par pièces en francs suisses (CHF).</p>
                         </div>
                     </motion.div>
 

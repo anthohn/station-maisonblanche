@@ -40,7 +40,7 @@ export default function QrCodeModal({ isOpen, onClose }: QrCodeModalProps) {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'Station-Service Maison-Blanche S.A.',
+                    title: 'Station-Service Maison-Blanche',
                     text: 'Scannez ou téléchargez la fiche de contact de la Station Maison-Blanche',
                     url: vcardUrl,
                 });

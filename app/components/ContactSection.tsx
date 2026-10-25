@@ -20,7 +20,7 @@ export default function ContactSection() {
                         Venez nous rendre visite.
                     </h2>
                     <p className="text-slate-500 text-lg max-w-md mx-auto">
-                        Retrouvez-nous facilement à Chancy — ouverts tous les jours de 06h00 à <span className="line-through text-slate-400">20h00</span> <span className="text-orange-500 font-semibold">21h00</span>.
+                        Retrouvez-nous facilement à Chancy — ouverts tous les jours de 06h00 à <span className="text-orange-500 font-semibold">20h30</span>.
                     </p>
                 </motion.div>
 
@@ -84,7 +84,7 @@ export default function ContactSection() {
                             <div className="space-y-3 mb-6">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-slate-400">Lun – Dim (Shop)</span>
-                                    <span className="text-white font-semibold">06:00 – 21:00</span>
+                                    <span className="text-white font-semibold">06:00 – 20:30</span>
                                 </div>
                                 <div className="border-t border-slate-700 pt-3 flex justify-between text-sm">
                                     <span className="text-slate-400">Carburant & Lavage</span>

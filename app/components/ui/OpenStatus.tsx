@@ -14,9 +14,12 @@ const OpenStatus = () => {
             const minutes = now.getMinutes();
             const currentTimeInMinutes = hour * 60 + minutes;
 
-            // Station-Service Maison-Blanche: Lun-Dim 06:00 - 20:00
-            const openTime = 6 * 60;   // 360
-            const closeTime = 20 * 60; // 1200
+            // Station-Service Maison-Blanche Shop : Lun-Ven 06:00, Sam 07:00, Dim 07:30 — Fermeture 20:30
+            let openTime = 6 * 60; // Lun-Ven 06:00
+            if (day === 6) openTime = 7 * 60; // Samedi 07:00
+            else if (day === 0) openTime = 7 * 60 + 30; // Dimanche 07:30
+
+            const closeTime = 20 * 60 + 30; // 20:30
 
             const open = currentTimeInMinutes >= openTime && currentTimeInMinutes < closeTime;
             setIsOpen(open);
@@ -49,7 +52,7 @@ const OpenStatus = () => {
             </span>
             <div className="h-3 w-px bg-gray-200 mx-1" />
             <span className="text-[11px] font-medium text-gray-400 font-mono">
-                06:00–20:00
+                06:00–20:30
             </span>
         </div>
     );

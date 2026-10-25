@@ -22,7 +22,7 @@ export default function ServicesContent() {
                         Tous nos services <span className="text-orange-500">au même endroit.</span>
                     </h1>
                     <p className="text-xl text-slate-500">
-                        De l&apos;essence 24h/24 au café chaud dès 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
+                        De l&apos;essence 24h/24 au café dès 06h00, découvrez tout ce que la Station-Service Maison-Blanche met à votre disposition à Chancy.
                     </p>
                 </motion.div>
 
@@ -45,7 +45,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Carburants Shell 24/7</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Profitez de la qualité des carburants Shell à toute heure du jour et de la nuit. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
+                                Profitez de la qualité des carburants Shell à toute heure. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
                             </p>
                         </div>
                     </motion.div>
@@ -61,9 +61,9 @@ export default function ServicesContent() {
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
                                 <ShoppingBasket size={28} className="text-orange-500" />
                             </div>
-                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Épicerie & Dépannage</h2>
+                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Shop</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Ouvert tous les jours de 06h00 à <span className="line-through text-slate-400">20h00</span> <span className="text-orange-500 font-semibold">21h00</span>. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses de dépannage de dernière minute le dimanche, notre shop indépendant vous accueille avec le sourire.
+                                Ouvert tous les jours de 06h00 à 20h30. Que ce soit pour votre café du matin, un encas rapide à midi ou des courses, notre shop vous accueille avec le sourire.
                             </p>
                         </div>
                         <div className="order-1 lg:order-2 relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-sm">
@@ -87,7 +87,7 @@ export default function ServicesContent() {
                             </div>
                             <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Lavage Haute Pression</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
-                                Prenez soin de votre véhicule avec nos pistes de lavage haute pression. Un équipement performant pour éliminer les saletés les plus tenaces, complété par nos zones d&apos;aspiration puissantes pour l&apos;intérieur de votre habitacle.
+                                Prenez soin de votre véhicule avec notre piste de lavage haute pression. Un équipement performant pour éliminer les saletés les plus tenaces, complété par notre zone d&apos;aspiration puissante.
                             </p>
                         </div>
                     </motion.div>
@@ -110,7 +110,7 @@ export default function ServicesContent() {
                                 <Wind size={24} className="text-orange-500" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Borne de gonflage</h4>
+                                <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Borne de gonflage avec manomètre digital de précision</h4>
                                 <p className="text-slate-500">
                                     Vérifiez et ajustez la pression de vos pneus en toute autonomie pour rouler en toute sécurité et réduire votre consommation.
                                 </p>
@@ -125,7 +125,7 @@ export default function ServicesContent() {
                             <div>
                                 <h4 className="text-xl font-medium text-[--color-brand-dark] mb-2">Vente de gaz</h4>
                                 <p className="text-slate-500">
-                                    Bouteilles de gaz disponibles en différents formats pour vos barbecues, chauffages d&apos;appoint ou équipements professionnels.
+                                    Bouteilles de gaz disponibles en différents formats pour vos barbecues, chauffages d&apos;appoint ou camping-cars.
                                 </p>
                             </div>
                         </div>
