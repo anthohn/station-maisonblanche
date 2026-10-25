@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { Promotion } from '@/lib/promotions';
-import Ean13BarcodeSvg from './Ean13BarcodeSvg';
+import BarcodeSvg from './BarcodeSvg';
 
 interface PromoModalProps {
     promotion: Promotion | null;
@@ -14,6 +14,9 @@ interface PromoModalProps {
 
 export default function PromoModal({ promotion, isOpen, onClose }: PromoModalProps) {
     if (!promotion) return null;
+
+    const isFreeOffer = promotion.promoPrice.toLowerCase().includes('offert');
+    const barcodeCode = promotion.barcode || promotion.ean13Code || '15935764';
 
     return (
         <AnimatePresence>
@@ -25,7 +28,7 @@ export default function PromoModal({ promotion, isOpen, onClose }: PromoModalPro
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-slate-900/70 backdrop-blur-md"
+                        className="fixed inset-0 bg-slate-900/75 backdrop-blur-md"
                     />
 
                     {/* Modal Content - Blanc pur haute luminosité */}
@@ -57,33 +60,57 @@ export default function PromoModal({ promotion, isOpen, onClose }: PromoModalPro
                                 />
                             </div>
 
+                            <span className="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-100 mb-2">
+                                {promotion.badge}
+                            </span>
+
                             <h3 className="text-2xl font-bold text-slate-900 mb-1 leading-snug">
                                 {promotion.title}
                             </h3>
 
                             {/* Tarification */}
-                            <div className="flex items-center justify-center gap-3 my-3">
-                                <span className="text-3xl font-extrabold text-orange-500">
-                                    {promotion.promoPrice}
-                                </span>
-                                <span className="text-base text-slate-400 line-through">
-                                    {promotion.originalPrice}
-                                </span>
-                            </div>
+                            {isFreeOffer ? (
+                                <div className="flex flex-col items-center gap-1 my-3">
+                                    <span className="text-3xl font-extrabold text-orange-500 tracking-wide uppercase">
+                                        {promotion.promoPrice}
+                                    </span>
+                                    <span className="text-xs font-medium text-slate-600">
+                                        Pour 1 Haribo Halloween + 1 au choix acheté
+                                    </span>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-center gap-3 my-3">
+                                    <span className="text-3xl font-extrabold text-orange-500">
+                                        {promotion.promoPrice}
+                                    </span>
+                                    {promotion.originalPrice && (
+                                        <span className="text-base text-slate-400 line-through">
+                                            {promotion.originalPrice}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
 
-                            <p className="text-xs text-slate-500 mb-5 leading-relaxed max-w-xs">
-                                Présentez ce code-barres lors de votre passage à la caisse du shop.
+                            <p className="text-xs text-slate-500 mb-4 leading-relaxed max-w-xs">
+                                Présentez ce code-barres directement à la caisse du shop de la station.
                             </p>
 
-                            {/* Zone Code-Barres EAN-13 (Contraste maximal pour douchette caisse) */}
-                            <div className="w-full bg-white p-4 rounded-2xl border-2 border-slate-300 shadow-sm flex flex-col items-center justify-center mb-5">
-                                <Ean13BarcodeSvg code={promotion.ean13Code} width={280} height={120} />
+                            {/* Zone Code-Barres (Contraste maximal pour douchette caisse) */}
+                            <div className="w-full bg-white p-4 sm:p-5 rounded-2xl border-2 border-slate-300 shadow-sm flex flex-col items-center justify-center mb-5">
+                                <BarcodeSvg
+                                    code={barcodeCode}
+                                    type={promotion.barcodeType}
+                                    width={290}
+                                    height={125}
+                                />
                             </div>
 
                             {/* Modalités & Renseignements */}
-                            <div className="w-full bg-slate-50 rounded-2xl p-3 text-[11px] text-slate-500 text-center">
-                                <p className="font-semibold text-slate-700 mb-0.5">{promotion.validityNotice}</p>
-                                <p className="opacity-80">{promotion.terms}</p>
+                            <div className="w-full bg-slate-50 rounded-2xl p-3.5 text-[11px] text-slate-500 text-center border border-slate-100">
+                                <p className="font-semibold text-slate-700 mb-1">
+                                    {promotion.validityNotice}
+                                </p>
+                                <p className="opacity-80 leading-relaxed">{promotion.terms}</p>
                             </div>
                         </div>
                     </motion.div>
