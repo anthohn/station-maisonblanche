@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Barcode, ArrowRight, MapPin, Sparkles } from 'lucide-react';
+import { Barcode, ArrowRight, MapPin } from 'lucide-react';
 import { activePromotions, Promotion } from '@/lib/promotions';
 import PromoModal from '@/app/components/PromoModal';
 
@@ -39,10 +39,6 @@ function PromotionsInner() {
                     transition={{ duration: 0.5 }}
                     className="max-w-3xl mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 font-semibold text-xs mb-4">
-                        <Sparkles size={14} className="text-orange-500" />
-                        <span>Bons plans en station</span>
-                    </div>
                     <h1 className="text-4xl md:text-6xl font-medium text-[--color-brand-dark] tracking-tight mb-6">
                         Nos offres <span className="text-orange-500">du moment.</span>
                     </h1>
