@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import Image from "next/image";
+import SeasonalBanner from "./SeasonalBanner";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,9 @@ export default function Header() {
                     duration: 0.4
                 }}
             >
+                {/* Bandeau d'annonce saisonnier tout en haut */}
+                <SeasonalBanner />
+
                 <div className="bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200">
                     <div className="px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
                         {/* Section 1: Logo à gauche */}
@@ -39,13 +43,6 @@ export default function Header() {
                                         height={50}
                                         className="object-contain"
                                     />
-                                    {/* <Image
-                                        src={SantaHat}
-                                        alt="Bonnet de Noel"
-                                        width={40}
-                                        height={40}
-                                        className="absolute -top-4 -right-4 rotate-12 drop-shadow-sm pointer-events-none"
-                                    /> */}
                                 </div>
                                 <span className="hidden sm:block">Station-Service Maison-Blanche</span>
                                 <span className="sm:hidden">Station-Service Maison-Blanche</span>

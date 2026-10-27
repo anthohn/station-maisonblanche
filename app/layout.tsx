@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
-import SummerHoursToast from "@/app/components/SummerHoursToast";
+import AutumnLeaves from "@/app/components/AutumnLeaves";
 import MobileContactBar from "@/app/components/MobileContactBar";
 import "./globals.css";
 
@@ -106,6 +106,7 @@ export default function RootLayout({
         <JsonLd />
 
         <Header />
+        <AutumnLeaves />
         <main className="flex-1">{children}</main>
         <Footer />
 

@@ -13,8 +13,8 @@ const stats = [
 export default function HeroSection() {
     return (
         <section className="relative pt-20 sm:pt-24 md:pt-24 pb-20 overflow-hidden bg-white">
-            {/* Subtle warm tint */}
-            <div className="absolute inset-0 bg-linear-to-b from-orange-50/50 via-white to-white pointer-events-none" />
+            {/* Dégradé chaleureux d'automne subtil */}
+            <div className="absolute inset-0 bg-linear-to-b from-amber-100/35 via-orange-50/25 to-white pointer-events-none" />
 
             <div className="container mx-auto px-6 max-w-7xl relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
