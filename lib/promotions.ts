@@ -21,7 +21,7 @@ export const activePromotions: Promotion[] = [
     {
         id: 'halloween',
         title: 'Votre Sac à Bonbons Offert',
-        subtitle: 'Offre Spéciale Halloween',
+        subtitle: 'Pour l\'achat de 2 paquets Haribo 175g (dont 1 Halloween)',
         description: 'Pour l\'achat d\'un paquet Haribo 175g Halloween + un paquet Haribo 175g au choix, repartez avec votre sac à bonbons d\'Halloween offert lors de votre passage en caisse !',
         originalPrice: 'Valeur CHF 0.00',
         promoPrice: 'Offert',
