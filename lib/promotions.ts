@@ -18,6 +18,8 @@ export interface Promotion {
 }
 
 export const activePromotions: Promotion[] = [
+    /*
+    // --- OFFRE HALLOWEEN (Conservée pour l'année prochaine) ---
     {
         id: 'halloween',
         title: 'Votre Sac à Bonbons Offert',
@@ -35,7 +37,8 @@ export const activePromotions: Promotion[] = [
         imageAlt: 'Sacs à bonbons d\'Halloween et bonbons Haribo au shop de la Station Maison-Blanche',
         validityNotice: 'Valable tous les jours au shop jusqu\'au 31 octobre (dans la limite des stocks disponibles).',
         terms: 'Offre valable pour l\'achat simultané d\'un paquet Haribo 175g Halloween et d\'un paquet Haribo 175g au choix. Présentez ce code-barres lors de votre passage en caisse.'
-    }
+    },
+    */
     /*
     {
         id: 'formula-cafe-croissant',

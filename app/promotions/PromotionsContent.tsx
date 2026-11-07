@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Barcode, ArrowRight, MapPin } from 'lucide-react';
@@ -49,7 +50,24 @@ function PromotionsInner() {
 
                 {/* --- GRILLE DES PROMOTIONS --- */}
                 <div className="flex justify-center mb-16">
-                    {activePromotions.map((promo, idx) => {
+                    {activePromotions.length === 0 ? (
+                        <div className="w-full max-w-lg bg-white rounded-[2rem] p-8 md:p-10 border border-slate-100 shadow-sm text-center">
+                            <h3 className="text-xl font-bold text-slate-900 mb-2">
+                                Aucune offre en cours
+                            </h3>
+                            <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                                Nos offres et coupons promotionnels sont mis à jour régulièrement. Retrouvez tous nos produits et arrivages du moment directement au shop de la station !
+                            </p>
+                            <Link
+                                href="/shop"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-medium text-sm transition-colors"
+                            >
+                                <span>Découvrir le Shop</span>
+                                <ArrowRight size={16} />
+                            </Link>
+                        </div>
+                    ) : (
+                        activePromotions.map((promo, idx) => {
                         const isFree = promo.promoPrice.toLowerCase().includes('offert');
 
                         return (
@@ -121,7 +139,7 @@ function PromotionsInner() {
                                 </div>
                             </motion.div>
                         );
-                    })}
+                    }))}
                 </div>
 
                 {/* --- COMMENT ÇA MARCHE ? --- */}
