@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
 
@@ -10,7 +11,7 @@ export default function SeasonalBanner() {
 
     useEffect(() => {
         try {
-            const isDismissed = localStorage.getItem('seasonal_banner_halloween_dismissed');
+            const isDismissed = localStorage.getItem('banner_zweifel_aromat_dismissed');
             if (!isDismissed) {
                 const timer = setTimeout(() => setIsVisible(true), 80);
                 return () => clearTimeout(timer);
@@ -24,7 +25,7 @@ export default function SeasonalBanner() {
     const handleDismiss = () => {
         setIsVisible(false);
         try {
-            localStorage.setItem('seasonal_banner_halloween_dismissed', 'true');
+            localStorage.setItem('banner_zweifel_aromat_dismissed', 'true');
         } catch {
             // ignore
         }
@@ -38,24 +39,33 @@ export default function SeasonalBanner() {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="overflow-hidden bg-gradient-to-r from-stone-900 via-amber-950 to-stone-900 text-amber-100 border-b border-orange-500/25 relative z-50 select-none"
-                    aria-label="Annonce saisonnière"
+                    className="overflow-hidden bg-gradient-to-r from-stone-900 via-orange-950 to-stone-900 text-amber-100 border-b border-orange-500/25 relative z-50 select-none"
+                    aria-label="Annonce nouveauté shop"
                 >
                     <div className="max-w-7xl mx-auto px-4 py-2 sm:py-2.5 flex items-center justify-between gap-3 text-xs sm:text-sm">
                         {/* Message central cliquable */}
                         <div className="flex-1 flex items-center justify-center gap-2 text-center">
-                            <span className="text-base select-none">🍂</span>
-                            <span className="text-amber-200/90 hidden sm:inline">
-                                Spécial Automne au shop :
+                            <Image
+                                src="/zweifel-logo.svg"
+                                alt="Logo Zweifel"
+                                width={18}
+                                height={18}
+                                className="rounded-full object-contain shrink-0"
+                            />
+                            <span className="text-orange-300 font-semibold hidden sm:inline">
+                                Exclusivité au Shop :
                             </span>
-                            <span className="font-semibold text-white tracking-tight">
-                                Votre sac à bonbons Haribo offert pour Halloween !
+                            <span className="font-semibold text-white tracking-tight sm:hidden">
+                                Zweifel « Aromat » de retour !
+                            </span>
+                            <span className="font-semibold text-white tracking-tight hidden sm:inline">
+                                Les célèbres chips Zweifel « Aromat » sont de retour !
                             </span>
                             <Link
-                                href="/promotions?promo=halloween"
-                                className="inline-flex items-center gap-1 text-orange-400 hover:text-orange-300 font-semibold underline underline-offset-4 ml-1.5 transition-colors group cursor-pointer"
+                                href="/shop#zweifel"
+                                className="inline-flex items-center gap-1 text-orange-400 hover:text-orange-300 font-semibold underline underline-offset-4 ml-1.5 transition-colors group cursor-pointer shrink-0"
                             >
-                                <span>Voir le bon</span>
+                                <span>Découvrir</span>
                                 <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                             </Link>
                         </div>
