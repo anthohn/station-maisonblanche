@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 // Formes vectorielles détaillées et botaniques
 const LEAF_MAPLE =
@@ -165,6 +166,11 @@ const LEAF_COLLECTION: LeafConfig[] = [
 ];
 
 export default function AutumnLeaves() {
+    const pathname = usePathname();
+
+    // La page du calendrier de l'Avent a sa propre neige : pas de feuilles d'automne par-dessus.
+    if (pathname?.startsWith('/calendrier-de-l-avent')) return null;
+
     return (
         <div
             aria-hidden="true"

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import Image from "next/image";
+import { Gift } from "lucide-react";
 import SeasonalBanner from "./SeasonalBanner";
 
 export default function Header() {
@@ -50,13 +51,14 @@ export default function Header() {
                         </div>
 
                         {/* Section 2: Navigation au centre (desktop) */}
-                        <div className="hidden md:flex items-center space-x-8">
+                        <div className="hidden md:flex items-center space-x-3 lg:space-x-8">
                             {links.map((link, idx) => (
                                 <Link
                                     key={link.href + idx}
                                     href={link.href}
-                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
+                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${link.highlight ? 'inline-flex items-center gap-1.5' : ''} ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                 >
+                                    {link.highlight && <Gift size={16} aria-hidden="true" />}
                                     {link.label}
                                 </Link>
                             ))}
@@ -126,7 +128,7 @@ export default function Header() {
                                         className={`block font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {link.label}
+                                        {link.highlight ? 'Calendrier de l’Avent' : link.label}
                                     </Link>
                                 ))}
                                 {/* OpenStatus in mobile menu since it's hidden in header for mobile */}

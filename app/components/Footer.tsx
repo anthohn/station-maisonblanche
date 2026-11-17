@@ -113,6 +113,7 @@ export default function FooterStation() {
                                 <Link href="/services" className={`text-sm font-medium transition-colors ${pathname === '/services' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Services</Link>
                                 <Link href="/shop" className={`text-sm font-medium transition-colors ${pathname === '/shop' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Shop</Link>
                                 <Link href="/lavage" className={`text-sm font-medium transition-colors ${pathname === '/lavage' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Lavage</Link>
+                                <Link href="/calendrier-de-l-avent" className={`text-sm font-medium transition-colors ${pathname === '/calendrier-de-l-avent' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Avent</Link>
                                 <Link href="/contact" className={`text-sm font-medium transition-colors ${pathname === '/contact' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Contact</Link>
                             </div>
                         </div>

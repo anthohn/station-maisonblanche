@@ -3,10 +3,14 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBasket, Fuel, Droplets, ArrowRight, Wrench, MapPin } from 'lucide-react';
+import AdventTeaser from '@/app/components/AdventTeaser';
 
 export default function HomeRestOfPage() {
     return (
         <div className="bg-slate-50 pb-24">
+
+            {/* --- 0. CALENDRIER DE L'AVENT (à retirer après les fêtes) --- */}
+            <AdventTeaser />
 
             {/* --- 1. LE TRIO BENTO (Les Piliers) --- */}
             <section className="container mx-auto px-6 max-w-7xl pt-24">

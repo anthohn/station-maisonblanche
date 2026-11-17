@@ -1,0 +1,477 @@
+/* ─────────────────────────────────────────────────────────────
+   CALENDRIER DE L'AVENT — styles propres à la page
+   Tout est préfixé `adv-` pour ne jamais toucher au reste du site.
+───────────────────────────────────────────────────────────── */
+
+.adv-serif {
+  font-family: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  font-variation-settings: 'SOFT' 100, 'opsz' 144;
+  font-optical-sizing: auto;
+}
+
+/* ───────────── Ciel de nuit ───────────── */
+.adv-night {
+  background:
+    radial-gradient(90% 55% at 50% -8%, rgba(251, 191, 36, 0.16) 0%, transparent 60%),
+    radial-gradient(70% 45% at 85% 30%, rgba(99, 102, 241, 0.16) 0%, transparent 70%),
+    radial-gradient(80% 50% at 10% 75%, rgba(16, 185, 129, 0.10) 0%, transparent 70%),
+    linear-gradient(180deg, #0c1530 0%, #0f172a 40%, #0a1020 100%);
+  color: #f8fafc;
+}
+
+/* Bokeh : grosses lumières floues en arrière-plan */
+.adv-bokeh span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(46px);
+  opacity: 0.5;
+  animation: adv-drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes adv-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(18px, -26px, 0) scale(1.12); }
+}
+
+/* ───────────── Guirlande lumineuse ───────────── */
+.adv-bulb {
+  animation: adv-twinkle 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes adv-twinkle {
+  0%, 100% { opacity: 0.55; }
+  45%      { opacity: 1; }
+}
+
+/* Les halos ont leur propre animation : ils ne doivent jamais devenir opaques. */
+.adv-halo {
+  animation: adv-halo 3.4s ease-in-out infinite;
+}
+
+@keyframes adv-halo {
+  0%, 100% { opacity: 0.06; }
+  45%      { opacity: 0.22; }
+}
+
+/* ───────────── Les portes ───────────── */
+.adv-door {
+  --door-a: #1d7a55;
+  --door-b: #0b3d2b;
+  --door-ink: #fff4d6;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  perspective: 900px;
+  container-type: inline-size;
+}
+
+.adv-door[data-tone='pine']     { --door-a: #1f8a60; --door-b: #0a3a29; }
+.adv-door[data-tone='crimson']  { --door-a: #cf3a42; --door-b: #6f1020; }
+.adv-door[data-tone='midnight'] { --door-a: #4767b8; --door-b: #15235a; }
+.adv-door[data-tone='ochre']    { --door-a: #e0952a; --door-b: #86420a; }
+.adv-door[data-tone='plum']     { --door-a: #9a48a6; --door-b: #3b1248; }
+.adv-door[data-tone='gold']     { --door-a: #fde9a2; --door-b: #d98a12; --door-ink: #4a2504; }
+
+/* Les couleurs sont aussi utilisées par la plaque de la fenêtre de révélation */
+[data-tone='pine']     { --door-a: #1f8a60; --door-b: #0a3a29; }
+[data-tone='crimson']  { --door-a: #cf3a42; --door-b: #6f1020; }
+[data-tone='midnight'] { --door-a: #4767b8; --door-b: #15235a; }
+[data-tone='ochre']    { --door-a: #e0952a; --door-b: #86420a; }
+[data-tone='plum']     { --door-a: #9a48a6; --door-b: #3b1248; }
+[data-tone='gold']     { --door-a: #fde9a2; --door-b: #d98a12; }
+
+.adv-door__btn {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 14px;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.adv-door__btn:focus-visible {
+  outline: 3px solid #fde68a;
+  outline-offset: 3px;
+}
+
+/* L'intérieur, visible quand la porte s'ouvre */
+.adv-door__inside {
+  position: absolute;
+  inset: 0;
+  /* Légèrement en retrait : jamais dans le même plan 3D que le battant (évite le scintillement). */
+  transform: translateZ(-2px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 14px;
+  background:
+    radial-gradient(90% 80% at 40% 55%, #fff2b8 0%, #fbbf24 38%, #c2620a 100%);
+  box-shadow: inset 0 0 22px rgba(60, 20, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  color: #5a2a05;
+}
+
+.adv-door__medal {
+  display: grid;
+  place-items: center;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 0 1px rgba(120, 53, 15, 0.18), 0 6px 14px -6px rgba(120, 53, 15, 0.55);
+}
+
+/* Le battant */
+.adv-door__leaf {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.adv-door__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.adv-door__front {
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.28) 0%, transparent 55%),
+    linear-gradient(158deg, var(--door-a) 0%, var(--door-b) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 14px 26px -14px rgba(0, 0, 0, 0.8);
+  color: var(--door-ink);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.adv-door__back {
+  transform: rotateY(180deg);
+  background: linear-gradient(158deg, var(--door-b) 0%, #05090f 120%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Cadre intérieur de la porte */
+.adv-door__frame {
+  position: absolute;
+  inset: 6.5%;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+/* Le grand chiffre */
+.adv-door__num {
+  position: relative;
+  font-size: clamp(1.5rem, 44cqw, 4.5rem);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35), 0 0 18px rgba(255, 233, 160, 0.28);
+}
+
+.adv-door[data-tone='gold'] .adv-door__num {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.adv-door__orn {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.55rem, 10cqw, 0.9rem);
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+}
+
+/* Poignée dorée */
+.adv-door__knob {
+  position: absolute;
+  top: 50%;
+  right: 11%;
+  width: clamp(5px, 7cqw, 10px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #fff9d0, #e8ab1c 55%, #7a4a00);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+.adv-door__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9%;
+  display: flex;
+  justify-content: center;
+  font-size: clamp(0.55rem, 9.5cqw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.adv-door__lock {
+  position: absolute;
+  top: 10%;
+  right: 11%;
+  width: clamp(11px, 12cqw, 18px);
+  height: auto;
+  aspect-ratio: 1;
+  opacity: 0.85;
+}
+
+/* Pastille « à ouvrir » sur une porte déjà disponible */
+.adv-door__dot {
+  position: absolute;
+  top: 9%;
+  right: 11%;
+  width: clamp(7px, 9cqw, 12px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: #fbbf24;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25), 0 0 10px rgba(251, 191, 36, 0.9);
+}
+
+/* Porte verrouillée : même couleur, mais éteinte */
+.adv-door[data-state='locked'] .adv-door__front {
+  filter: saturate(0.55) brightness(0.78);
+}
+
+/* Porte du jour : halo vivant */
+.adv-door[data-today='true'][data-opened='false'] .adv-door__btn::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 17px;
+  pointer-events: none;
+  box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.95), 0 0 26px 4px rgba(251, 191, 36, 0.5);
+  animation: adv-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes adv-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.025); }
+}
+
+/* Mouvement : la porte du jour fait un petit signe de temps en temps */
+.adv-door[data-today='true'][data-opened='false'] .adv-door__leaf {
+  animation: adv-wave 5.5s ease-in-out infinite;
+}
+
+@keyframes adv-wave {
+  0%, 78%, 100% { transform: rotateY(0deg); }
+  84%           { transform: rotateY(-20deg); }
+  90%           { transform: rotateY(-7deg); }
+  95%           { transform: rotateY(-14deg); }
+}
+
+/* Ouverture / fermeture : activées seulement une fois la page prête,
+   pour que les portes déjà ouvertes n'« applaudissent » pas au chargement. */
+.adv-grid[data-armed='true'] .adv-door__leaf {
+  transition: transform 0.95s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.adv-door[data-opened='true'] { z-index: 2; }
+
+.adv-door[data-opened='true'] .adv-door__leaf {
+  transform: rotateY(-106deg);
+  animation: none;
+}
+
+/* Coup d'œil par la porte entrouverte au survol */
+@media (hover: hover) {
+  .adv-door[data-state='unlocked'][data-opened='false'] .adv-door__btn:hover .adv-door__leaf,
+  .adv-door[data-state='unlocked'][data-opened='false'] .adv-door__btn:focus-visible .adv-door__leaf {
+    animation: none;
+    transform: rotateY(-22deg);
+  }
+  /* Une porte verrouillée ne s'entrouvre jamais : elle s'éclaircit à peine. */
+  .adv-door[data-state='locked'] .adv-door__btn:hover .adv-door__front {
+    filter: saturate(0.65) brightness(0.9);
+  }
+}
+
+/* Porte verrouillée touchée : elle tremble */
+.adv-door[data-shake='true'] {
+  animation: adv-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes adv-shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+/* ───────────── Fenêtre de révélation ───────────── */
+html:has(dialog.adv-dialog[open]) {
+  overflow: hidden;
+}
+
+.adv-dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  max-width: none;
+  max-height: none;
+  width: min(94vw, 31rem);
+  margin: auto;
+  overflow: visible;
+}
+
+.adv-dialog::backdrop {
+  background:
+    radial-gradient(60% 50% at 50% 40%, rgba(251, 191, 36, 0.18), transparent 70%),
+    rgba(3, 7, 18, 0.78);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.adv-dialog[open] {
+  animation: adv-rise 0.55s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+.adv-dialog[open]::backdrop {
+  animation: adv-fade 0.4s ease both;
+}
+
+@keyframes adv-rise {
+  from { opacity: 0; transform: translateY(26px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes adv-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.adv-sheet {
+  max-height: min(90dvh, 54rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 2rem;
+  background: #fff;
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.adv-plate {
+  position: relative;
+  overflow: hidden;
+  height: 11.5rem;
+  background:
+    radial-gradient(70% 90% at 15% 0%, rgba(255, 255, 255, 0.3) 0%, transparent 60%),
+    linear-gradient(155deg, var(--door-a) 0%, var(--door-b) 100%);
+  color: #fff;
+}
+
+/* Petits flocons décoratifs sur la plaque */
+.adv-plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 28%, rgba(255, 255, 255, 0.75) 0 1.6px, transparent 2.4px),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.6) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 90% 62%, rgba(255, 255, 255, 0.7) 0 1.8px, transparent 2.6px),
+    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.5) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 56% 38%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 66% 80%, rgba(255, 255, 255, 0.45) 0 1.4px, transparent 2.2px);
+  pointer-events: none;
+}
+
+.adv-medallion {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.45),
+    0 0 36px 6px rgba(255, 255, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: adv-bob 4s ease-in-out infinite;
+}
+
+@keyframes adv-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Confettis : explosion discrète à la première ouverture */
+.adv-confetti {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.adv-confetti i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 11px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: adv-burst 1.5s cubic-bezier(0.15, 0.7, 0.3, 1) var(--d, 0s) both;
+}
+
+@keyframes adv-burst {
+  0%   { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(0.6); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1); }
+}
+
+/* Apparition de la réponse d'une devinette */
+.adv-reveal {
+  animation: adv-answer 0.6s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+@keyframes adv-answer {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ───────────── Accessibilité : mouvement réduit ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  .adv-bokeh span,
+  .adv-bulb,
+  .adv-halo,
+  .adv-medallion,
+  .adv-door[data-today='true'][data-opened='false'] .adv-door__btn::after,
+  .adv-door[data-today='true'][data-opened='false'] .adv-door__leaf,
+  .adv-door[data-shake='true'] {
+    animation: none;
+  }
+  .adv-grid[data-armed='true'] .adv-door__leaf {
+    transition-duration: 0.01s;
+  }
+  .adv-dialog[open],
+  .adv-dialog[open]::backdrop,
+  .adv-reveal {
+    animation-duration: 0.01s;
+  }
+  .adv-confetti { display: none; }
+  .adv-snow { display: none; }
+}
