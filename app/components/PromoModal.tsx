@@ -13,9 +13,9 @@ interface PromoModalProps {
 }
 
 export default function PromoModal({ promotion, isOpen, onClose }: PromoModalProps) {
-    if (!promotion) return null;
-
-    const barcodeCode = promotion.barcode || promotion.ean13Code || '15935764';
+    // Une offre sans code-barres (ex. affiche « mandarine offerte ») n'ouvre jamais cette fenêtre.
+    const barcodeCode = promotion?.barcode || promotion?.ean13Code;
+    if (!promotion || !barcodeCode) return null;
 
     return (
         <AnimatePresence>
@@ -66,7 +66,7 @@ export default function PromoModal({ promotion, isOpen, onClose }: PromoModalPro
 
                             {/* Condition en une seule ligne */}
                             <p className="text-xs text-slate-500 max-w-xs leading-relaxed mb-6">
-                                {promotion.subtitle || "Pour l'achat de 2 paquets Haribo 175g (dont 1 Halloween)"}
+                                {promotion.subtitle}
                             </p>
 
                             {/* Zone Code-Barres nette */}
@@ -81,7 +81,7 @@ export default function PromoModal({ promotion, isOpen, onClose }: PromoModalPro
 
                             {/* Mention discrète de bas de carte */}
                             <p className="text-[11px] text-slate-400">
-                                À présenter en caisse • Jusqu&apos;au 31 octobre
+                                À présenter en caisse{promotion.validUntil ? ` • Jusqu’au ${promotion.validUntil}` : ''}
                             </p>
                         </div>
                     </motion.div>

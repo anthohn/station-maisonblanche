@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBasket, Fuel, Droplets, ArrowRight, Wrench, MapPin } from 'lucide-react';
+import { activePromotions } from '@/lib/promotions';
 
 export default function HomeRestOfPage() {
     return (
@@ -61,6 +62,18 @@ export default function HomeRestOfPage() {
                     >
                         <Image src="/pompes0.jpg" alt="Pompes à carburant Shell V-Power et diesel, Station-Service Maison-Blanche Chancy" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+
+                        {/* Offre en cours liée au carburant (voir lib/promotions.ts) */}
+                        {activePromotions.length > 0 && (
+                            <Link
+                                href="/promotions"
+                                className="absolute top-8 right-8 z-20 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-black/30 transition-colors hover:bg-orange-600"
+                                aria-label="Offre en cours : une mandarine offerte pour chaque achat de carburant"
+                            >
+                                <span aria-hidden="true" className="text-sm leading-none">🍊</span>
+                                Mandarine offerte
+                            </Link>
+                        )}
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                             <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">

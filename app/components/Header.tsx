@@ -55,9 +55,10 @@ export default function Header() {
                                 <Link
                                     key={link.href + idx}
                                     href={link.href}
-                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
+                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${link.hideBelowXl ? 'md:max-xl:hidden' : ''} ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                 >
                                     {link.label}
+                                    {link.highlight && <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-orange-500 align-middle" />}
                                 </Link>
                             ))}
                         </div>
@@ -127,6 +128,7 @@ export default function Header() {
                                         onClick={() => setIsOpen(false)}
                                     >
                                         {link.label}
+                                        {link.highlight && <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-orange-500 align-middle" />}
                                     </Link>
                                 ))}
                                 {/* OpenStatus in mobile menu since it's hidden in header for mobile */}
