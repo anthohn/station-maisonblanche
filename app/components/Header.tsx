@@ -31,11 +31,11 @@ export default function Header() {
                 <SeasonalBanner />
 
                 <div className="bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200">
-                    <div className="px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
+                    <div className="px-4 sm:px-6 py-4 flex items-center justify-between gap-2 md:gap-0 max-w-7xl mx-auto">
                         {/* Section 1: Logo à gauche */}
-                        <div className="flex items-center">
-                            <Link href="/" className="flex items-center space-x-3 text-black text-xl md:text-2xl font-semibold hover:text-gray-600 transition-colors relative">
-                                <div className="relative">
+                        <div className="flex items-center max-md:min-w-0">
+                            <Link href="/" className="flex items-center max-md:min-w-0 space-x-2 sm:space-x-3 text-black text-xl md:text-2xl font-semibold hover:text-gray-600 transition-colors relative">
+                                <div className="relative max-md:shrink-0">
                                     <Image
                                         src="/logo-station.png"
                                         alt="Logo Station-Service Maison-Blanche"
@@ -45,7 +45,7 @@ export default function Header() {
                                     />
                                 </div>
                                 <span className="hidden sm:block">Station-Service Maison-Blanche</span>
-                                <span className="sm:hidden">Station-Service Maison-Blanche</span>
+                                <span className="sm:hidden min-w-0 truncate text-[length:clamp(12px,calc(6.4vw_-_8.5px),20px)]">Station-Service Maison-Blanche</span>
                             </Link>
                         </div>
 
