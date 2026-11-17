@@ -65,7 +65,7 @@ function getAnnouncement(): Announcement {
         label: 'En ce moment :',
         textLong: promo.bannerText,
         textShort: promo.bannerTextShort ?? promo.bannerText,
-        href: '/promotions',
+        href: '/offres',
         linkLabel: 'Voir l’offre',
         linkLabelShort: 'Voir',
     };

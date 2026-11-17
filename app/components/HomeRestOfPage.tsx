@@ -66,7 +66,7 @@ export default function HomeRestOfPage() {
                         {/* Offre en cours liée au carburant (voir lib/promotions.ts) */}
                         {activePromotions.length > 0 && (
                             <Link
-                                href="/promotions"
+                                href="/offres"
                                 className="absolute top-8 right-8 z-20 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-black/30 transition-colors hover:bg-orange-600"
                                 aria-label="Offre en cours : une mandarine offerte pour chaque achat de carburant"
                             >

@@ -4,7 +4,7 @@
  * ─────────────────────────────────────────────────────────────
  *  Tout le site lit la liste `activePromotions` ci-dessous :
  *
- *   - la page /promotions (carte de l'offre) ;
+ *   - la page /offres (carte de l'offre) ;
  *   - la bande d'annonce tout en haut (elle remplace celle de Zweifel) ;
  *   - le lien « Offres » du menu et du pied de page ;
  *   - le badge sur la carte « Carburant Shell » de l'accueil.
@@ -12,7 +12,7 @@
  *  ▶ Pour ARRÊTER une offre : retirer son bloc de la liste (ou le mettre en
  *    commentaire) puis mettre en ligne. Tout disparaît d'un coup : la bande
  *    de Zweifel revient, le lien « Offres » disparaît du menu et la page
- *    /promotions affiche « Aucune offre en cours ».
+ *    /offres affiche « Aucune offre en cours ».
  *
  *  ▶ Pour LANCER une offre : ajouter un bloc.
  *    - Offre à scanner en caisse : renseigner `barcode` (+ prix éventuels).
@@ -45,7 +45,7 @@ export interface Promotion {
     /** Texte de la bande d'annonce tout en haut du site (version complète, puis version courte pour mobile). */
     bannerText?: string;
     bannerTextShort?: string;
-    /** Description pour Google et les aperçus de partage de la page /promotions. */
+    /** Description pour Google et les aperçus de partage de la page /offres. */
     metaDescription?: string;
     validityNotice: string;
     /** Date de fin affichée sur le coupon, ex. « 31 octobre ». Laisser vide pour une offre sans date de fin. */

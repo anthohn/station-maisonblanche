@@ -6,10 +6,10 @@ import PromotionsContent from './PromotionsContent';
 // Sans offre : une description générale, sans jamais mentionner une opération terminée.
 const offer = activePromotions[0];
 
-const title = offer ? 'Offre du moment' : 'Offres & promotions';
+const title = offer ? 'Offre du moment' : 'Offres';
 const description =
     offer?.metaDescription ??
-    'Retrouvez les offres et promotions de la Station-Service Maison-Blanche à Chancy, Genève : shop, carburant et lavage.';
+    'Retrouvez les offres de la Station-Service Maison-Blanche à Chancy, Genève : shop, carburant et lavage.';
 
 export const metadata: Metadata = {
     title,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: `${title} | Station-Service Maison-Blanche`,
         description,
-        url: 'https://station-maisonblanche.ch/promotions',
+        url: 'https://station-maisonblanche.ch/offres',
         type: 'website',
         locale: 'fr_CH',
         siteName: 'Station-Service Maison-Blanche',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         }),
     },
     alternates: {
-        canonical: 'https://station-maisonblanche.ch/promotions',
+        canonical: 'https://station-maisonblanche.ch/offres',
     },
 };
 

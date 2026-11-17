@@ -14,7 +14,7 @@ export interface NavLink {
 
 // Le lien « Offres » apparaît tout seul tant qu'une offre est en cours (lib/promotions.ts),
 // et disparaît dès qu'on la retire.
-const offersLink: NavLink[] = activePromotions.length > 0 ? [{ href: '/promotions', label: 'Offres', highlight: true, hideBelowXl: true }] : [];
+const offersLink: NavLink[] = activePromotions.length > 0 ? [{ href: '/offres', label: 'Offres', highlight: true, hideBelowXl: true }] : [];
 
 export const links: NavLink[] = [
     { href: '/', label: 'Accueil' },

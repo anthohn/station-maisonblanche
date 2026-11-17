@@ -93,7 +93,7 @@ function PromotionsInner() {
                                 Aucune offre en cours
                             </h3>
                             <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                                Nos offres et coupons promotionnels sont mis à jour régulièrement. Retrouvez tous nos produits et arrivages du moment directement au shop de la station !
+                                Nos offres et coupons sont mis à jour régulièrement. Retrouvez tous nos produits et arrivages du moment directement au shop de la station !
                             </p>
                             <Link
                                 href="/shop"
