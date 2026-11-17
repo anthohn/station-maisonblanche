@@ -86,15 +86,15 @@ export default function HeroSection() {
                         </motion.div>
                     </div>
 
-                    {/* Right — shop image with border, radius, blur */}
+                    {/* Right — shop image (sous le texte sur mobile et tablette, à droite sur grand écran) */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.65, delay: 0.2 }}
-                        className="relative hidden lg:block"
+                        className="relative"
                     >
                         {/* Image with slight blur */}
-                        <div className="relative rounded-2xl overflow-hidden h-[520px] shadow-2xl">
+                        <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[3/2] max-h-[440px] lg:max-h-none lg:aspect-auto lg:h-[520px] shadow-2xl">
                             <Image
                                 src="/shop.JPG"
                                 alt="Shop et épicerie de proximité à la Station-Service Maison-Blanche, Chancy, Genève"
