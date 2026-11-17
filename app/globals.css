@@ -158,3 +158,17 @@ body {
   border-radius: var(--radius-full);
   border: 1px solid rgba(249,115,22,.20);
 }
+
+/* ─────────────────────────────────────────────
+   Accueil mobile : léger zoom d'arrivée sur la photo du shop
+───────────────────────────────────────────── */
+@keyframes hero-zoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+/* Mobile et tablette uniquement ; coupé sur grand écran et si l'utilisateur a demandé de réduire les animations. */
+.hero-zoom { animation: hero-zoom 1.8s ease-out both; }
+@media (min-width: 1024px), (prefers-reduced-motion: reduce) {
+  .hero-zoom { animation: none; }
+}
