@@ -69,7 +69,7 @@ export const activePromotions: Promotion[] = [
         imageHeight: 1440,
         poster: true,
         bannerText: 'Une mandarine offerte pour chaque achat de carburant !',
-        bannerTextShort: 'À chaque plein, une mandarine offerte !',
+        bannerTextShort: 'Mandarine offerte à chaque plein !',
         metaDescription:
             'En ce moment à la Station-Service Maison-Blanche, à Chancy : faites le plein de vitamines ! Pour chaque achat de carburant, une mandarine vous est offerte, à retirer à la caisse du shop.',
         validityNotice: 'Offre ponctuelle, valable en ce moment.',
