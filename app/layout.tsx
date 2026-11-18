@@ -5,6 +5,7 @@ import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import AutumnLeaves from "@/app/components/AutumnLeaves";
 import MobileContactBar from "@/app/components/MobileContactBar";
+import OfferCard from "@/app/components/OfferCard";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -109,6 +110,9 @@ export default function RootLayout({
         <AutumnLeaves />
         <main className="flex-1">{children}</main>
         <Footer />
+
+        {/* Carte « offre en cours » : glisse dans le coin une fois par jour (voir lib/promotions.ts) */}
+        <OfferCard />
 
         {/* Le Toast en bas à droite */}
         {/* <SummerHoursToast /> */}
