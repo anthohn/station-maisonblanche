@@ -2,23 +2,21 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Fuel, MapPin, ShoppingBasket } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 const stats = [
-    // `short` : libellé raccourci sur petit téléphone (sous 430 px), où « Carburant disponible » passerait sur 2 lignes.
-    { value: '24h/24', label: 'Carburant disponible', short: 'Carburant', icon: Fuel },
-    { value: '7/7', label: 'Shop ouvert', short: undefined, icon: ShoppingBasket },
-    // { value: '06–20h', label: 'Horaires shop', icon: Clock },
+    { value: '24h/24', label: 'Carburant disponible' },
+    { value: '7/7', label: 'Shop ouvert' },
+    // { value: '06–20h', label: 'Horaires shop' },
 ];
 
 /*
  * Accueil.
  *
- * Grand écran (≥ 1024 px) : texte à gauche, photo à droite, chiffres clés sous les boutons.
+ * Grand écran (≥ 1024 px) : texte à gauche, photo à droite.
  * Mobile et tablette (< 1024 px) : la photo passe en premier (pleine largeur, collée sous l'en-tête),
- * les chiffres clés deviennent deux cartes flottantes qui chevauchent le bas de la photo, puis viennent
- * le titre, le texte et deux boutons pleine largeur. L'ordre dans le code reste « texte puis photo »
- * (lecture, SEO) : seul l'ordre visuel change (`order-first`).
+ * puis le titre, le texte, les boutons et les chiffres clés, comme sur grand écran. L'ordre dans le
+ * code reste « texte puis photo » (lecture, SEO) : seul l'ordre visuel change (`order-first`).
  */
 export default function HeroSection() {
     return (
@@ -30,7 +28,7 @@ export default function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-10 items-center">
 
                     {/* Left — text content (sur mobile : sous la photo et ses cartes flottantes) */}
-                    <div className="pt-12 lg:pt-0">
+                    <div className="pt-7 lg:pt-0">
                         {/* Headline */}
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -63,7 +61,7 @@ export default function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.55, delay: 0.25 }}
-                            className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 mb-2 lg:mb-14"
+                            className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 mb-10 lg:mb-14"
                         >
                             <a
                                 href="https://maps.google.com/?q=Station+Maison-Blanche+Chancy+Geneve"
@@ -80,12 +78,12 @@ export default function HeroSection() {
                             </Link>
                         </motion.div>
 
-                        {/* Stats strip (grand écran uniquement : sur mobile, ce sont les cartes sur la photo) */}
+                        {/* Stats strip */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="hidden lg:grid border-t border-slate-200 pt-8 grid-cols-2 gap-6"
+                            className="border-t border-slate-200 pt-8 grid grid-cols-2 gap-6"
                         >
                             {stats.map((s) => (
                                 <div key={s.label}>
@@ -118,38 +116,6 @@ export default function HeroSection() {
                                 Chancy, Genève
                             </div>
                         </div>
-
-                        {/* Chiffres clés (mobile/tablette) : une seule carte, au style des cartes du site
-                            (blanche, bordure fine, pastilles d'icône orange clair), à cheval sur le bas de la photo */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.55 }}
-                            className="absolute inset-x-4 -bottom-7 z-10 mx-auto max-w-md lg:hidden"
-                        >
-                            <div className="grid grid-cols-2 divide-x divide-slate-100 rounded-3xl border border-slate-100 bg-white shadow-md">
-                                {stats.map((s) => (
-                                    <div key={s.label} className="flex items-center gap-2.5 px-3 py-3.5 sm:gap-3 sm:px-4">
-                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 sm:h-10 sm:w-10">
-                                            <s.icon size={20} className="text-orange-500" aria-hidden="true" />
-                                        </span>
-                                        <div className="min-w-0">
-                                            <p className="text-lg font-medium leading-none text-slate-900">{s.value}</p>
-                                            <p className="mt-1 text-xs leading-tight text-slate-500">
-                                                {s.short ? (
-                                                    <>
-                                                        <span className="min-[430px]:hidden">{s.short}</span>
-                                                        <span className="max-[429px]:hidden">{s.label}</span>
-                                                    </>
-                                                ) : (
-                                                    s.label
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
                     </motion.div>
                 </div>
             </div>
