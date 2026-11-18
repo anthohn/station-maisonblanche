@@ -9,7 +9,8 @@ import Image from 'next/image';
  * - La boîte (taille, coins, ombre) est définie par le parent : ici, on remplit simplement l'espace.
  * - Seule la 1re photo se charge au départ (c'est elle qui compte pour la vitesse d'affichage) ;
  *   les deux autres arrivent un instant après.
- * - Pause automatique : survol (souris), focus clavier, doigt posé, onglet masqué.
+ * - Pause automatique : focus clavier, doigt posé, onglet masqué. Pas de pause au simple survol de la
+ *   souris ni après un clic : le diaporama continue tout seul, que le curseur soit sur la photo ou non.
  * - Si l'utilisateur a demandé de réduire les animations : pas de défilement automatique ni de zoom
  *   (la 1re photo reste fixe ; les points permettent de changer).
  * - Balayage au doigt (gauche/droite) sur mobile.
@@ -64,7 +65,6 @@ export default function HeroSlideshow() {
     const [index, setIndex] = useState(0);
     const [ready, setReady] = useState(false); // les photos 2 et 3 ne se chargent qu'après la première
     const [armed, setArmed] = useState(false); // déclenche le zoom lent de la photo affichée
-    const [hovered, setHovered] = useState(false);
     const [touching, setTouching] = useState(false);
     const [focused, setFocused] = useState(false);
     const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, getFalse);
@@ -72,7 +72,7 @@ export default function HeroSlideshow() {
     const swipe = useRef<{ x: number; y: number } | null>(null);
 
     const count = SLIDES.length;
-    const paused = hovered || touching || focused || tabHidden || reducedMotion;
+    const paused = touching || focused || tabHidden || reducedMotion;
 
     // Les photos 2 et 3 arrivent un peu après la première, pour ne pas ralentir l'affichage de la page.
     useEffect(() => {
@@ -101,9 +101,9 @@ export default function HeroSlideshow() {
             role="region"
             aria-roledescription="carrousel"
             aria-label="Photos de la station"
-            onPointerEnter={(e) => e.pointerType === 'mouse' && setHovered(true)}
-            onPointerLeave={(e) => e.pointerType === 'mouse' && setHovered(false)}
-            onFocus={() => setFocused(true)}
+            // Pause seulement pour le focus CLAVIER (:focus-visible). Un clic de souris donne aussi le focus
+            // à un bouton : ça ne doit surtout pas figer le diaporama.
+            onFocus={(e) => setFocused(e.target.matches(':focus-visible'))}
             onBlur={() => setFocused(false)}
             onPointerDown={(e) => {
                 swipe.current = { x: e.clientX, y: e.clientY };
