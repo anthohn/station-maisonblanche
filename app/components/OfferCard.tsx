@@ -9,71 +9,64 @@ import { ArrowRight, X } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
 
 /**
- * Petite carte qui glisse dans un coin de l'écran quelques secondes après l'arrivée
- * sur le site, pour annoncer l'offre en cours (voir lib/promotions.ts). Elle complète
- * la bande du haut : celle-ci reste en permanence, la carte se montre une fois.
+ * Petite carte qui glisse dans un coin de l'écran une fraction de seconde après l'arrivée sur
+ * une page, pour annoncer l'offre en cours (voir lib/promotions.ts). Elle complète la
+ * bande du haut.
  *
- * - Une seule fois par jour et par visiteur (on retient la date dans le navigateur).
+ * - Elle reste affichée, de page en page, tant que le visiteur n'a pas cliqué sur la croix.
+ *   Une fois fermée, elle ne revient plus pour cette offre (une nouvelle offre la ramène).
  * - Jamais sur la page Offres (l'offre y est déjà), ni sur Contact (barre mobile en bas).
- * - Se ferme avec la croix ; disparaît toute seule quand on retire l'offre de lib/promotions.ts.
+ * - Disparaît toute seule quand on retire l'offre de lib/promotions.ts.
+ * - Tant qu'elle est affichée, le pied de page gagne de la place en bas (voir globals.css)
+ *   pour qu'elle ne cache pas « Mentions légales ».
  */
 
-const SHOW_DELAY_MS = 2000;
+const SHOW_DELAY_MS = 300;
 const HIDDEN_ON = ['/offres', '/contact'];
 
 const promo = activePromotions.find((p) => p.bannerText);
-const storageKey = promo ? `offer_card_${promo.id}_seen` : '';
-
-/** Date du jour dans le navigateur du visiteur : « 2026-12-03 ». */
-function today(): string {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
-
-function remember() {
-    try {
-        localStorage.setItem(storageKey, today());
-    } catch {
-        // stockage indisponible (navigation privée) : tant pis, la carte se montrera à la prochaine visite
-    }
-}
+const storageKey = promo ? `offer_card_${promo.id}_closed` : '';
 
 export default function OfferCard() {
     const pathname = usePathname();
     const reduceMotion = useReducedMotion();
     const [visible, setVisible] = useState(false);
+    const shown = visible && !HIDDEN_ON.includes(pathname);
 
     useEffect(() => {
         if (!promo) return;
 
-        // Déjà vue aujourd'hui ? Alors rien.
+        // Déjà fermée par ce visiteur ? Alors elle ne revient pas.
         try {
-            if (localStorage.getItem(storageKey) === today()) return;
+            if (localStorage.getItem(storageKey)) return;
         } catch {
-            // on continue : sans stockage, la carte se montre à chaque visite
+            // stockage indisponible (navigation privée) : on la montre
         }
 
-        // Arrivé directement sur la page de l'offre : le visiteur la voit déjà, on n'insiste pas.
-        if (HIDDEN_ON.includes(window.location.pathname)) {
-            remember();
-            return;
-        }
-
-        const timer = setTimeout(() => {
-            setVisible(true);
-            remember();
-        }, SHOW_DELAY_MS);
+        const timer = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
         return () => clearTimeout(timer);
     }, []);
 
+    // Prévient la page qu'une carte est affichée, pour laisser de la place sous le pied de page.
+    useEffect(() => {
+        document.documentElement.classList.toggle('has-offer-card', shown);
+        return () => document.documentElement.classList.remove('has-offer-card');
+    }, [shown]);
+
     if (!promo) return null;
 
-    const close = () => setVisible(false);
-    const hidden = HIDDEN_ON.includes(pathname);
+    const dismiss = () => {
+        setVisible(false);
+        try {
+            localStorage.setItem(storageKey, 'true');
+        } catch {
+            // ignore
+        }
+    };
 
     return (
         <AnimatePresence>
-            {visible && !hidden && (
+            {shown && (
                 <motion.aside
                     aria-label="Offre en cours"
                     initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 28 }}
@@ -85,7 +78,6 @@ export default function OfferCard() {
                     <div className="relative flex items-center gap-3.5 rounded-2xl border border-slate-100 bg-white p-3 pr-10 shadow-xl shadow-slate-900/15 lg:gap-5 lg:rounded-3xl lg:p-4 lg:pr-12">
                         <Link
                             href="/offres"
-                            onClick={close}
                             tabIndex={-1}
                             aria-hidden="true"
                             className="relative block h-[4.7rem] w-[3.25rem] shrink-0 overflow-hidden rounded-lg ring-1 ring-slate-200 lg:h-[6.25rem] lg:w-[4.34rem] lg:rounded-xl"
@@ -98,7 +90,6 @@ export default function OfferCard() {
                             <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-800 lg:mt-1 lg:text-base">{promo.bannerText}</p>
                             <Link
                                 href="/offres"
-                                onClick={close}
                                 className="group mt-1.5 inline-flex items-center gap-1 text-[13px] font-semibold text-orange-600 transition-colors hover:text-orange-700 lg:mt-2 lg:text-sm"
                             >
                                 Voir l’offre
@@ -108,7 +99,7 @@ export default function OfferCard() {
 
                         <button
                             type="button"
-                            onClick={close}
+                            onClick={dismiss}
                             className="absolute right-2 top-2 cursor-pointer rounded-full p-1.5 text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-700"
                             aria-label="Fermer l’annonce"
                         >

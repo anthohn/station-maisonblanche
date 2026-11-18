@@ -71,6 +71,12 @@
 
 html { scroll-behavior: smooth; }
 
+/* Carte « offre en cours » affichée (app/components/OfferCard.tsx) : on laisse de la place
+   sous le pied de page pour qu'elle ne cache ni « Mentions légales » ni le copyright. */
+html.has-offer-card body > footer { padding-bottom: 8rem; }
+@media (min-width: 640px) { html.has-offer-card body > footer { padding-bottom: 9rem; } }
+@media (min-width: 1024px) { html.has-offer-card body > footer { padding-bottom: 10.5rem; } }
+
 body {
   font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--color-bg);
