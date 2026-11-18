@@ -8,7 +8,7 @@ import { ArrowRight, X } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
 
 /**
- * Petite carte qui glisse dans un coin de l'écran deux secondes après l'arrivée sur une
+ * Petite carte qui glisse dans un coin de l'écran juste après les animations d'entrée de la
  * page, pour annoncer l'offre en cours (voir lib/promotions.ts). Elle complète la bande
  * du haut. L'animation (depuis la droite sur ordinateur, depuis le bas sur mobile, avec
  * un léger rebond) est en CSS : voir `.offer-card` dans globals.css.
@@ -21,7 +21,9 @@ import { activePromotions } from '@/lib/promotions';
  *   pour qu'elle ne cache pas « Mentions légales ».
  */
 
-const SHOW_DELAY_MS = 2000;
+// Les animations d'entrée de la page (titre, texte, boutons, photo) se terminent environ
+// 1 s après l'affichage : la carte arrive juste derrière, sans que tout bouge en même temps.
+const SHOW_DELAY_MS = 1200;
 const HIDDEN_ON = ['/offres', '/contact'];
 
 const promo = activePromotions.find((p) => p.bannerText);
