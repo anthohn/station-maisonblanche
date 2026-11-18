@@ -77,6 +77,42 @@ html.has-offer-card body > footer { padding-bottom: 8rem; }
 @media (min-width: 640px) { html.has-offer-card body > footer { padding-bottom: 9rem; } }
 @media (min-width: 1024px) { html.has-offer-card body > footer { padding-bottom: 10.5rem; } }
 
+/* Carte « offre en cours » : entrée en glissant (depuis le bas sur mobile, depuis la droite
+   dès 640 px) avec un petit rebond, sortie en fondu quand on clique sur la croix.
+   En CSS (et non en JavaScript) : l'état final est tenu par `animation-fill-mode: both`,
+   sans la moindre image où la carte disparaîtrait. */
+.offer-card {
+  animation: offer-card-in-up 0.75s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+.offer-card[data-leaving='true'] {
+  animation: offer-card-out 0.28s ease-in both;
+}
+@media (min-width: 640px) {
+  .offer-card { animation-name: offer-card-in-side; }
+}
+@keyframes offer-card-in-up {
+  0%   { opacity: 0; transform: translateY(110px); }
+  55%  { opacity: 1; transform: translateY(-6px); }
+  78%  { transform: translateY(2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes offer-card-in-side {
+  0%   { opacity: 0; transform: translateX(140px); }
+  55%  { opacity: 1; transform: translateX(-6px); }
+  78%  { transform: translateX(2px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes offer-card-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(24px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-card, .offer-card[data-leaving='true'] { animation-name: offer-card-fade; animation-duration: 0.3s; animation-timing-function: ease; }
+  .offer-card[data-leaving='true'] { animation-name: offer-card-fade-out; }
+  @keyframes offer-card-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes offer-card-fade-out { from { opacity: 1; } to { opacity: 0; } }
+}
+
 body {
   font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--color-bg);
