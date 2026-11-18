@@ -160,23 +160,15 @@ body {
 }
 
 /* ─────────────────────────────────────────────
-   Accueil : diaporama de photos (HeroSlideshow)
+   Accueil mobile : léger zoom d'arrivée sur la photo du shop
 ───────────────────────────────────────────── */
-/* Photo au repos : échelle normale. Le retour à 1 se fait en différé (1,1 s), une fois la photo devenue invisible. */
-.hero-slide {
-  transform: scale(1);
-  transition: transform 0s linear 1.1s;
+@keyframes hero-zoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
 }
-/* Photo affichée : zoom très lent et très léger. */
-.hero-slide.is-zooming {
-  transform: scale(1.07);
-  transition: transform 8s linear;
-}
-/* Si l'utilisateur a demandé de réduire les animations : aucun zoom. */
-@media (prefers-reduced-motion: reduce) {
-  .hero-slide,
-  .hero-slide.is-zooming {
-    transform: none;
-    transition: none;
-  }
+
+/* Mobile et tablette uniquement ; coupé sur grand écran et si l'utilisateur a demandé de réduire les animations. */
+.hero-zoom { animation: hero-zoom 1.8s ease-out both; }
+@media (min-width: 1024px), (prefers-reduced-motion: reduce) {
+  .hero-zoom { animation: none; }
 }
