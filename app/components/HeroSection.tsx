@@ -1,8 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
+import HeroSlideshow from '@/app/components/HeroSlideshow';
 
 const stats = [
     { value: '24h/24', label: 'Carburant disponible' },
@@ -94,7 +94,7 @@ export default function HeroSection() {
                         </motion.div>
                     </div>
 
-                    {/* Right — shop image. Mobile/tablette : en premier, pleine largeur, collée sous l'en-tête */}
+                    {/* Right — photos de la station. Mobile/tablette : en premier, pleine largeur, collée sous l'en-tête */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -102,14 +102,8 @@ export default function HeroSection() {
                         className="relative order-first lg:order-none -mx-6 lg:mx-0"
                     >
                         <div className="relative w-full overflow-hidden rounded-b-[2rem] lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
-                            <Image
-                                src="/shop.JPG"
-                                alt="Shop et épicerie de proximité à la Station-Service Maison-Blanche, Chancy, Genève"
-                                fill
-                                className="object-cover hero-zoom"
-                                priority
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                            />
+                            {/* Diaporama : shop, pompes, devanture (photos et réglages dans HeroSlideshow.tsx) */}
+                            <HeroSlideshow />
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
                             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
                                 <MapPin size={13} aria-hidden="true" />
