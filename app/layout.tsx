@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         alt: "Station-Service Maison-Blanche — pompes Shell à Chancy, Genève",
       },
       {
-        url: "/shop.JPG",
+        url: "/shop-accueil.jpg",
         width: 1200,
         height: 630,
         alt: "Shop et épicerie de la Station-Service Maison-Blanche",
