@@ -86,7 +86,7 @@ export default function HeroSection() {
                             className="border-t border-slate-200 pt-8 grid grid-cols-2 gap-6"
                         >
                             {stats.map((s) => (
-                                <div key={s.label}>
+                                <div key={s.label} className="text-center lg:text-left">
                                     <p className="text-3xl md:text-4xl font-medium text-[--color-brand-dark]">{s.value}</p>
                                     <p className="text-sm text-slate-500 mt-1">{s.label}</p>
                                 </div>
