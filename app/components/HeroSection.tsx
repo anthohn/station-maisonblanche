@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { ArrowRight, Fuel, MapPin, ShoppingBasket } from 'lucide-react';
 
 const stats = [
-    { value: '24h/24', label: 'Carburant disponible', icon: Fuel },
-    { value: '7/7', label: 'Shop ouvert', icon: ShoppingBasket },
+    // `short` : libellé raccourci sur petit téléphone (sous 430 px), où « Carburant disponible » passerait sur 2 lignes.
+    { value: '24h/24', label: 'Carburant disponible', short: 'Carburant', icon: Fuel },
+    { value: '7/7', label: 'Shop ouvert', short: undefined, icon: ShoppingBasket },
     // { value: '06–20h', label: 'Horaires shop', icon: Clock },
 ];
 
@@ -111,33 +112,44 @@ export default function HeroSection() {
                                 priority
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
-                            {/* Pastille de lieu (mobile/tablette) */}
-                            <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/35 px-3 py-1.5 text-xs font-medium text-white ring-1 ring-white/20 backdrop-blur-md lg:hidden">
+                            {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
+                            <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
                                 <MapPin size={13} aria-hidden="true" />
                                 Chancy, Genève
                             </div>
-                            {/* Léger voile en bas pour que les cartes se détachent (mobile/tablette) */}
-                            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:hidden" />
                         </div>
 
-                        {/* Cartes flottantes : les deux chiffres clés, à cheval sur le bas de la photo (mobile/tablette) */}
-                        <div className="absolute inset-x-4 -bottom-7 z-10 mx-auto flex max-w-md gap-3 lg:hidden">
-                            {stats.map((s, i) => (
-                                <motion.div
-                                    key={s.label}
-                                    initial={{ opacity: 0, y: 16 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.55 + i * 0.1 }}
-                                    className="flex-1 rounded-2xl bg-white/90 px-4 py-3 shadow-lg shadow-slate-900/10 ring-1 ring-black/5 backdrop-blur-md"
-                                >
-                                    <p className="flex items-center gap-1.5 text-xl font-semibold leading-none text-slate-900">
-                                        <s.icon size={16} className="shrink-0 text-orange-500" aria-hidden="true" />
-                                        {s.value}
-                                    </p>
-                                    <p className="mt-1.5 text-xs text-slate-500">{s.label}</p>
-                                </motion.div>
-                            ))}
-                        </div>
+                        {/* Chiffres clés (mobile/tablette) : une seule carte, au style des cartes du site
+                            (blanche, bordure fine, pastilles d'icône orange clair), à cheval sur le bas de la photo */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.55 }}
+                            className="absolute inset-x-4 -bottom-7 z-10 mx-auto max-w-md lg:hidden"
+                        >
+                            <div className="grid grid-cols-2 divide-x divide-slate-100 rounded-3xl border border-slate-100 bg-white shadow-md">
+                                {stats.map((s) => (
+                                    <div key={s.label} className="flex items-center gap-2.5 px-3 py-3.5 sm:gap-3 sm:px-4">
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 sm:h-10 sm:w-10">
+                                            <s.icon size={20} className="text-orange-500" aria-hidden="true" />
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="text-lg font-medium leading-none text-slate-900">{s.value}</p>
+                                            <p className="mt-1 text-xs leading-tight text-slate-500">
+                                                {s.short ? (
+                                                    <>
+                                                        <span className="min-[430px]:hidden">{s.short}</span>
+                                                        <span className="max-[429px]:hidden">{s.label}</span>
+                                                    </>
+                                                ) : (
+                                                    s.label
+                                                )}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
