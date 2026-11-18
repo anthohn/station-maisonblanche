@@ -129,7 +129,7 @@ export default function FooterStation() {
                     <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
                         <p>© {currentYear} Station-Service Maison-Blanche SA. Tous droits réservés à Chancy (Genève).</p>
                         <span className="hidden sm:inline text-slate-300">|</span>
-                        <p>Réalisé par <a href="https://anthony-hohn.ch" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors font-medium">Anthony Höhn</a></p>
+                        <p>Réalisé par <a href="https://anthony-it.ch" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors font-medium">Anthony</a></p>
                     </div>
                     <div className="flex gap-6">
                         <Link href="/mentions-legales" className={`hover:text-slate-600 transition-colors ${pathname === '/mentions-legales' ? 'text-orange-500' : ''}`}>Mentions Légales</Link>
