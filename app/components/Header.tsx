@@ -8,6 +8,10 @@ import Image from "next/image";
 import { Gift } from "lucide-react";
 import SeasonalBanner from "./SeasonalBanner";
 
+// Avec le calendrier de l'Avent ET une offre en cours, le menu compte 7 liens : on resserre
+// l'espace entre eux pour qu'ils tiennent sur une ligne. Avec 6 liens ou moins, rien ne change.
+const crowdedNav = links.length > 6;
+
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
@@ -32,11 +36,11 @@ export default function Header() {
                 <SeasonalBanner />
 
                 <div className="bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200">
-                    <div className="px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
+                    <div className="px-4 sm:px-6 py-4 flex items-center justify-between gap-2 min-[1100px]:gap-0 max-w-7xl mx-auto">
                         {/* Section 1: Logo à gauche */}
-                        <div className="flex items-center">
-                            <Link href="/" className="flex items-center space-x-3 text-black text-xl md:text-2xl font-semibold hover:text-gray-600 transition-colors relative">
-                                <div className="relative">
+                        <div className="flex items-center max-[1099px]:min-w-0">
+                            <Link href="/" className="flex items-center max-[1099px]:min-w-0 space-x-2 sm:space-x-3 text-black text-xl md:text-2xl font-semibold hover:text-gray-600 transition-colors relative">
+                                <div className="relative max-[1099px]:shrink-0">
                                     <Image
                                         src="/logo-station.png"
                                         alt="Logo Station-Service Maison-Blanche"
@@ -46,20 +50,21 @@ export default function Header() {
                                     />
                                 </div>
                                 <span className="hidden sm:block">Station-Service Maison-Blanche</span>
-                                <span className="sm:hidden">Station-Service Maison-Blanche</span>
+                                <span className="sm:hidden min-w-0 truncate text-[length:clamp(12px,calc(6.4vw_-_8.5px),20px)]">Station-Service Maison-Blanche</span>
                             </Link>
                         </div>
 
                         {/* Section 2: Navigation au centre (desktop) */}
-                        <div className="hidden md:flex items-center space-x-3 lg:space-x-8">
+                        <div className={`hidden min-[1100px]:flex items-center ${crowdedNav ? 'space-x-2' : 'space-x-8'}`}>
                             {links.map((link, idx) => (
                                 <Link
                                     key={link.href + idx}
                                     href={link.href}
-                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${link.highlight ? 'inline-flex items-center gap-1.5' : ''} ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
+                                    className={`font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${link.gift ? 'inline-flex items-center gap-1.5' : ''} ${link.hideBelowXl ? 'max-xl:hidden' : ''} ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                 >
-                                    {link.highlight && <Gift size={16} aria-hidden="true" />}
+                                    {link.gift && <Gift size={16} aria-hidden="true" />}
                                     {link.label}
+                                    {link.highlight && <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-orange-500 align-middle" />}
                                 </Link>
                             ))}
                         </div>
@@ -80,7 +85,7 @@ export default function Header() {
                             </ModernButton> */}
 
                             {/* Hamburger Menu Button for mobile */}
-                            <div className="flex md:hidden">
+                            <div className="flex min-[1100px]:hidden">
                                 <button
                                     onClick={toggleMenu}
                                     className="relative w-8 h-8 flex items-center justify-center text-gray-700"
@@ -114,7 +119,7 @@ export default function Header() {
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            className="md:hidden bg-white border-b border-gray-200 shadow-lg"
+                            className="min-[1100px]:hidden bg-white border-b border-gray-200 shadow-lg"
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -128,7 +133,8 @@ export default function Header() {
                                         className={`block font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {link.highlight ? 'Calendrier de l’Avent' : link.label}
+                                        {link.mobileLabel ?? link.label}
+                                        {link.highlight && <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-orange-500 align-middle" />}
                                     </Link>
                                 ))}
                                 {/* OpenStatus in mobile menu since it's hidden in header for mobile */}

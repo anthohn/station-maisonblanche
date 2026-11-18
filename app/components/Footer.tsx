@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MapPin, Phone, Mail, ArrowRight, Facebook, Instagram } from 'lucide-react';
+import { activePromotions } from '@/lib/promotions';
 export default function FooterStation() {
     const currentYear = new Date().getFullYear();
     const pathname = usePathname();
@@ -114,6 +115,9 @@ export default function FooterStation() {
                                 <Link href="/shop" className={`text-sm font-medium transition-colors ${pathname === '/shop' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Shop</Link>
                                 <Link href="/lavage" className={`text-sm font-medium transition-colors ${pathname === '/lavage' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Lavage</Link>
                                 <Link href="/calendrier-de-l-avent" className={`text-sm font-medium transition-colors ${pathname === '/calendrier-de-l-avent' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Avent</Link>
+                                {activePromotions.length > 0 && (
+                                    <Link href="/offres" className={`text-sm font-medium transition-colors ${pathname === '/offres' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Offres</Link>
+                                )}
                                 <Link href="/contact" className={`text-sm font-medium transition-colors ${pathname === '/contact' ? 'text-orange-500' : 'text-slate-600 hover:text-orange-500'}`}>Contact</Link>
                             </div>
                         </div>

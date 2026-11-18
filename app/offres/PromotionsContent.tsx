@@ -5,9 +5,40 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Barcode, ArrowRight, MapPin } from 'lucide-react';
+import { Barcode, ArrowRight } from 'lucide-react';
 import { activePromotions, Promotion } from '@/lib/promotions';
 import PromoModal from '@/app/components/PromoModal';
+
+/** Offre présentée par son affiche, montrée en entier (pas de code-barres). */
+function PosterCard({ promo, index }: { promo: Promotion; index: number }) {
+    return (
+        <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="w-full max-w-md bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden"
+        >
+            <div className="relative">
+                <Image
+                    src={promo.imageSrc}
+                    alt={promo.imageAlt}
+                    width={promo.imageWidth ?? 1000}
+                    height={promo.imageHeight ?? 1440}
+                    sizes="(max-width: 448px) 100vw, 448px"
+                    className="w-full h-auto"
+                    priority={index === 0}
+                />
+                <span className="absolute top-4 left-4 bg-orange-500 text-white font-bold text-xs px-3.5 py-1.5 rounded-full shadow-md">
+                    {promo.badge}
+                </span>
+            </div>
+            <div className="p-6 md:p-8">
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">{promo.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{promo.description}</p>
+            </div>
+        </motion.article>
+    );
+}
 
 function PromotionsInner() {
     const searchParams = useSearchParams();
@@ -29,6 +60,10 @@ function PromotionsInner() {
         }
     }, [promoQuery]);
 
+    // Le texte d'introduction ne parle de « coupon » que s'il y en a un.
+    // Une offre sans code-barres (ex. mandarine offerte) n'a pas de coupon à présenter.
+    const hasCoupons = activePromotions.length === 0 || activePromotions.some((p) => p.barcode);
+
     return (
         <main className="min-h-screen bg-slate-50 pt-20 sm:pt-24 md:pt-24 pb-24">
             <div className="container mx-auto px-6 max-w-7xl">
@@ -44,7 +79,9 @@ function PromotionsInner() {
                         Nos offres <span className="text-orange-500">du moment.</span>
                     </h1>
                     <p className="text-xl text-slate-500 leading-relaxed">
-                        Profitez de nos offres exclusives en boutique. Présentez simplement votre coupon digital lors de votre passage en caisse à la station.
+                        {hasCoupons
+                            ? 'Profitez de nos offres exclusives en boutique. Présentez simplement votre coupon digital lors de votre passage en caisse à la station.'
+                            : 'Profitez de nos offres du moment, directement à la Station-Service Maison-Blanche.'}
                     </p>
                 </motion.div>
 
@@ -56,7 +93,7 @@ function PromotionsInner() {
                                 Aucune offre en cours
                             </h3>
                             <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                                Nos offres et coupons promotionnels sont mis à jour régulièrement. Retrouvez tous nos produits et arrivages du moment directement au shop de la station !
+                                Nos offres et coupons sont mis à jour régulièrement. Retrouvez tous nos produits et arrivages du moment directement au shop de la station !
                             </p>
                             <Link
                                 href="/shop"
@@ -68,7 +105,12 @@ function PromotionsInner() {
                         </div>
                     ) : (
                         activePromotions.map((promo, idx) => {
-                        const isFree = promo.promoPrice.toLowerCase().includes('offert');
+                        if (promo.poster) {
+                            return <PosterCard key={promo.id} promo={promo} index={idx} />;
+                        }
+
+                        const promoPrice = promo.promoPrice ?? '';
+                        const isFree = promoPrice.toLowerCase().includes('offert');
 
                         return (
                             <motion.div
@@ -104,7 +146,7 @@ function PromotionsInner() {
                                             </p>
                                             <div className="flex items-baseline gap-2">
                                                 <span className="text-3xl font-extrabold text-white tracking-wide uppercase">
-                                                    {promo.promoPrice}
+                                                    {promoPrice}
                                                 </span>
                                                 {!isFree && promo.originalPrice && (
                                                     <span className="text-sm text-white/60 line-through">
@@ -127,22 +169,29 @@ function PromotionsInner() {
                                         </p>
                                     </div>
 
-                                    {/* Bouton Action Code-barres */}
-                                    <button
-                                        onClick={() => setSelectedPromo(promo)}
-                                        className="w-full py-4 px-6 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-sm flex items-center justify-center gap-2.5 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
-                                    >
-                                        <Barcode size={20} />
-                                        <span>Afficher le code-barres en caisse</span>
-                                        <ArrowRight size={16} className="ml-auto opacity-70" />
-                                    </button>
+                                    {/* Bouton Action Code-barres (uniquement si l'offre a un code) */}
+                                    {promo.barcode && (
+                                        <button
+                                            onClick={() => setSelectedPromo(promo)}
+                                            className="w-full py-4 px-6 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white font-semibold text-sm flex items-center justify-center gap-2.5 shadow-md shadow-orange-500/20 transition-all cursor-pointer"
+                                        >
+                                            <Barcode size={20} />
+                                            <span>Afficher le code-barres en caisse</span>
+                                            <ArrowRight size={16} className="ml-auto opacity-70" />
+                                        </button>
+                                    )}
                                 </div>
                             </motion.div>
                         );
                     }))}
                 </div>
 
-                {/* --- COMMENT ÇA MARCHE ? --- */}
+                {/*
+                    --- COMMENT ÇA MARCHE ? (carte retirée à la demande) ---
+                    Étapes « sélectionnez / affichez le coupon / scannez en caisse » + adresse et lien d'itinéraire.
+                    Pour la réactiver (utile pour une offre avec code-barres) : décommenter ce bloc
+                    et ajouter `MapPin` à l'import de 'lucide-react' en haut du fichier.
+
                 <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -200,6 +249,7 @@ function PromotionsInner() {
                         </a>
                     </div>
                 </motion.section>
+                */}
 
             </div>
 

@@ -7,7 +7,7 @@ export default function JsonLd() {
         url: "https://station-maisonblanche.ch",
         telephone: "+41227561522",
         email: "contact@station-maisonblanche.ch",
-        image: "https://station-maisonblanche.ch/shop.JPG",
+        image: "https://station-maisonblanche.ch/shop-accueil.jpg",
         logo: "https://station-maisonblanche.ch/logo-station.png",
         description:
             "Station service Shell à Chancy, Genève. Carburants Shell V-Power et diesel 24h/24, épicerie de proximité ouverte 7j/7 de 06h00 à 20h30, lavage haute pression en libre-service et aspirateurs industriels. Même propriétaire que le Garage Maison Blanche attenant.",
