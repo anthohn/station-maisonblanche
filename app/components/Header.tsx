@@ -130,9 +130,10 @@ export default function Header() {
                                     <Link
                                         key={link.href + idx}
                                         href={link.href}
-                                        className={`block font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
+                                        className={`${link.gift ? 'flex items-center gap-2' : 'block'} font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50 ${pathname === link.href ? 'text-orange-500' : 'text-gray-700 hover:text-orange-500'}`}
                                         onClick={() => setIsOpen(false)}
                                     >
+                                        {link.gift && <Gift size={16} aria-hidden="true" />}
                                         {link.mobileLabel ?? link.label}
                                         {link.highlight && <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-orange-500 align-middle" />}
                                     </Link>

@@ -18,6 +18,7 @@ import {
     Compass,
     ClipboardCheck,
     PartyPopper,
+    Sandwich,
     type LucideProps,
 } from 'lucide-react';
 import type { DoorIcon as DoorIconName } from '@/lib/advent-shared';
@@ -42,6 +43,7 @@ const ICONS: Record<DoorIconName, React.ComponentType<LucideProps>> = {
     compass: Compass,
     checklist: ClipboardCheck,
     partyPopper: PartyPopper,
+    sandwich: Sandwich,
 };
 
 export default function DoorIcon({ name, ...props }: { name: DoorIconName } & LucideProps) {

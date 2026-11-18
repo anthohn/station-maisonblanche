@@ -33,7 +33,7 @@ Les types de portes : `coupon`, `tip`, `riddle`, `recipe`, `checklist`, `message
 
 Le contenu actuel est du **contenu d'exemple** : les offres, les prix et les codes-barres sont fictifs. Tant que `sampleContent` vaut `true`, chaque code-barres affiché est marqué « Code d'exemple · non valable en caisse ».
 
-1. Remplacer chaque bon par une vraie offre du shop.
+1. Remplacer chaque bon par une vraie offre du shop (la liste des produits à valider est en haut de `lib/advent-doors.ts`).
 2. Créer dans la caisse un code par jour (avec sa date de validité côté caisse) et le saisir dans `barcode`.
 3. Passer `sampleContent` à `false` dans `lib/advent-shared.ts`.
 4. Vérifier les textes (conseils, anecdote sur Chancy, horaires) et relire une dernière fois avec `?jour=1` … `?jour=24`.

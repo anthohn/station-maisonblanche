@@ -36,7 +36,7 @@ export const ADVENT = {
 export type DoorIcon =
     | 'coffee' | 'croissant' | 'cookie' | 'candy' | 'gift' | 'flower' | 'wine' | 'soup'
     | 'droplets' | 'gauge' | 'battery' | 'moon' | 'snowflake' | 'fuel'
-    | 'puzzle' | 'heart' | 'compass' | 'checklist' | 'partyPopper';
+    | 'puzzle' | 'heart' | 'compass' | 'checklist' | 'partyPopper' | 'sandwich';
 
 export type DoorTone = 'pine' | 'crimson' | 'midnight' | 'ochre' | 'plum' | 'gold';
 

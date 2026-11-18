@@ -18,6 +18,14 @@
  *  - `kind`  : le type de porte (voir `lib/advent-shared.ts` pour les champs) :
  *              coupon · tip · riddle · recipe · checklist · message · fact.
  *
+ *  À VALIDER AVEC LA CLIENTE avant la mise en ligne (les offres supposent que
+ *  le shop vend ces produits, aux prix indiqués ; tout est modifiable) :
+ *   - café + viennoiserie (jours 1, 11, 20, 23), chips Zweifel « Aromat » (4),
+ *   - chocolats de Saint-Nicolas (6) et boîtes de chocolats (24),
+ *   - plantes et bouquets (8), mini-marmite d'Escalade (12),
+ *   - sandwich + boisson (15), lave-glace d'hiver (18).
+ *  Les faits cités (Chancy, solstice, vignette, Escalade) ont été vérifiés pour 2026.
+ *
  *  Typographie : écrire normalement (« Quoi ? » ou « 10 CHF »), les
  *  espaces insécables sont ajoutés automatiquement.
  */
@@ -39,6 +47,10 @@ export const ADVENT_DOORS: Door[] = [
         barcode: '00000001',
         conditions:
             '1 café offert pour 1 viennoiserie achetée. Un bon par passage en caisse, dans la limite des stocks disponibles.',
+        image: {
+            src: '/shop-accueil.jpg',
+            alt: 'Le shop de la Station-Service Maison-Blanche à Chancy',
+        },
     },
 
     /* ─────────────── Mercredi 2 ─────────────── */
@@ -164,8 +176,8 @@ export const ADVENT_DOORS: Door[] = [
         conditions:
             '1 réduction par passage en caisse, sur une plante ou un bouquet au choix. Dans la limite des stocks disponibles.',
         image: {
-            src: '/devanture.jpeg',
-            alt: 'Fleurs de saison devant le shop de la Station Maison-Blanche',
+            src: '/IMG_6700.JPEG',
+            alt: 'Plantes et bouquets de saison devant le shop de la Station-Service Maison-Blanche',
         },
     },
 
@@ -216,7 +228,7 @@ export const ADVENT_DOORS: Door[] = [
         title: 'La formule du matin',
         value: '2.90 CHF',
         summary:
-            'Un café chaud et un croissant frais : la formule petit-déjeuner à 2.90 CHF au lieu de 3.90 CHF.',
+            'Un café chaud et un croissant frais : la formule petit-déjeuner à 2.90 CHF au lieu de 3.90 CHF. Un franc d’économie dès le réveil.',
         barcode: '00000011',
         conditions:
             '1 formule par passage en caisse, sur présentation du code-barres sur smartphone. Valable durant les heures d’ouverture du shop.',
@@ -235,7 +247,7 @@ export const ADVENT_DOORS: Door[] = [
         title: 'Escalade : la marmite en chocolat',
         value: '−20 %',
         summary:
-            'Pour la fête de l’Escalade, 20 % sur la mini-marmite en chocolat garnie de légumes en massepain. Et n’oubliez pas la phrase rituelle : « Ainsi périssent les ennemis de la République ! »',
+            'Pour la fête de l’Escalade, 20 % sur la mini-marmite en chocolat garnie de légumes en massepain. Pour la casser, la tradition veut qu’on lance : « Ainsi périssent les ennemis de la République ! »',
         barcode: '00000012',
         conditions:
             '1 réduction par passage en caisse, sur une mini-marmite au choix. Dans la limite des stocks disponibles.',
@@ -283,15 +295,15 @@ export const ADVENT_DOORS: Door[] = [
     {
         day: 15,
         kind: 'coupon',
-        icon: 'gift',
-        hint: 'Il se cache dans un joli papier doré.',
-        title: 'Un petit cadeau tout prêt',
-        value: '−15 %',
+        icon: 'sandwich',
+        hint: 'Il se mange en 10 minutes, entre deux rendez-vous.',
+        title: 'La pause de midi',
+        value: '−2 CHF',
         summary:
-            'Une attention de dernière minute : 15 % de réduction sur les boîtes de chocolats Lindt Lindor du shop.',
+            'Un sandwich et une boisson au shop : 2 CHF de réduction sur le duo. Idéal pour déjeuner sur le pouce, sur la route ou sur la terrasse.',
         barcode: '00000015',
         conditions:
-            '1 réduction par passage en caisse, sur une boîte de chocolats au choix. Dans la limite des stocks disponibles.',
+            '2 CHF de réduction pour 1 sandwich + 1 boisson achetés ensemble. Un bon par passage en caisse, dans la limite des stocks disponibles.',
     },
 
     /* ─────────────── Mercredi 16 ─────────────── */
@@ -300,12 +312,12 @@ export const ADVENT_DOORS: Door[] = [
         kind: 'fact',
         icon: 'compass',
         hint: 'Tout là-bas, tout à l’ouest.',
-        title: 'À Chancy, la Suisse s’arrête',
-        stat: 'Le plus à l’ouest',
+        title: 'Chancy, le « Far West » suisse',
+        stat: 'Tout à l’ouest',
         statLabel: 'de toute la Suisse',
         body: [
-            'Saviez-vous que le point le plus occidental du pays se trouve sur la commune de Chancy ? Quand vous faites le plein chez nous, vous êtes littéralement au bout de la Suisse.',
-            'La frontière française n’est qu’à quelques minutes d’ici : de quoi apprécier, au passage, la campagne genevoise.',
+            'Chancy est la commune la plus occidentale du pays : c’est ici que le Rhône quitte la Suisse, et la borne frontière n° 1 marque le point le plus à l’ouest. On l’a même surnommée le « Far West » suisse.',
+            'Quand vous faites le plein chez nous, vous êtes donc tout au bout du pays. Et la France est à deux pas.',
         ],
     },
 
@@ -332,15 +344,15 @@ export const ADVENT_DOORS: Door[] = [
     {
         day: 18,
         kind: 'coupon',
-        icon: 'coffee',
-        hint: 'Il fait chaud dans la tasse, et c’est offert.',
-        title: 'Un chocolat chaud pour la route',
-        value: 'Offert',
+        icon: 'droplets',
+        hint: 'Il refuse de geler, même quand il fait très froid.',
+        title: 'Le lave-glace d’hiver à prix doux',
+        value: '−20 %',
         summary:
-            'Un chocolat chaud offert dès 15 CHF d’achat au shop. Idéal pour finir la semaine en douceur.',
+            'Les grands froids arrivent : 20 % de réduction sur un bidon de lave-glace d’hiver au shop. Votre pare-brise vous dira merci.',
         barcode: '00000018',
         conditions:
-            '1 chocolat chaud par passage en caisse, dès 15 CHF d’achat (hors carburant). Dans la limite des stocks disponibles.',
+            '1 réduction par passage en caisse, sur un bidon de lave-glace d’hiver au choix. Dans la limite des stocks disponibles.',
     },
 
     /* ─────────────── Samedi 19 ─────────────── */
@@ -349,9 +361,9 @@ export const ADVENT_DOORS: Door[] = [
         kind: 'riddle',
         icon: 'snowflake',
         hint: 'Une devinette qui dégivre.',
-        title: 'Qui suis-je ?',
+        title: 'Une devinette givrée',
         question:
-            'Je n’ai ni flamme ni feu, mais je fais fondre le givre sur votre pare-brise. Je souffle chaud, mais je ne suis pas un dragon. Qui suis-je ?',
+            'Je souffle chaud sans être un dragon, je fais fondre le givre sans allumer la moindre flamme, et vous m’enclenchez quand vous êtes pressé de partir. Qui suis-je ?',
         answer: 'Le dégivrage de votre voiture !',
         aside:
             'Astuce : ne versez jamais d’eau chaude sur un pare-brise gelé, le choc thermique peut le fissurer. Un grattoir et un peu de patience font mieux l’affaire.',
@@ -361,15 +373,15 @@ export const ADVENT_DOORS: Door[] = [
     {
         day: 20,
         kind: 'coupon',
-        icon: 'cookie',
-        hint: 'Le dimanche, on prend son temps.',
-        title: '4e dimanche de l’Avent',
-        value: '4 pour 3',
+        icon: 'croissant',
+        hint: 'Le dimanche, on prend son temps. Et on partage.',
+        title: 'Le duo du 4e dimanche de l’Avent',
+        value: '8 CHF',
         summary:
-            'Quatre croissants achetés, trois payés : un dimanche matin gourmand, avant la dernière ligne droite avant Noël.',
+            'Quatre bougies, deux cafés, deux croissants : le duo du dimanche à partager pour 8 CHF seulement. De quoi savourer la dernière ligne droite avant Noël.',
         barcode: '00000020',
         conditions:
-            'Offre valable sur les croissants nature, un lot de 4 par passage en caisse, dans la limite des stocks disponibles.',
+            '1 duo (2 cafés + 2 croissants nature) par passage en caisse. Dans la limite des stocks disponibles.',
     },
 
     /* ─────────────── Lundi 21 — Solstice ─────────────── */
@@ -380,7 +392,7 @@ export const ADVENT_DOORS: Door[] = [
         hint: 'La plus longue nuit de l’année.',
         title: 'Solstice : vos feux, c’est maintenant',
         body: [
-            'Ce soir, c’est le solstice d’hiver : la journée la plus courte de l’année, et celle où l’on roule le plus souvent dans l’obscurité.',
+            'Aujourd’hui, c’est le jour le plus court de l’année : le solstice d’hiver a lieu ce soir à 21 h 50. On roule donc plus longtemps dans l’obscurité.',
             'Un phare grillé, des feux de croisement mal réglés, un feu stop qui ne s’allume pas : un contrôle d’une minute peut éviter un gros problème.',
         ],
         rememberTitle: 'Le tour de la voiture',
@@ -403,7 +415,7 @@ export const ADVENT_DOORS: Door[] = [
             'Pression des pneus contrôlée (un peu plus si vous roulez chargé)',
             'Niveau d’huile et de liquide de refroidissement vérifiés',
             'Lave-glace d’hiver plein',
-            'Vignette autoroutière valable',
+            'Vignette autoroutière en règle (celle de 2026 est valable jusqu’au 31 janvier 2027)',
             'Triangle de panne et gilet de sécurité à portée de main',
             'Chaînes ou chaussettes à neige si vous montez en station',
             'Plein fait, et de quoi grignoter pour la route',
