@@ -1,6 +1,6 @@
 'use client';
 
-import { Lock } from 'lucide-react';
+import { Check, Lock } from 'lucide-react';
 import type { DoorView } from '@/lib/advent-shared';
 import DoorIcon from './DoorIcon';
 
@@ -15,37 +15,42 @@ interface AdventDoorProps {
  * Une porte du calendrier.
  *
  * États visuels (pilotés en CSS par les attributs `data-*`) :
- *  - verrouillée   : teinte éteinte, cadenas, date d'ouverture ;
+ *  - verrouillée   : teinte éteinte, cadenas, date d'ouverture (jour à venir) ;
  *  - du jour       : halo qui pulse, battant qui « fait signe » ;
- *  - à ouvrir      : disponible mais pas encore ouverte (pastille dorée) ;
- *  - ouverte       : battant ouvert à 106°, on voit l'icône du contenu.
+ *  - ouverte       : battant ouvert à 106°, on voit l'icône du contenu ;
+ *  - passée        : teinte éteinte, définitivement fermée (jour écoulé) ;
+ *                    une coche dorée si le visiteur l'avait ouverte ce jour-là.
  */
 export default function AdventDoor({ view, opened, shake, onSelect }: AdventDoorProps) {
     const locked = view.state === 'locked';
-    const isToday = view.state === 'unlocked' && view.isToday;
-    const icon = view.state === 'unlocked' ? view.content.icon : null;
+    const past = view.state === 'past';
+    const isToday = view.state === 'today';
+    const icon = view.state === 'today' ? view.content.icon : null;
+    // Seule la porte du jour peut être « ouverte » : une porte passée reste fermée.
+    const isOpen = isToday && opened;
 
     const label = locked
         ? `Porte ${view.day}, verrouillée jusqu’au ${view.dateLabel.toLowerCase()}`
-        : opened
-          ? `Porte ${view.day}, ouverte. Revoir la surprise`
-          : isToday
-            ? `Porte ${view.day}, la porte du jour. Ouvrir`
-            : `Porte ${view.day}, disponible. Ouvrir`;
+        : past
+          ? `Porte ${view.day}, ${opened ? 'ouverte le jour même, ' : ''}plus disponible`
+          : isOpen
+            ? `Porte ${view.day}, ouverte. Revoir la surprise`
+            : `Porte ${view.day}, la porte du jour. Ouvrir`;
 
     return (
         <div
             className="adv-door"
             data-tone={view.tone}
             data-state={view.state}
-            data-opened={opened}
+            data-opened={isOpen}
+            data-done={past && opened}
             data-today={isToday}
             data-shake={shake}
         >
             <button type="button" className="adv-door__btn" onClick={() => onSelect(view.day)} aria-label={label}>
                 {/* Intérieur lumineux */}
                 <span className="adv-door__inside" aria-hidden="true">
-                    {opened && icon && (
+                    {isOpen && icon && (
                         <span className="adv-door__medal">
                             <DoorIcon name={icon} size="58%" strokeWidth={1.7} />
                         </span>
@@ -61,9 +66,9 @@ export default function AdventDoor({ view, opened, shake, onSelect }: AdventDoor
                         <span className="adv-door__knob" />
 
                         {locked && <Lock className="adv-door__lock" strokeWidth={2.2} />}
-                        {!locked && !opened && !isToday && <span className="adv-door__dot" />}
+                        {past && opened && <Check className="adv-door__lock text-amber-300" strokeWidth={3} />}
 
-                        {locked && <span className="adv-door__foot">{view.shortDate}</span>}
+                        {(locked || past) && <span className="adv-door__foot">{view.shortDate}</span>}
                         {isToday && !opened && <span className="adv-door__foot">Aujourd’hui</span>}
                     </span>
                     <span className="adv-door__face adv-door__back" />

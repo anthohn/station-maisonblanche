@@ -10,9 +10,10 @@
  *  - quelles portes sont ouvertes ;
  *  - ce que l'on a le droit d'envoyer au navigateur.
  *
- *  Règle d'or : le contenu d'une porte future ne quitte JAMAIS le
- *  serveur, et le code-barres d'un bon n'est envoyé que le jour
- *  où il est valable.
+ *  Règle d'or : seule la porte DU JOUR est envoyée au navigateur.
+ *  Le contenu d'une porte future n'existe pas encore, celui d'une porte
+ *  passée n'est plus accessible : quelqu'un qui arrive le 22 décembre ne
+ *  voit que la porte du 22, jamais les offres des jours précédents.
  */
 
 import 'server-only';
@@ -24,8 +25,8 @@ import {
     type DoorTone,
     type DoorView,
     type LockedDoorView,
-    type RevealContent,
-    type UnlockedDoorView,
+    type PastDoorView,
+    type TodayDoorView,
 } from './advent-shared';
 
 /* ───────────────────────── Fuseau horaire ───────────────────────── */
@@ -199,7 +200,8 @@ export function computeClock(now: number): AdventClock {
 
 /**
  * Construit ce que le navigateur a le droit de voir pour l'instant `now`.
- * Aucune porte future n'est incluse, aucun code-barres passé non plus.
+ * Trois états : porte future (verrouillée, seul l'indice est envoyé), porte
+ * du jour (contenu complet) et porte passée (rien d'autre que son numéro).
  */
 export function buildAdventView(now: number): AdventView {
     const clock = computeClock(now);
@@ -213,27 +215,17 @@ export function buildAdventView(now: number): AdventView {
             shortDate: doorShortDate(day),
         };
 
-        const isUnlocked = now >= unlockAt(day);
-        if (!isUnlocked) {
+        if (now < unlockAt(day)) {
             return applyTypo({ ...base, state: 'locked', hint: door.hint } as LockedDoorView);
         }
 
         const isToday = clock.phase === 'running' && clock.todayDay === day;
-
-        let content: RevealContent;
-        if (door.kind === 'coupon') {
-            const { barcode, barcodeType, ...rest } = door;
-            content = {
-                ...rest,
-                barcode: isToday ? barcode : null,
-                barcodeType: isToday ? barcodeType : undefined,
-                expired: !isToday,
-            };
-        } else {
-            content = door;
+        if (!isToday) {
+            // Jour passé (ou calendrier terminé) : on n'envoie rien du contenu.
+            return applyTypo({ ...base, state: 'past' } as PastDoorView);
         }
 
-        return applyTypo({ ...base, state: 'unlocked', isToday, content } as UnlockedDoorView);
+        return applyTypo({ ...base, state: 'today', content: door } as TodayDoorView);
     });
 
     return { clock, doors };

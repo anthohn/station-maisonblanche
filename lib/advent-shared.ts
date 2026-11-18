@@ -23,8 +23,8 @@ export const ADVENT = {
     reminderPath: '/api/avent/rappel.ics',
     /**
      * ⚠️ true tant que `advent-doors.ts` contient du contenu d'EXEMPLE.
-     * Affiche un bandeau « version de démonstration » et marque chaque
-     * code-barres comme « non valable en caisse ».
+     * Marque chaque code-barres affiché comme « Code d'exemple · non valable
+     * en caisse » : filet de sécurité contre un faux code pris pour un vrai.
      * Passer à false uniquement quand les vrais bons et les vrais
      * codes-barres de la caisse ont été saisis.
      */
@@ -119,15 +119,6 @@ export type Door =
     | MessageDoor
     | FactDoor;
 
-/** Un bon tel qu'il est envoyé au navigateur : le code n'existe que le jour J. */
-export type PublicCouponDoor = Omit<CouponDoor, 'barcode' | 'barcodeType'> & {
-    barcode: string | null;
-    barcodeType?: 'code128' | 'ean13';
-    expired: boolean;
-};
-
-export type RevealContent = Exclude<Door, CouponDoor> | PublicCouponDoor;
-
 interface DoorViewBase {
     day: number;
     tone: DoorTone;
@@ -142,13 +133,21 @@ export interface LockedDoorView extends DoorViewBase {
     hint: string;
 }
 
-export interface UnlockedDoorView extends DoorViewBase {
-    state: 'unlocked';
-    isToday: boolean;
-    content: RevealContent;
+/** La porte du jour : la seule dont le contenu est envoyé au navigateur. */
+export interface TodayDoorView extends DoorViewBase {
+    state: 'today';
+    content: Door;
 }
 
-export type DoorView = LockedDoorView | UnlockedDoorView;
+/**
+ * Une porte dont le jour est passé : elle ne s'ouvre plus. Son contenu
+ * (offre, conseil, devinette…) n'est pas envoyé au navigateur.
+ */
+export interface PastDoorView extends DoorViewBase {
+    state: 'past';
+}
+
+export type DoorView = LockedDoorView | TodayDoorView | PastDoorView;
 
 export type AdventPhase = 'before' | 'running' | 'after';
 

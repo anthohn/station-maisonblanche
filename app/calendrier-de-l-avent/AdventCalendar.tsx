@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Bell, Gift, MapPin, Share2, Sparkles, Eye } from 'lucide-react';
-import { ADVENT, type AdventView, type UnlockedDoorView } from '@/lib/advent-shared';
+import { Bell, Gift, MapPin, Share2, Sparkles } from 'lucide-react';
+import { ADVENT, type AdventView, type TodayDoorView } from '@/lib/advent-shared';
 import AdventDoor from '@/app/components/advent/AdventDoor';
 import AdventReveal from '@/app/components/advent/AdventReveal';
 import PreviewBar from '@/app/components/advent/PreviewBar';
@@ -109,6 +109,18 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
             return;
         }
 
+        if (door.state === 'past') {
+            // Une porte dont le jour est passé ne s'ouvre plus : son contenu n'a jamais quitté le serveur.
+            setShakeDay(day);
+            later(() => setShakeDay((current) => (current === day ? null : current)), 600);
+            showToast(
+                clock.phase === 'after'
+                    ? 'Le calendrier est terminé : rendez-vous l’an prochain !'
+                    : `La porte ${day} n’est plus disponible : elle était à ouvrir le ${door.dateLabel.toLowerCase()}. Revenez chaque jour pour la surprise du jour !`,
+            );
+            return;
+        }
+
         const firstTime = !opened.has(day);
         if (firstTime) markOpened(day);
         setCelebrate(firstTime);
@@ -141,11 +153,11 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
 
     /* ───── Valeurs dérivées ───── */
 
-    const activeDoor: UnlockedDoorView | null =
-        activeDay !== null && doors[activeDay - 1].state === 'unlocked' ? (doors[activeDay - 1] as UnlockedDoorView) : null;
+    const activeDoor: TodayDoorView | null =
+        activeDay !== null && doors[activeDay - 1].state === 'today' ? (doors[activeDay - 1] as TodayDoorView) : null;
 
-    const available = doors.filter((d) => d.state === 'unlocked').length;
-    const openedCount = doors.filter((d) => d.state === 'unlocked' && opened.has(d.day)).length;
+    // Portes que le visiteur a ouvertes le jour même (les portes à venir ne comptent pas).
+    const openedCount = doors.filter((d) => d.state !== 'locked' && opened.has(d.day)).length;
 
     const todayOpened = clock.todayDay !== null && opened.has(clock.todayDay);
     const duration = remaining === null ? null : splitDuration(remaining);
@@ -166,16 +178,6 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
                 <div className="relative z-10">
                     {/* ───── Héros ───── */}
                     <div className="mx-auto max-w-4xl px-4 pb-10 pt-24 text-center sm:px-6 sm:pt-28">
-                        {ADVENT.sampleContent && (
-                            <motion.p
-                                {...fadeUp(0)}
-                                className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-amber-200 sm:text-[11.5px] sm:tracking-[0.14em]"
-                            >
-                                <Eye size={13} className="shrink-0" aria-hidden="true" />
-                                Démonstration · contenu d’exemple
-                            </motion.p>
-                        )}
-
                         <motion.p
                             {...fadeUp(0.05)}
                             className="mb-4 flex items-center justify-center gap-2 text-[12.5px] font-semibold uppercase tracking-[0.22em] text-amber-300"
@@ -246,18 +248,20 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
                                             <span
                                                 key={d.day}
                                                 className={`h-1.5 flex-1 rounded-full ${
-                                                    d.state === 'locked'
-                                                        ? 'bg-white/12'
-                                                        : opened.has(d.day)
-                                                          ? 'bg-amber-300'
-                                                          : 'bg-amber-300/35 ring-1 ring-amber-300/70'
+                                                    opened.has(d.day) && d.state !== 'locked'
+                                                        ? 'bg-amber-300'
+                                                        : d.state === 'today'
+                                                          ? 'bg-amber-300/35 ring-1 ring-amber-300/70'
+                                                          : 'bg-white/12'
                                                 }`}
                                             />
                                         ))}
                                     </div>
                                     <p className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[13px] text-slate-400">
                                         <span>
-                                            {openedCount} / {available} porte{available > 1 ? 's' : ''} ouverte{available > 1 ? 's' : ''}
+                                            {openedCount === 0
+                                                ? 'Aucune porte ouverte pour l’instant'
+                                                : `${openedCount} porte${openedCount > 1 ? 's' : ''} ouverte${openedCount > 1 ? 's' : ''} sur ${ADVENT.lastDay}`}
                                         </span>
                                         {duration && clock.nextDay !== null && (
                                             <span role="timer" className="tabular-nums">
@@ -276,8 +280,8 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
                                 <div className="text-center">
                                     <p className="adv-serif text-3xl text-white">Joyeux Noël !</p>
                                     <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-300">
-                                        Le calendrier s’est refermé. Merci d’avoir ouvert les portes avec nous : les bons ne
-                                        sont plus valables, mais vous pouvez revoir toutes les surprises.
+                                        Le calendrier s’est refermé. Merci d’avoir ouvert les portes avec nous, et à l’année
+                                        prochaine pour de nouvelles surprises !
                                     </p>
                                     <p className="mt-3 text-[13px] text-slate-400">
                                         {openedCount} porte{openedCount > 1 ? 's' : ''} ouverte{openedCount > 1 ? 's' : ''} sur {ADVENT.lastDay}
@@ -325,7 +329,7 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
                                     <AdventDoor
                                         key={door.day}
                                         view={door}
-                                        opened={door.state === 'unlocked' && opened.has(door.day)}
+                                        opened={door.state !== 'locked' && opened.has(door.day)}
                                         shake={shakeDay === door.day}
                                         onSelect={selectDoor}
                                     />
@@ -353,7 +357,7 @@ export default function AdventCalendar({ view, preview }: AdventCalendarProps) {
                             {[
                                 {
                                     title: 'Ouvrez la porte du jour',
-                                    text: 'Chaque jour de décembre, à minuit, une nouvelle porte se déverrouille. Touchez-la pour découvrir la surprise.',
+                                    text: 'Chaque jour de décembre, à minuit, une nouvelle porte se déverrouille. Touchez-la pour découvrir la surprise : elle n’est disponible que ce jour-là.',
                                 },
                                 {
                                     title: 'Affichez votre bon',

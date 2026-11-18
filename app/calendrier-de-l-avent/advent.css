@@ -252,6 +252,16 @@
   filter: saturate(0.55) brightness(0.78);
 }
 
+/* Porte passée : éteinte et définitivement fermée (plus sombre qu'une porte à venir) */
+.adv-door[data-state='past'] .adv-door__front {
+  filter: saturate(0.3) brightness(0.55);
+}
+
+/* Porte passée que le visiteur avait ouverte ce jour-là : moins éteinte, pour que sa coche se voie */
+.adv-door[data-state='past'][data-done='true'] .adv-door__front {
+  filter: saturate(0.6) brightness(0.8);
+}
+
 /* Porte du jour : halo vivant */
 .adv-door[data-today='true'][data-opened='false'] .adv-door__btn::after {
   content: '';
@@ -295,14 +305,20 @@
 
 /* Coup d'œil par la porte entrouverte au survol */
 @media (hover: hover) {
-  .adv-door[data-state='unlocked'][data-opened='false'] .adv-door__btn:hover .adv-door__leaf,
-  .adv-door[data-state='unlocked'][data-opened='false'] .adv-door__btn:focus-visible .adv-door__leaf {
+  .adv-door[data-state='today'][data-opened='false'] .adv-door__btn:hover .adv-door__leaf,
+  .adv-door[data-state='today'][data-opened='false'] .adv-door__btn:focus-visible .adv-door__leaf {
     animation: none;
     transform: rotateY(-22deg);
   }
   /* Une porte verrouillée ne s'entrouvre jamais : elle s'éclaircit à peine. */
   .adv-door[data-state='locked'] .adv-door__btn:hover .adv-door__front {
     filter: saturate(0.65) brightness(0.9);
+  }
+  .adv-door[data-state='past'] .adv-door__btn:hover .adv-door__front {
+    filter: saturate(0.4) brightness(0.65);
+  }
+  .adv-door[data-state='past'][data-done='true'] .adv-door__btn:hover .adv-door__front {
+    filter: saturate(0.7) brightness(0.88);
   }
 }
 

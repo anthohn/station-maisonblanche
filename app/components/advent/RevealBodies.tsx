@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Check, Clock, Heart, Sun } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Heart, Sun } from 'lucide-react';
 import BarcodeSvg from '@/app/components/BarcodeSvg';
-import { ADVENT, type DoorCta, type PublicCouponDoor, type RevealContent } from '@/lib/advent-shared';
+import { ADVENT, type Door, type DoorCta } from '@/lib/advent-shared';
 
 /**
  * Contenu de la fenêtre de révélation, un composant par type de porte.
@@ -16,45 +16,28 @@ const body = 'text-[15.5px] leading-relaxed text-slate-600';
 
 /* ─────────────────────────── Bon de réduction ─────────────────────────── */
 
-function CouponBody({ door, dateLabel }: { door: PublicCouponDoor; dateLabel: string }) {
+function CouponBody({ door }: { door: Extract<Door, { kind: 'coupon' }> }) {
     return (
         <div>
             <p className={body}>{door.summary}</p>
 
-            {door.barcode ? (
-                <>
-                    <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-                        <BarcodeSvg code={door.barcode} type={door.barcodeType} width={260} height={115} />
-                    </div>
+            <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
+                <BarcodeSvg code={door.barcode} type={door.barcodeType} width={260} height={115} />
+            </div>
 
-                    {ADVENT.sampleContent && (
-                        <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-center text-[11.5px] font-semibold uppercase tracking-wider text-amber-800">
-                            Code d’exemple · non valable en caisse
-                        </p>
-                    )}
-
-                    <p className="mt-3 text-center text-[13px] font-medium text-slate-700">
-                        À présenter en caisse · valable uniquement aujourd’hui
-                    </p>
-                    <p className="mt-1 flex items-center justify-center gap-1.5 text-center text-xs text-slate-400">
-                        <Sun size={13} aria-hidden="true" />
-                        Augmentez la luminosité de l’écran pour faciliter le scan
-                    </p>
-                </>
-            ) : (
-                <div className="mt-5 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-500">
-                        <Clock size={16} aria-hidden="true" />
-                    </span>
-                    <div>
-                        <p className="text-sm font-semibold text-slate-800">Cette offre est terminée</p>
-                        <p className="mt-0.5 text-[13px] leading-relaxed text-slate-500">
-                            Elle n’était valable que le {dateLabel.toLowerCase()}. Revenez chaque jour : une nouvelle
-                            surprise vous attend derrière la prochaine porte.
-                        </p>
-                    </div>
-                </div>
+            {ADVENT.sampleContent && (
+                <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-center text-[11.5px] font-semibold uppercase tracking-wider text-amber-800">
+                    Code d’exemple · non valable en caisse
+                </p>
             )}
+
+            <p className="mt-3 text-center text-[13px] font-medium text-slate-700">
+                À présenter en caisse · valable uniquement aujourd’hui
+            </p>
+            <p className="mt-1 flex items-center justify-center gap-1.5 text-center text-xs text-slate-400">
+                <Sun size={13} aria-hidden="true" />
+                Augmentez la luminosité de l’écran pour faciliter le scan
+            </p>
 
             <p className="mt-4 text-[11.5px] leading-relaxed text-slate-400">{door.conditions}</p>
         </div>
@@ -82,7 +65,7 @@ function Cta({ cta }: { cta: DoorCta }) {
     );
 }
 
-function TipBody({ door }: { door: Extract<RevealContent, { kind: 'tip' }> }) {
+function TipBody({ door }: { door: Extract<Door, { kind: 'tip' }> }) {
     return (
         <div>
             <div className="space-y-3">
@@ -116,7 +99,7 @@ function TipBody({ door }: { door: Extract<RevealContent, { kind: 'tip' }> }) {
 
 /* ─────────────────────────── Devinette ─────────────────────────── */
 
-function RiddleBody({ door }: { door: Extract<RevealContent, { kind: 'riddle' }> }) {
+function RiddleBody({ door }: { door: Extract<Door, { kind: 'riddle' }> }) {
     const [shown, setShown] = useState(false);
     return (
         <div>
@@ -145,7 +128,7 @@ function RiddleBody({ door }: { door: Extract<RevealContent, { kind: 'riddle' }>
 
 /* ─────────────────────────── Recette ─────────────────────────── */
 
-function RecipeBody({ door }: { door: Extract<RevealContent, { kind: 'recipe' }> }) {
+function RecipeBody({ door }: { door: Extract<Door, { kind: 'recipe' }> }) {
     return (
         <div>
             <p className={body}>{door.intro}</p>
@@ -183,7 +166,7 @@ function RecipeBody({ door }: { door: Extract<RevealContent, { kind: 'recipe' }>
 
 /* ─────────────────────────── Check-list ─────────────────────────── */
 
-function ChecklistBody({ door }: { door: Extract<RevealContent, { kind: 'checklist' }> }) {
+function ChecklistBody({ door }: { door: Extract<Door, { kind: 'checklist' }> }) {
     const [checked, setChecked] = useState<ReadonlySet<number>>(new Set());
     const total = door.items.length;
     const done = checked.size;
@@ -242,7 +225,7 @@ function ChecklistBody({ door }: { door: Extract<RevealContent, { kind: 'checkli
 
 /* ─────────────────────────── Message ─────────────────────────── */
 
-function MessageBody({ door }: { door: Extract<RevealContent, { kind: 'message' }> }) {
+function MessageBody({ door }: { door: Extract<Door, { kind: 'message' }> }) {
     return (
         <div className="space-y-3.5">
             {door.body.map((p) => (
@@ -262,7 +245,7 @@ function MessageBody({ door }: { door: Extract<RevealContent, { kind: 'message' 
 
 /* ─────────────────────────── Le saviez-vous ─────────────────────────── */
 
-function FactBody({ door }: { door: Extract<RevealContent, { kind: 'fact' }> }) {
+function FactBody({ door }: { door: Extract<Door, { kind: 'fact' }> }) {
     return (
         <div>
             <div className="mb-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-5 text-center">
@@ -284,10 +267,10 @@ function FactBody({ door }: { door: Extract<RevealContent, { kind: 'fact' }> }) 
 
 /* ─────────────────────────── Aiguillage ─────────────────────────── */
 
-export default function RevealBody({ content, dateLabel }: { content: RevealContent; dateLabel: string }) {
+export default function RevealBody({ content }: { content: Door }) {
     switch (content.kind) {
         case 'coupon':
-            return <CouponBody door={content} dateLabel={dateLabel} />;
+            return <CouponBody door={content} />;
         case 'tip':
             return <TipBody door={content} />;
         case 'riddle':

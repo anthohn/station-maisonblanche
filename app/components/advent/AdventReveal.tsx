@@ -3,12 +3,12 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import { ADVENT, type UnlockedDoorView } from '@/lib/advent-shared';
+import { ADVENT, type TodayDoorView } from '@/lib/advent-shared';
 import DoorIcon from './DoorIcon';
 import RevealBody from './RevealBodies';
 
 interface AdventRevealProps {
-    door: UnlockedDoorView | null;
+    door: TodayDoorView | null;
     /** true la toute première fois qu'on ouvre cette porte : confettis. */
     celebrate: boolean;
     onClose: () => void;
@@ -149,15 +149,13 @@ export default function AdventReveal({ door, celebrate, onClose }: AdventRevealP
                             {content.title}
                         </h2>
 
-                        <RevealBody key={door.day} content={content} dateLabel={door.dateLabel} />
+                        <RevealBody key={door.day} content={content} />
 
-                        {door.isToday && (
-                            <p className="mt-6 border-t border-slate-100 pt-4 text-center text-xs text-slate-400">
-                                {isLastDay
-                                    ? 'Joyeux Noël, et rendez-vous l’an prochain !'
-                                    : `Rendez-vous demain pour la porte n°${door.day + 1}`}
-                            </p>
-                        )}
+                        <p className="mt-6 border-t border-slate-100 pt-4 text-center text-xs text-slate-400">
+                            {isLastDay
+                                ? 'Joyeux Noël, et rendez-vous l’an prochain !'
+                                : `Rendez-vous demain pour la porte n°${door.day + 1}`}
+                        </p>
                     </div>
                 </div>
             )}

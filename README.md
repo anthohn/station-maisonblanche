@@ -12,7 +12,7 @@ Ajouter `?jour=` à l'adresse pour « voyager dans le temps » :
 | `/calendrier-de-l-avent?jour=0` | La veille de l'ouverture (compte à rebours) |
 | `/calendrier-de-l-avent?jour=12` | Le 12 décembre : portes 1 à 12 ouvertes, bon du jour avec code-barres |
 | `/calendrier-de-l-avent?jour=24` | Le grand final |
-| `/calendrier-de-l-avent?jour=25` | Après Noël : tout est refermé, les bons sont expirés |
+| `/calendrier-de-l-avent?jour=25` | Après Noël : toutes les portes sont refermées |
 | `/calendrier-de-l-avent?date=2026-12-07` | Même chose avec une date complète |
 
 Une petite barre « Aperçu » apparaît en bas de l'écran pour avancer/reculer d'un jour et refermer toutes les portes.
@@ -31,7 +31,7 @@ Les types de portes : `coupon`, `tip`, `riddle`, `recipe`, `checklist`, `message
 
 ## ⚠️ Avant la mise en ligne
 
-Le contenu actuel est du **contenu d'exemple** : les offres, les prix et les codes-barres sont fictifs. Tant que `sampleContent` vaut `true`, la page affiche un bandeau « Démonstration » et chaque code-barres est marqué « non valable en caisse ».
+Le contenu actuel est du **contenu d'exemple** : les offres, les prix et les codes-barres sont fictifs. Tant que `sampleContent` vaut `true`, chaque code-barres affiché est marqué « Code d'exemple · non valable en caisse ».
 
 1. Remplacer chaque bon par une vraie offre du shop.
 2. Créer dans la caisse un code par jour (avec sa date de validité côté caisse) et le saisir dans `barcode`.
@@ -46,7 +46,8 @@ Le contenu actuel est du **contenu d'exemple** : les offres, les prix et les cod
 ## Comment ça marche (et pourquoi on ne peut pas tricher)
 
 - Le **serveur** décide quelles portes sont ouvertes, à l'heure de Genève. Changer la date de son téléphone ne sert à rien.
-- Le contenu d'une porte future **n'est jamais envoyé au navigateur**, et le code-barres d'un bon n'est envoyé que **le jour où il est valable** (`lib/advent.ts`, protégé par `server-only`).
+- Seule la **porte du jour** est envoyée au navigateur. Le contenu d'une porte future **n'est jamais envoyé**, ni celui d'une porte passée : quelqu'un qui arrive le 22 décembre ne voit que la porte du 22, pas les offres des jours précédents (`lib/advent.ts`, protégé par `server-only`).
+- Une porte passée reste visible dans la grille (éteinte, avec une coche si le visiteur l'avait ouverte ce jour-là) mais ne s'ouvre plus.
 - À minuit, la page se met à jour toute seule chez les visiteurs qui l'ont laissée ouverte.
 - Le navigateur retient simplement les portes déjà ouvertes (`localStorage`, aucune donnée personnelle).
 - Le bouton « Rappel chaque matin » télécharge un événement d'agenda (`/api/avent/rappel.ics`) : un rappel à 07h30 du 1er au 24 décembre.
