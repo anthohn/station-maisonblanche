@@ -101,7 +101,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.65, delay: 0.2 }}
                         className="relative order-first lg:order-none -mx-6 lg:mx-0"
                     >
-                        <div className="relative w-full overflow-hidden rounded-b-[2rem] lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
+                        <div className="relative w-full overflow-hidden lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
                             {/* Diaporama : shop, pompes, devanture (photos et réglages dans HeroSlideshow.tsx) */}
                             <HeroSlideshow />
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
