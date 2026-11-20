@@ -88,7 +88,7 @@ export default function ContactSection() {
                                 </div>
                                 <div className="border-t border-slate-700 pt-3 flex justify-between text-sm">
                                     <span className="text-slate-400">Carburant & Lavage</span>
-                                    <span className="text-orange-400 font-bold">24h/24</span>
+                                    <span className="text-orange-400 font-bold">24/24</span>
                                 </div>
                             </div>
 

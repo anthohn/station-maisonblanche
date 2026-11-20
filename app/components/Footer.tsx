@@ -102,7 +102,7 @@ export default function FooterStation() {
                                 </div>
                                 <div className="flex justify-between items-center py-1">
                                     <span className="text-slate-500">Carburant</span>
-                                    <span className="font-medium text-orange-500">24h/24</span>
+                                    <span className="font-medium text-orange-500">24/24</span>
                                 </div>
                             </div>
                         </div>
