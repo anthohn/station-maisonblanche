@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
 
 /**
@@ -13,9 +13,8 @@ import { activePromotions } from '@/lib/promotions';
  * du haut. L'animation (depuis la droite sur ordinateur, depuis le bas sur mobile, avec
  * un léger rebond) est en CSS : voir `.offer-card` dans globals.css.
  *
- * - Elle reste affichée, de page en page. La croix la ferme seulement pour la visite en cours :
- *   elle revient au rechargement de la page (F5) et à la visite suivante. C'est voulu : l'offre
- *   est un message à faire passer, on ne mémorise donc pas qu'un visiteur l'a fermée.
+ * - Elle reste affichée en permanence, de page en page : volontairement sans croix, l'offre est
+ *   un message à faire passer.
  * - Jamais sur la page Offres (l'offre y est déjà), ni sur Contact (barre mobile en bas).
  * - Disparaît toute seule quand on retire l'offre de lib/promotions.ts.
  * - Tant qu'elle est affichée, le pied de page gagne de la place en bas (voir globals.css)
@@ -32,7 +31,6 @@ const promo = activePromotions.find((p) => p.bannerText);
 export default function OfferCard() {
     const pathname = usePathname();
     const [visible, setVisible] = useState(false);
-    const [leaving, setLeaving] = useState(false);
     const shown = visible && !HIDDEN_ON.includes(pathname);
 
     useEffect(() => {
@@ -50,19 +48,12 @@ export default function OfferCard() {
 
     if (!promo || !shown) return null;
 
-    // La croix lance l'animation de sortie ; la carte est retirée à la fin de celle-ci.
-    const dismiss = () => setLeaving(true);
-
     return (
         <aside
             aria-label="Offre en cours"
-            data-leaving={leaving}
-            onAnimationEnd={(event) => {
-                if (leaving && event.target === event.currentTarget) setVisible(false);
-            }}
             className="offer-card fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:w-[22rem] lg:bottom-8 lg:right-8 lg:w-[27rem]"
         >
-            <div className="relative flex items-center gap-3.5 rounded-2xl border border-slate-100 bg-white p-3 pr-10 shadow-xl shadow-slate-900/15 lg:gap-5 lg:rounded-3xl lg:p-4 lg:pr-12">
+            <div className="relative flex items-center gap-3.5 rounded-2xl border border-slate-100 bg-white p-3 shadow-xl shadow-slate-900/15 lg:gap-5 lg:rounded-3xl lg:p-4">
                 <Link
                     href="/offres"
                     tabIndex={-1}
@@ -83,15 +74,6 @@ export default function OfferCard() {
                         <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                     </Link>
                 </div>
-
-                <button
-                    type="button"
-                    onClick={dismiss}
-                    className="absolute right-2 top-2 cursor-pointer rounded-full p-1.5 text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-700"
-                    aria-label="Fermer l’annonce"
-                >
-                    <X size={16} />
-                </button>
             </div>
         </aside>
     );

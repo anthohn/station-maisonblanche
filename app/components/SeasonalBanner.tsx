@@ -8,14 +8,13 @@ import { ArrowRight, X } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
 
 /**
- * Bande d'annonce sous la barre de navigation (visible sur toutes les pages, fermable).
+ * Bande d'annonce sous la barre de navigation (visible sur toutes les pages).
  *
  * - S'il y a une offre en cours (voir lib/promotions.ts), elle est annoncée ici.
  * - Sinon, on retrouve l'annonce habituelle : les chips Zweifel « Aromat ».
  *
- * Fermeture : l'annonce Zweifel est mémorisée dans le navigateur (une fois fermée, elle ne revient
- * plus). L'offre en cours, elle, n'est PAS mémorisée : la croix la ferme pour la visite en cours,
- * et elle revient au rechargement de la page (F5) ou à la visite suivante.
+ * Fermeture : l'offre en cours n'a PAS de croix (elle reste affichée en permanence). L'annonce
+ * Zweifel, elle, se ferme avec la croix et ne revient plus (mémorisé dans le navigateur).
  */
 
 interface Announcement {
@@ -29,8 +28,8 @@ interface Announcement {
     linkLabel: string;
     /** Version courte du lien, pour les petits écrans. */
     linkLabelShort?: string;
-    /** true : une fois fermée avec la croix, l'annonce ne revient plus. false : elle revient au rechargement. */
-    rememberDismiss: boolean;
+    /** true : une croix permet de fermer l'annonce, et la fermeture est mémorisée. false : pas de croix. */
+    closable: boolean;
 }
 
 const ZWEIFEL: Announcement = {
@@ -50,7 +49,7 @@ const ZWEIFEL: Announcement = {
     textShort: 'Zweifel « Aromat » de retour !',
     href: '/shop#zweifel',
     linkLabel: 'Découvrir',
-    rememberDismiss: true,
+    closable: true,
 };
 
 function getAnnouncement(): Announcement {
@@ -72,7 +71,7 @@ function getAnnouncement(): Announcement {
         href: '/offres',
         linkLabel: 'Voir l’offre',
         linkLabelShort: 'Voir',
-        rememberDismiss: false,
+        closable: false,
     };
 }
 
@@ -82,7 +81,7 @@ export default function SeasonalBanner() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        if (ANNOUNCEMENT.rememberDismiss) {
+        if (ANNOUNCEMENT.closable) {
             try {
                 if (localStorage.getItem(ANNOUNCEMENT.storageKey)) return;
             } catch {
@@ -95,7 +94,6 @@ export default function SeasonalBanner() {
 
     const handleDismiss = () => {
         setIsVisible(false);
-        if (!ANNOUNCEMENT.rememberDismiss) return;
         try {
             localStorage.setItem(ANNOUNCEMENT.storageKey, 'true');
         } catch {
@@ -137,14 +135,16 @@ export default function SeasonalBanner() {
                             </Link>
                         </div>
 
-                        {/* Bouton fermeture discret */}
-                        <button
-                            onClick={handleDismiss}
-                            className="p-1 rounded-full text-amber-200/60 hover:text-white hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
-                            aria-label="Fermer l'annonce"
-                        >
-                            <X size={14} />
-                        </button>
+                        {/* Bouton fermeture discret (uniquement pour les annonces qui peuvent se fermer) */}
+                        {ANNOUNCEMENT.closable && (
+                            <button
+                                onClick={handleDismiss}
+                                className="p-1 rounded-full text-amber-200/60 hover:text-white hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
+                                aria-label="Fermer l'annonce"
+                            >
+                                <X size={14} />
+                            </button>
+                        )}
                     </div>
                 </motion.aside>
             )}
