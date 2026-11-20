@@ -81,7 +81,7 @@ export default function HomeRestOfPage() {
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
-                                <p className="text-white/80 text-sm mb-4">La qualité Shell garantie, disponible 24h/24 et 7j/7 via nos terminaux de paiement automatiques.</p>
+                                <p className="text-white/80 text-sm mb-4">La qualité Shell garantie, disponible 24/24 et 7/7 via nos terminaux de paiement automatiques.</p>
                                 <Link href="/services" className="inline-flex items-center text-sm font-medium text-white hover:text-orange-500 transition-colors">
                                     Voir nos carburants <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                                 </Link>
