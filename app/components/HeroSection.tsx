@@ -118,15 +118,14 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        {/* Logo Shell posé à cheval sur la photo, comme une enseigne : sur son coin haut gauche
-                            (ordinateur), sur son bord bas (mobile et tablette). Pas de boîte autour : le logo
-                            a déjà son liseré blanc. Mène aux carburants. */}
+                        {/* Logo Shell posé à cheval sur le bord bas de la photo, à gauche, comme une enseigne.
+                            Pas de boîte autour : le logo a déjà son liseré blanc. Mène aux carburants. */}
                         <a
                             href="#shell"
                             aria-label="Station Shell : voir nos carburants"
-                            className="absolute bottom-0 left-6 z-20 block translate-y-1/2 transition-transform hover:scale-105 lg:-left-8 lg:-top-8 lg:bottom-auto lg:translate-y-0"
+                            className="absolute bottom-0 left-6 z-20 block translate-y-1/2 transition-transform hover:scale-105 lg:left-8"
                         >
-                            <ShellLogo decorative priority className="h-11 w-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.28)] lg:h-16" sizes="64px" />
+                            <ShellLogo decorative priority className="h-11 w-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.28)] lg:h-14" sizes="64px" />
                         </a>
                     </motion.div>
                 </div>
