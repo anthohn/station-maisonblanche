@@ -43,7 +43,7 @@ export default function ServicesContent() {
                             <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
                                 <Fuel size={28} className="text-orange-500" />
                             </div>
-                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Carburants Shell 24/7</h2>
+                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Carburants Shell 7/7</h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
                                 Profitez de la qualité des carburants Shell à toute heure. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
                             </p>

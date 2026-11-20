@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
 
 const stats = [
-    { value: '24h/24', label: 'Carburant disponible' },
+    { value: '24/24', label: 'Carburant disponible' },
     { value: '7/7', label: 'Shop ouvert' },
     // { value: '06–20h', label: 'Horaires shop' },
 ];
