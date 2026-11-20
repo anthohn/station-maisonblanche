@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
+import ShellLogo from '@/app/components/ShellLogo';
 
 const stats = [
     { value: '24h/24', label: 'Carburant disponible' },
@@ -110,6 +111,14 @@ export default function HeroSection() {
                                 priority
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
+                            {/* Logo Shell posé sur la photo, comme sur l'enseigne : mène aux carburants */}
+                            <a
+                                href="#shell"
+                                aria-label="Station Shell : voir nos carburants"
+                                className="absolute bottom-4 right-4 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white shadow-lg shadow-black/20 transition-transform hover:scale-105 lg:bottom-5 lg:right-5 lg:h-20 lg:w-20"
+                            >
+                                <ShellLogo decorative priority className="h-9 w-auto lg:h-11" sizes="48px" />
+                            </a>
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
                             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
                                 <MapPin size={13} aria-hidden="true" />

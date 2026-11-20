@@ -2,12 +2,17 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBasket, Fuel, Droplets, ArrowRight, Wrench, MapPin } from 'lucide-react';
+import { ShoppingBasket, Droplets, ArrowRight, Wrench, MapPin } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
+import ShellFeature from '@/app/components/ShellFeature';
+import ShellLogo from '@/app/components/ShellLogo';
 
 export default function HomeRestOfPage() {
     return (
         <div className="bg-slate-50 pb-24">
+
+            {/* --- 0. CARBURANT SHELL : la vitrine des carburants --- */}
+            <ShellFeature />
 
             {/* --- 1. LE TRIO BENTO (Les Piliers) --- */}
             <section className="container mx-auto px-6 max-w-7xl pt-24">
@@ -76,8 +81,8 @@ export default function HomeRestOfPage() {
                         )}
 
                         <div className="relative z-10 h-full p-8 flex flex-col justify-between">
-                            <div className="bg-orange-100 w-12 h-12 flex items-center justify-center rounded-2xl">
-                                <Fuel size={24} className="text-orange-500" />
+                            <div className="bg-white w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-black/30">
+                                <ShellLogo decorative className="h-9 w-auto" sizes="48px" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-medium mb-2">Carburant Shell</h3>
