@@ -8,7 +8,7 @@ import { ArrowRight, X } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
 
 /**
- * Bande d'annonce tout en haut du site (visible sur toutes les pages, fermable).
+ * Bande d'annonce sous la barre de navigation (visible sur toutes les pages, fermable).
  *
  * - S'il y a une offre en cours (voir lib/promotions.ts), elle est annoncée ici.
  * - Sinon, on retrouve l'annonce habituelle : les chips Zweifel « Aromat ».
@@ -106,7 +106,7 @@ export default function SeasonalBanner() {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="overflow-hidden bg-gradient-to-r from-stone-900 via-orange-950 to-stone-900 text-amber-100 border-b border-orange-500/25 relative z-50 select-none"
+                    className="overflow-hidden bg-gradient-to-r from-stone-900 via-orange-950 to-stone-900 text-amber-100 border-t border-orange-500/25 shadow-md relative z-50 select-none"
                     aria-label={ANNOUNCEMENT.ariaLabel}
                 >
                     <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-3 text-xs sm:text-sm">

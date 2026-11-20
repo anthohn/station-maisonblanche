@@ -27,9 +27,6 @@ export default function Header() {
                     duration: 0.4
                 }}
             >
-                {/* Bandeau d'annonce saisonnier tout en haut */}
-                <SeasonalBanner />
-
                 <div className="bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200">
                     <div className="px-4 sm:px-6 py-4 flex items-center justify-between gap-2 min-[1100px]:gap-0 max-w-7xl mx-auto">
                         {/* Section 1: Logo à gauche */}
@@ -139,6 +136,9 @@ export default function Header() {
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                {/* Bandeau d'annonce : juste sous la barre de navigation (et sous le menu mobile quand il est ouvert) */}
+                <SeasonalBanner />
             </motion.nav>
         </>
     );
