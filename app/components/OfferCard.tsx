@@ -13,8 +13,9 @@ import { activePromotions } from '@/lib/promotions';
  * du haut. L'animation (depuis la droite sur ordinateur, depuis le bas sur mobile, avec
  * un léger rebond) est en CSS : voir `.offer-card` dans globals.css.
  *
- * - Elle reste affichée, de page en page, tant que le visiteur n'a pas cliqué sur la croix.
- *   Une fois fermée, elle ne revient plus pour cette offre (une nouvelle offre la ramène).
+ * - Elle reste affichée, de page en page. La croix la ferme seulement pour la visite en cours :
+ *   elle revient au rechargement de la page (F5) et à la visite suivante. C'est voulu : l'offre
+ *   est un message à faire passer, on ne mémorise donc pas qu'un visiteur l'a fermée.
  * - Jamais sur la page Offres (l'offre y est déjà), ni sur Contact (barre mobile en bas).
  * - Disparaît toute seule quand on retire l'offre de lib/promotions.ts.
  * - Tant qu'elle est affichée, le pied de page gagne de la place en bas (voir globals.css)
@@ -27,7 +28,6 @@ const SHOW_DELAY_MS = 1200;
 const HIDDEN_ON = ['/offres', '/contact'];
 
 const promo = activePromotions.find((p) => p.bannerText);
-const storageKey = promo ? `offer_card_${promo.id}_closed` : '';
 
 export default function OfferCard() {
     const pathname = usePathname();
@@ -37,13 +37,6 @@ export default function OfferCard() {
 
     useEffect(() => {
         if (!promo) return;
-
-        // Déjà fermée par ce visiteur ? Alors elle ne revient pas.
-        try {
-            if (localStorage.getItem(storageKey)) return;
-        } catch {
-            // stockage indisponible (navigation privée) : on la montre
-        }
 
         const timer = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
         return () => clearTimeout(timer);
@@ -58,14 +51,7 @@ export default function OfferCard() {
     if (!promo || !shown) return null;
 
     // La croix lance l'animation de sortie ; la carte est retirée à la fin de celle-ci.
-    const dismiss = () => {
-        setLeaving(true);
-        try {
-            localStorage.setItem(storageKey, 'true');
-        } catch {
-            // ignore
-        }
-    };
+    const dismiss = () => setLeaving(true);
 
     return (
         <aside

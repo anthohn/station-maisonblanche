@@ -13,8 +13,9 @@ import { activePromotions } from '@/lib/promotions';
  * - S'il y a une offre en cours (voir lib/promotions.ts), elle est annoncée ici.
  * - Sinon, on retrouve l'annonce habituelle : les chips Zweifel « Aromat ».
  *
- * Chaque annonce a sa propre clé de fermeture : un visiteur qui a fermé l'annonce
- * Zweifel voit quand même la nouvelle offre, et inversement.
+ * Fermeture : l'annonce Zweifel est mémorisée dans le navigateur (une fois fermée, elle ne revient
+ * plus). L'offre en cours, elle, n'est PAS mémorisée : la croix la ferme pour la visite en cours,
+ * et elle revient au rechargement de la page (F5) ou à la visite suivante.
  */
 
 interface Announcement {
@@ -28,6 +29,8 @@ interface Announcement {
     linkLabel: string;
     /** Version courte du lien, pour les petits écrans. */
     linkLabelShort?: string;
+    /** true : une fois fermée avec la croix, l'annonce ne revient plus. false : elle revient au rechargement. */
+    rememberDismiss: boolean;
 }
 
 const ZWEIFEL: Announcement = {
@@ -47,6 +50,7 @@ const ZWEIFEL: Announcement = {
     textShort: 'Zweifel « Aromat » de retour !',
     href: '/shop#zweifel',
     linkLabel: 'Découvrir',
+    rememberDismiss: true,
 };
 
 function getAnnouncement(): Announcement {
@@ -68,6 +72,7 @@ function getAnnouncement(): Announcement {
         href: '/offres',
         linkLabel: 'Voir l’offre',
         linkLabelShort: 'Voir',
+        rememberDismiss: false,
     };
 }
 
@@ -77,20 +82,20 @@ export default function SeasonalBanner() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        try {
-            const isDismissed = localStorage.getItem(ANNOUNCEMENT.storageKey);
-            if (!isDismissed) {
-                const timer = setTimeout(() => setIsVisible(true), 80);
-                return () => clearTimeout(timer);
+        if (ANNOUNCEMENT.rememberDismiss) {
+            try {
+                if (localStorage.getItem(ANNOUNCEMENT.storageKey)) return;
+            } catch {
+                // stockage indisponible (navigation privée) : on affiche l'annonce
             }
-        } catch {
-            const timer = setTimeout(() => setIsVisible(true), 80);
-            return () => clearTimeout(timer);
         }
+        const timer = setTimeout(() => setIsVisible(true), 80);
+        return () => clearTimeout(timer);
     }, []);
 
     const handleDismiss = () => {
         setIsVisible(false);
+        if (!ANNOUNCEMENT.rememberDismiss) return;
         try {
             localStorage.setItem(ANNOUNCEMENT.storageKey, 'true');
         } catch {
