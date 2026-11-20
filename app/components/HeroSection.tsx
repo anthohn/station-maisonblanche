@@ -29,7 +29,7 @@ export default function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-10 items-center">
 
                     {/* Left — text content (sur mobile : sous la photo et ses cartes flottantes) */}
-                    <div className="pt-11 lg:pt-0">
+                    <div className="pt-9 lg:pt-0">
                         {/* Headline */}
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -118,14 +118,15 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        {/* Logo Shell à cheval sur la photo : sur son coin haut gauche (ordinateur),
-                            sur son bord bas (mobile et tablette). Mène aux carburants. */}
+                        {/* Logo Shell posé à cheval sur la photo, comme une enseigne : sur son coin haut gauche
+                            (ordinateur), sur son bord bas (mobile et tablette). Pas de boîte autour : le logo
+                            a déjà son liseré blanc. Mène aux carburants. */}
                         <a
                             href="#shell"
                             aria-label="Station Shell : voir nos carburants"
-                            className="absolute bottom-0 left-6 z-20 grid h-16 w-16 translate-y-1/2 place-items-center rounded-2xl border border-slate-100 bg-white shadow-lg shadow-black/15 transition-transform hover:scale-105 lg:-left-9 lg:-top-9 lg:bottom-auto lg:h-[4.5rem] lg:w-[4.5rem] lg:translate-y-0"
+                            className="absolute bottom-0 left-6 z-20 block translate-y-1/2 transition-transform hover:scale-105 lg:-left-8 lg:-top-8 lg:bottom-auto lg:translate-y-0"
                         >
-                            <ShellLogo decorative priority className="h-9 w-auto lg:h-10" sizes="48px" />
+                            <ShellLogo decorative priority className="h-11 w-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.28)] lg:h-16" sizes="64px" />
                         </a>
                     </motion.div>
                 </div>
