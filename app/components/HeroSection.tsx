@@ -29,7 +29,7 @@ export default function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-10 items-center">
 
                     {/* Left — text content (sur mobile : sous la photo et ses cartes flottantes) */}
-                    <div className="pt-7 lg:pt-0">
+                    <div className="pt-11 lg:pt-0">
                         {/* Headline */}
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -111,20 +111,22 @@ export default function HeroSection() {
                                 priority
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
-                            {/* Logo Shell posé sur la photo, comme sur l'enseigne : mène aux carburants */}
-                            <a
-                                href="#shell"
-                                aria-label="Station Shell : voir nos carburants"
-                                className="absolute bottom-4 right-4 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white shadow-lg shadow-black/20 transition-transform hover:scale-105 lg:bottom-5 lg:right-5 lg:h-20 lg:w-20"
-                            >
-                                <ShellLogo decorative priority className="h-9 w-auto lg:h-11" sizes="48px" />
-                            </a>
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
                             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
                                 <MapPin size={13} aria-hidden="true" />
                                 Chancy, Genève
                             </div>
                         </div>
+
+                        {/* Logo Shell à cheval sur la photo : sur son coin haut gauche (ordinateur),
+                            sur son bord bas (mobile et tablette). Mène aux carburants. */}
+                        <a
+                            href="#shell"
+                            aria-label="Station Shell : voir nos carburants"
+                            className="absolute bottom-0 left-6 z-20 grid h-16 w-16 translate-y-1/2 place-items-center rounded-2xl border border-slate-100 bg-white shadow-lg shadow-black/15 transition-transform hover:scale-105 lg:-left-9 lg:-top-9 lg:bottom-auto lg:h-[4.5rem] lg:w-[4.5rem] lg:translate-y-0"
+                        >
+                            <ShellLogo decorative priority className="h-9 w-auto lg:h-10" sizes="48px" />
+                        </a>
                     </motion.div>
                 </div>
             </div>

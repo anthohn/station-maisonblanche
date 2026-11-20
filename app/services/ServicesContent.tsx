@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ShoppingBasket, Droplets, Wind, Flame } from 'lucide-react';
+import { Fuel, ShoppingBasket, Droplets, Wind, Flame } from 'lucide-react';
 import ShellLogo from '@/app/components/ShellLogo';
 import pompes from '@/public/pompes0.jpg';
 // import devanture from '@/public/devanture.jpeg';
@@ -41,10 +41,13 @@ export default function ServicesContent() {
                             <Image src={pompes} alt="Pompes à essence Shell V-Power et diesel à la Station-Service Maison-Blanche, Chancy, Genève" fill className="object-cover" priority />
                         </div>
                         <div className="lg:pl-10 shadow-sm bg-white rounded-[2rem] p-8 border border-slate-100">
-                            <div className="bg-white w-16 h-16 flex items-center justify-center rounded-2xl mb-6 border border-slate-100 shadow-md">
-                                <ShellLogo decorative className="h-11 w-auto" sizes="56px" />
+                            <div className="bg-orange-100 w-14 h-14 flex items-center justify-center rounded-2xl mb-6">
+                                <Fuel size={28} className="text-orange-500" />
                             </div>
-                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4">Carburants Shell 24/7</h2>
+                            <h2 className="text-3xl font-medium text-[--color-brand-dark] mb-4 flex items-center gap-3">
+                                Carburants Shell 24/7
+                                <ShellLogo decorative className="h-9 w-auto" sizes="44px" />
+                            </h2>
                             <p className="text-slate-500 text-lg leading-relaxed mb-6">
                                 Profitez de la qualité des carburants Shell à toute heure. Nos pompes sont équipées de terminaux de paiement par carte de dernière génération pour un service rapide et sécurisé, même en dehors des heures d&apos;ouverture du shop.
                             </p>
