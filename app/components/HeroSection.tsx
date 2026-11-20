@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
-import ShellLogo from '@/app/components/ShellLogo';
 
 const stats = [
     { value: '24h/24', label: 'Carburant disponible' },
@@ -29,7 +28,7 @@ export default function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-10 items-center">
 
                     {/* Left — text content (sur mobile : sous la photo et ses cartes flottantes) */}
-                    <div className="pt-9 lg:pt-0">
+                    <div className="pt-7 lg:pt-0">
                         {/* Headline */}
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -117,16 +116,6 @@ export default function HeroSection() {
                                 Chancy, Genève
                             </div>
                         </div>
-
-                        {/* Logo Shell posé à cheval sur le bord bas de la photo, à gauche, comme une enseigne.
-                            Pas de boîte autour : le logo a déjà son liseré blanc. Mène aux carburants. */}
-                        <a
-                            href="#shell"
-                            aria-label="Station Shell : voir nos carburants"
-                            className="absolute bottom-0 left-6 z-20 block translate-y-1/2 transition-transform hover:scale-105 lg:left-8"
-                        >
-                            <ShellLogo decorative priority className="h-11 w-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.28)] lg:h-14" sizes="64px" />
-                        </a>
                     </motion.div>
                 </div>
             </div>

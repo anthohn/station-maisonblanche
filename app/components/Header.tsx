@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { links } from "@/lib/data";
 import Image from "next/image";
 import SeasonalBanner from "./SeasonalBanner";
+import ShellLogo from "./ShellLogo";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +48,15 @@ export default function Header() {
                                 <span className="hidden sm:block">Station-Service Maison-Blanche</span>
                                 <span className="sm:hidden min-w-0 truncate text-[length:clamp(12px,calc(6.4vw_-_8.5px),20px)]">Station-Service Maison-Blanche</span>
                             </Link>
+
+                            {/* Signature « station Shell » : trait fin + logo, comme sur une enseigne de franchisé.
+                                Hors du lien (sinon elle décale le nom sur mobile). Masquée sur petit mobile (pas de
+                                place) et entre 1100 et 1279 px (menu complet). */}
+                            <span aria-hidden="true" className="ml-3 hidden h-7 w-px bg-gray-300 sm:block min-[1100px]:max-[1280px]:hidden!" />
+                            <ShellLogo
+                                className="ml-3 hidden h-8 w-auto sm:block min-[1100px]:max-[1280px]:hidden!"
+                                sizes="36px"
+                            />
                         </div>
 
                         {/* Section 2: Navigation au centre (desktop) */}
@@ -106,6 +116,13 @@ export default function Header() {
                                 </button>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Filet rouge et jaune sous l'en-tête : les couleurs de vos pompes et de l'enseigne « Shop »
+                        (rouge à gauche, jaune Shell ensuite). Décoratif. */}
+                    <div aria-hidden="true" className="flex h-1">
+                        <span className="w-24 bg-[#DD1D21] sm:w-40" />
+                        <span className="flex-1 bg-[#FBCE07]" />
                     </div>
                 </div>
 
