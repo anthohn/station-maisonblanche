@@ -8,7 +8,7 @@
  */
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { computeMood } from '../../lib/mood.ts';
+import { computeMood, PAGE_ALPHA_MAX } from '../../lib/mood.ts';
 import { sunElevation } from '../../lib/sun.ts';
 import { describe as describeWeather, formatTemperature, fromOpenMeteo, HOURS, PRESETS, seasonOf, shopIsOpen, STATION } from '../../lib/weather.ts';
 
@@ -106,7 +106,7 @@ describe('position du soleil à Chancy', () => {
 });
 
 describe('ambiances (lib/mood.ts)', () => {
-    const OPACITIES = ['--wx-shade', '--wx-vignette', '--wx-warm', '--wx-sky', '--wx-sky-clouds', '--wx-stars', '--wx-lights', '--wx-windows', '--wx-snowcover', '--wx-fog-a', '--wx-fog-b', '--wx-veil'];
+    const OPACITIES = ['--wx-shade', '--wx-vignette', '--wx-warm', '--wx-sky', '--wx-sky-clouds', '--wx-stars', '--wx-lights', '--wx-windows', '--wx-snowcover', '--wx-fog-a', '--wx-fog-b', '--wx-veil', '--wx-page-fog'];
 
     it('toutes les opacités restent dans [0, 1], aucune valeur NaN, quelle que soit la combinaison', () => {
         let combinations = 0;
@@ -173,3 +173,59 @@ describe('ambiances (lib/mood.ts)', () => {
         for (const preset of Object.values(PRESETS)) assert.ok(computeMood(preset.weather, preset.elevation, preset.open ?? true).vars['--wx-grade']);
     });
 });
+
+/* ───────── Atmosphère de la page entière : le texte doit rester lisible ───────── */
+
+// Le voile de la page est posé en MULTIPLICATION (mix-blend-mode: multiply, voir weather.css) : chaque couleur de la page
+// (fond comme texte) est multipliée par la teinte du voile. On rejoue ici ce calcul pour des couples de couleurs du site.
+const luminance = ([r, g, b]) => {
+    const lin = (v) => ((v /= 255) <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+};
+const contrast = (a, b) => {
+    const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p);
+    return (x + 0.05) / (y + 0.05);
+};
+const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const multiply = (color, tint, alpha) => color.map((c, i) => c * (1 - alpha + alpha * (tint[i] / 255)));
+const readVeil = (mood) => {
+    const [, r, g, b, a] = mood.vars['--wx-page-top'].match(/rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)/);
+    return { tint: [Number(r), Number(g), Number(b)], alpha: Number(a) };
+};
+const everyState = () => [
+    ...Object.entries(PRESETS).map(([name, p]) => [name, computeMood(p.weather, p.elevation, p.open ?? true)]),
+    ...Object.entries(HOURS).map(([name, h]) => [`heure ${name}`, computeMood(PRESETS.soleil.weather, h.elevation, h.open)]),
+];
+
+describe('lisibilité sous le voile de la page', () => {
+    // [texte, fond, rapport minimal par rapport à l'origine, rapport absolu minimal]
+    const PAIRS = {
+        'titres (gris foncé sur blanc)': [hex('#1e293b'), [255, 255, 255], 0.5, 7],
+        'texte courant (ardoise 600 sur blanc)': [hex('#475569'), [255, 255, 255], 0.7, 4.5],
+        // Déjà à 4,54:1 à l'origine, juste au-dessus du seuil : aucun voile ne peut le garder au-dessus de 4,5.
+        // On exige qu'il perde au plus 10 % (voir README : passer ce gris en ardoise 600 donnerait de la marge).
+        'paragraphe d’accueil (ardoise 500 sur crème)': [hex('#64748b'), [255, 249, 238], 0.9, 0],
+        'pied de page (ardoise 500 sur gris très clair)': [hex('#64748b'), hex('#f8fafc'), 0.9, 0],
+    };
+
+    it(`le voile ne dépasse jamais ${PAGE_ALPHA_MAX * 100} % d’opacité`, () => {
+        for (const [name, mood] of everyState()) assert.ok(readVeil(mood).alpha <= PAGE_ALPHA_MAX + 1e-9, `${name} : ${readVeil(mood).alpha}`);
+    });
+    for (const [label, [text, background, minShare, minAbsolute]] of Object.entries(PAIRS)) {
+        it(`${label} : contraste conservé dans tous les états`, () => {
+            const original = contrast(text, background);
+            for (const [name, mood] of everyState()) {
+                const { tint, alpha } = readVeil(mood);
+                const veiled = contrast(multiply(text, tint, alpha), multiply(background, tint, alpha));
+                assert.ok(veiled >= original * minShare, `${name} : ${veiled.toFixed(2)} contre ${original.toFixed(2)} à l’origine`);
+                assert.ok(veiled >= minAbsolute, `${name} : ${veiled.toFixed(2)} (minimum ${minAbsolute})`);
+            }
+        });
+    }
+    it('la brume de la page n’est chargée que s’il y a de la brume', () => {
+        assert.equal(computeMood(PRESETS.soleil.weather, 46).needs.pagefog, false);
+        assert.equal(computeMood(PRESETS.brouillard.weather, 14).needs.pagefog, true);
+        assert.ok(sky(computeMood(PRESETS.brouillard.weather, 14), '--wx-page-fog') <= 0.3 + 1e-9);
+    });
+});
+

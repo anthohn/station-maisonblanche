@@ -100,7 +100,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.65, delay: 0.2 }}
-                        className="relative order-first lg:order-none -mx-6 lg:mx-0"
+                        className="relative z-[25] order-first lg:order-none -mx-6 lg:mx-0"
                     >
                         <div className="relative w-full overflow-hidden lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
                             {/* La photo et ses calques météo (ciel, brouillard, enseigne allumée…) : voir HeroPhoto.tsx */}

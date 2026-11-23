@@ -21,10 +21,12 @@ export interface WeatherSnapshot {
     preview: Preview | null;
     /** Heure courante (ms), remise à jour chaque minute : le soleil avance. 0 tant que la page n'est pas prête. */
     now: number;
+    /** Effets météo de la page (voile, brume, pluie, neige, feuilles) : le visiteur peut les suspendre (pied de page). */
+    effects: boolean;
 }
 
 // Côté serveur et au premier rendu, rien ne dépend de la météo : l'hydratation reste identique.
-const SERVER_SNAPSHOT: WeatherSnapshot = { weather: null, preview: null, now: 0 };
+const SERVER_SNAPSHOT: WeatherSnapshot = { weather: null, preview: null, now: 0, effects: true };
 let snapshot = SERVER_SNAPSHOT;
 const listeners = new Set<() => void>();
 
@@ -109,6 +111,29 @@ export function resolvePreview(preview: Preview | null, live: Weather | null): S
     };
 }
 
+/* ───────────────────────── Effets suspendus par le visiteur ───────────────────────── */
+
+const EFFECTS_KEY = 'wx:effects';
+
+function readEffects(): boolean {
+    try {
+        return localStorage.getItem(EFFECTS_KEY) !== 'off';
+    } catch {
+        return true;
+    }
+}
+
+/** Suspend ou rétablit les effets météo de la page (mémorisé). En aperçu (?meteo=), ils restent visibles. */
+export function setEffects(on: boolean) {
+    try {
+        if (on) localStorage.removeItem(EFFECTS_KEY);
+        else localStorage.setItem(EFFECTS_KEY, 'off');
+    } catch {
+        /* sans stockage, le choix vaut pour la page en cours seulement */
+    }
+    update({ effects: on });
+}
+
 /* ───────────────────────── Météo réelle ───────────────────────── */
 
 const CACHE_KEY = 'wx:last';
@@ -171,7 +196,7 @@ export function startWeatherStore() {
     if (started || typeof window === 'undefined') return;
     started = true;
 
-    update({ preview: readPreview(), weather: recall(), now: Date.now() });
+    update({ preview: readPreview(), weather: recall(), now: Date.now(), effects: readEffects() });
     void refresh();
 
     setInterval(() => update({ now: Date.now() }), 60_000);

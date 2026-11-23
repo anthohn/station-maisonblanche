@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MapPin, Phone, Mail, ArrowRight, Facebook, Instagram } from 'lucide-react';
 import { activePromotions } from '@/lib/promotions';
+import WeatherToggle from '@/app/components/weather/WeatherToggle';
 export default function FooterStation() {
     const currentYear = new Date().getFullYear();
     const pathname = usePathname();
@@ -132,6 +133,7 @@ export default function FooterStation() {
                         <p>Réalisé par <a href="https://anthony-it.ch" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors font-medium">Anthony</a></p>
                     </div>
                     <div className="flex gap-6">
+                        <WeatherToggle />
                         <Link href="/mentions-legales" className={`hover:text-slate-600 transition-colors ${pathname === '/mentions-legales' ? 'text-orange-500' : ''}`}>Mentions Légales</Link>
                     </div>
                 </div>

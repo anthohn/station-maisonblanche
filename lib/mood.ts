@@ -27,6 +27,25 @@ function smooth(e0: number, e1: number, x: number): number {
 
 const mix = (a: RGB, b: RGB, t: number): RGB => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
 const css = (c: RGB) => `rgb(${Math.round(c[0])} ${Math.round(c[1])} ${Math.round(c[2])})`;
+const cssAlpha = (c: RGB, alpha: number) => `rgb(${Math.round(c[0])} ${Math.round(c[1])} ${Math.round(c[2])} / ${Number(alpha.toFixed(3))})`;
+
+/** Superpose des voiles colorés (couleur, opacité) comme le fait un navigateur ; l'opacité finale est plafonnée. */
+function composite(layers: [RGB, number][], cap: number): [RGB, number] {
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    let a = 0;
+    for (const [color, alpha] of layers) {
+        const k = clamp01(alpha);
+        const out = k + a * (1 - k);
+        if (out <= 0) continue;
+        r = (color[0] * k + r * a * (1 - k)) / out;
+        g = (color[1] * k + g * a * (1 - k)) / out;
+        b = (color[2] * k + b * a * (1 - k)) / out;
+        a = out;
+    }
+    return [[r, g, b], Math.min(a, cap)];
+}
 const num = (x: number, digits = 3) => String(Number(x.toFixed(digits)));
 
 /** Interpolation linéaire entre des repères classés par hauteur du soleil. */
@@ -68,11 +87,24 @@ const LIGHT: [number, number[]][] = [
 
 /* ─────────────── L'ambiance ─────────────── */
 
+/** Opacité maximale du voile de la page (en haut de l'écran). Au-delà, le texte perd trop de contraste. */
+export const PAGE_ALPHA_MAX = 0.16;
+
 export interface Mood {
     /** Variables CSS à poser sur <html>. */
     vars: Record<string, string>;
     /** Calques à charger : un fond d'écran n'est téléchargé que si une règle CSS le demande. */
-    needs: { fog: boolean; sky: boolean; shade: boolean; deck: boolean; stars: boolean; lights: boolean; windows: boolean; snow: boolean };
+    needs: {
+        fog: boolean;
+        pagefog: boolean;
+        sky: boolean;
+        shade: boolean;
+        deck: boolean;
+        stars: boolean;
+        lights: boolean;
+        windows: boolean;
+        snow: boolean;
+    };
     /** Dérive du brouillard et des nuages : sens du vent (1 = vers la droite, −1 = vers la gauche) et vitesse relative (1 = vent faible). */
     drift: { direction: 1 | -1; rate: number };
     /** Particules : intensité 0 → 1 et inclinaison (vent). */
@@ -163,6 +195,23 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
     // ── Neige sur le toit : seulement s'il neige vraiment et qu'il fait froid ──
     const snowCover = smooth(0.2, 0.5, snow) * smooth(4, 1, w.temperature);
 
+    // ── Atmosphère de la page entière : un voile de lumière par-dessus le contenu (plus marqué en haut, comme le ciel)
+    //    et une brume retenue. Posés en MULTIPLICATION (comme un filtre de lumière) : fond et texte s'assombrissent ensemble,
+    //    le contraste est mieux conservé qu'avec un voile classique. Plafonné à 16 % (testé : weather.test.mjs). ──
+    const blueHour = Math.exp(-(((e + 5) / 4) ** 2));
+    const [pageColor, pageAlpha] = composite(
+        [
+            [[116, 132, 154], 0.085 * shade], // couvert : gris-bleu
+            [[58, 74, 102], 0.085 * dark + (storm ? 0.05 : 0)], // pluie et orage : plus sombre
+            [[182, 192, 206], 0.2 * fog], // brouillard : lumière grise et diffuse
+            [[224, 233, 247], 0.11 * snow], // neige : blanc froid
+            [[16, 28, 72], 0.19 * night + 0.07 * blueHour], // nuit : bleu marine (pas de thème sombre : on lit toujours)
+        ],
+        PAGE_ALPHA_MAX,
+    );
+    const pageWarm = clamp01(0.04 * day * (1 - shade) * (1 - fog) + 0.12 * gold); // lueur du soleil, coin haut droit
+    const pageFog = clamp01(0.3 * fog + 0.5 * lowMist);
+
     // ── Lumière dorée ─────────────────────────────────────
     const warm = clamp01(gold * 0.55);
 
@@ -194,12 +243,17 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
         '--wx-fog-filter': fogLum < 0.985 ? `brightness(${num(fogLum)})` : 'none',
         '--wx-veil': num(veil),
         '--wx-veil-color': css(veilColor),
+        '--wx-page-top': cssAlpha(pageColor, pageAlpha),
+        '--wx-page-bottom': cssAlpha(pageColor, pageAlpha * 0.3),
+        '--wx-page-warm': cssAlpha([255, 176, 96], pageWarm),
+        '--wx-page-fog': num(pageFog),
     };
 
     return {
         vars,
         needs: {
             fog: fogA > 0.02 || fogB > 0.02,
+            pagefog: pageFog > 0.02,
             sky: skyAlpha > 0.02 || shadows > 0.02,
             shade: shadows > 0.02,
             deck: skyClouds > 0.02,

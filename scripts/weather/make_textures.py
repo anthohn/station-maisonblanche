@@ -36,6 +36,12 @@ def main(out: Path):
     n = fractal(1024, 512, [(1.3, 1.0), (1.9, 0.9)], cutoff=0.045, seed=29, hp=0.004)
     save_alpha(smooth(n, 0.18, 0.95) * fade, (232, 237, 243), out / "fog-b.webp")
 
+    # Brume de la page entière : mêmes masses que fog-b mais d'un gris bleuté, posée en multiplication sur la page
+    # (une brume blanche resterait invisible sur un fond blanc)
+    n = fractal(1024, 512, [(1.3, 1.0), (1.9, 0.9)], cutoff=0.045, seed=29, hp=0.004)
+    page_fade = np.where(y < 0.4, 1.0, 1.0 - (y - 0.4) / 0.6)  # jusqu'à zéro en bas : pas d'arête visible où la couche s'arrête
+    save_alpha(smooth(n, 0.18, 0.95) * page_fade, (150, 162, 178), out / "fog-page.webp")
+
     # Ombres de nuages (façade, par temps à éclaircies) : plaques moyennes à bord très doux
     n = fractal(1024, 512, [(1.2, 1.0), (1.8, 0.35)], cutoff=0.0115, seed=47, hp=0.0032)
     save_alpha(smooth(n, 0.42, 0.80) * 0.92, (16, 24, 42), out / "clouds.webp")
@@ -63,7 +69,7 @@ def main(out: Path):
     svg.append("</svg>")
     (out / "stars.svg").write_text("\n".join(svg))
 
-    for name in ("fog-a.webp", "fog-b.webp", "clouds.webp", "sky-clouds.webp", "stars.svg"):
+    for name in ("fog-a.webp", "fog-b.webp", "fog-page.webp", "clouds.webp", "sky-clouds.webp", "stars.svg"):
         print(f"{name:16s} {os.path.getsize(out / name) // 1024:3d} Ko")
 
 

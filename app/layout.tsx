@@ -7,6 +7,7 @@ import WeatherAtmosphere from "@/app/components/weather/WeatherAtmosphere";
 import MobileContactBar from "@/app/components/MobileContactBar";
 import OfferCard from "@/app/components/OfferCard";
 import "./globals.css";
+import "./components/weather/weather.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 

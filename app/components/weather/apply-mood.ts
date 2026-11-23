@@ -11,6 +11,7 @@ import type { Mood } from '@/lib/mood';
 
 const TEXTURES = {
     fog: ['/weather/fog-a.webp', '/weather/fog-b.webp'],
+    pagefog: ['/weather/fog-page.webp'],
     sky: ['/weather/sky-mask.webp'],
     shade: ['/weather/clouds.webp'],
     deck: ['/weather/sky-clouds.webp'],
@@ -31,11 +32,15 @@ const NEEDS_OF: Record<string, Need[]> = {
     '--wx-snowcover': ['snow'],
     '--wx-fog-a': ['fog'],
     '--wx-fog-b': ['fog'],
+    '--wx-page-fog': ['pagefog'],
     '--wx-shade': ['shade', 'sky'],
 };
 
 /** Vitesse de chaque couche par rapport à la dérive de base (profondeur : le lointain bouge moins). */
-const LAYER_SPEED: Record<string, number> = { 'fog-a': 1, 'fog-b': 0.68, clouds: 0.55, shade: 1.25 };
+const LAYER_SPEED: Record<string, number> = { 'fog-a': 1, 'fog-b': 0.68, 'page-fog': 0.8, clouds: 0.55, shade: 1.25 };
+
+/** Quand le système demande moins d'animations, la brume ne fait plus que flotter. */
+const CALM_FACTOR = 0.2;
 
 const loaded = new Set<Need>();
 const loading = new Map<Need, Promise<void>>();
@@ -62,7 +67,7 @@ function load(need: Need): Promise<void> {
 
 let generation = 0;
 
-export function applyMood(mood: Mood) {
+export function applyMood(mood: Mood, calm = false) {
     const root = document.documentElement;
     const mine = ++generation;
     const wanted = (Object.keys(mood.needs) as Need[]).filter((need) => mood.needs[need]);
@@ -79,7 +84,7 @@ export function applyMood(mood: Mood) {
         root.dataset.wx = [...tokens].join(' ');
         void root.offsetWidth;
         for (const [name, value] of variables) root.style.setProperty(name, value);
-        driftLayers(mood);
+        driftLayers(mood, calm);
     };
 
     reveal(
@@ -105,7 +110,7 @@ export function applyMood(mood: Mood) {
  * (changer la durée en CSS ferait sauter l'animation). Un sens inverse suppose que l'animation soit déjà
  * avancée : on la place donc 50 tuiles plus loin au départ (plusieurs heures de dérive dans chaque sens).
  */
-function driftLayers(mood: Mood) {
+function driftLayers(mood: Mood, calm: boolean) {
     requestAnimationFrame(() => {
         document.querySelectorAll<HTMLElement>('.wx-drift').forEach((layer) => {
             const speed = LAYER_SPEED[layer.dataset.wxLayer ?? ''] ?? 1;
@@ -114,19 +119,25 @@ function driftLayers(mood: Mood) {
             for (const animation of animations) {
                 if (!layer.dataset.wxStarted) animation.currentTime = 240_000 * 50;
                 // L'animation fait glisser la couche vers la gauche : lue à l'envers, elle va vers la droite.
-                animation.updatePlaybackRate(-mood.drift.direction * mood.drift.rate * speed);
+                animation.updatePlaybackRate(-mood.drift.direction * mood.drift.rate * speed * (calm ? CALM_FACTOR : 1));
             }
             if (animations.length) layer.dataset.wxStarted = '1';
         });
     });
 }
 
-/** Éclair d'orage : rejoue l'animation du calque « flash » (voir .wx-flash dans globals.css). */
+/**
+ * Éclair d'orage : rejoue l'animation du calque « flash » de la photo (en l'éclairant) et lève un instant le voile
+ * de toute la page (elle s'éclaircit). Voir .wx-flash et .wx-page-veil dans weather.css.
+ */
 export function flashLightning() {
-    document.querySelectorAll<HTMLElement>('.wx-flash').forEach((flash) => {
-        flash.classList.remove('is-on');
-        void flash.offsetWidth;
-        flash.classList.add('is-on');
-        flash.addEventListener('animationend', () => flash.classList.remove('is-on'), { once: true });
-    });
+    const replay = (selector: string, className: string) =>
+        document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+            element.classList.remove(className);
+            void element.offsetWidth;
+            element.classList.add(className);
+            element.addEventListener('animationend', () => element.classList.remove(className), { once: true });
+        });
+    replay('.wx-flash', 'is-on');
+    replay('.wx-page-veil', 'is-flash');
 }

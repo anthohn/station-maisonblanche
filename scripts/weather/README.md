@@ -14,7 +14,7 @@ npm run build && npm run test:meteo:route  # la route /api/meteo de bout en bout
 Python 3 avec `numpy` et `Pillow` (`pip install numpy pillow`). Tout est déterministe : relancer un script redonne exactement les mêmes fichiers.
 
 ```bash
-python3 scripts/weather/make_textures.py        # brouillard, ombres de nuages, ciel couvert, étoiles
+python3 scripts/weather/make_textures.py        # brouillard (photo et page), ombres de nuages, ciel couvert, étoiles
 python3 scripts/weather/make_photo_overlays.py  # masque du ciel, enseigne et vitrines allumées, neige sur le toit
 ```
 
