@@ -1,5 +1,5 @@
 /**
- * Tests de la météo : lecture d'Open-Meteo, ambiances, horaires du shop.
+ * Tests de la météo : lecture d'Open-Meteo, saisons, soleil, ambiances de la page, lisibilité.
  *
  *   npm run test:meteo
  *
@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { computeMood, PAGE_ALPHA_MAX } from '../../lib/mood.ts';
 import { sunElevation } from '../../lib/sun.ts';
-import { describe as describeWeather, formatTemperature, fromOpenMeteo, HOURS, PRESETS, seasonOf, shopIsOpen, STATION } from '../../lib/weather.ts';
+import { describe as describeWeather, formatTemperature, fromOpenMeteo, HOURS, PRESETS, seasonOf, STATION } from '../../lib/weather.ts';
 
 // Réponse d'Open-Meteo (format documenté), modifiable champ par champ
 const response = (current) => ({
@@ -19,6 +19,10 @@ const response = (current) => ({
 });
 const read = (current) => fromOpenMeteo(response(current), 1);
 const sky = (m, name) => parseFloat(m.vars[name]);
+/** Opacité d'une couleur `rgb(r g b / a)` posée par computeMood (voile de la page). */
+const alphaOf = (m, name) => Number(m.vars[name].match(/\/ ([\d.]+)\)/)[1]);
+/** Brume de la page au maximum : 30 % par brouillard seul, jusqu'à 38 % avec de la pluie par-dessus (0,3 × brouillard + 0,5 × 0,16 × pluie). */
+const PAGE_FOG_MAX = 0.38;
 
 describe('lecture d’Open-Meteo', () => {
     it('ciel dégagé, éclaircies, couvert', () => {
@@ -77,16 +81,6 @@ describe('saisons (heure de Genève)', () => {
     ]) it(`${iso} → ${expected}`, () => assert.equal(seasonOf(new Date(iso)), expected));
 });
 
-describe('horaires du shop (Genève, heure d’été comprise)', () => {
-    for (const [iso, open, why] of [
-        ['2026-11-23T04:59:00Z', false, 'lundi 05:59'], ['2026-11-23T05:00:00Z', true, 'lundi 06:00'],
-        ['2026-11-23T19:29:00Z', true, 'lundi 20:29'], ['2026-11-23T19:30:00Z', false, 'lundi 20:30'],
-        ['2026-11-28T05:30:00Z', false, 'samedi 06:30 (ouvre à 07:00)'], ['2026-11-28T06:00:00Z', true, 'samedi 07:00'],
-        ['2026-11-29T06:15:00Z', false, 'dimanche 07:15 (ouvre à 07:30)'], ['2026-11-29T06:30:00Z', true, 'dimanche 07:30'],
-        ['2026-07-15T04:00:00Z', true, 'mercredi 06:00, heure d’été'], ['2026-07-15T03:59:00Z', false, 'mercredi 05:59, heure d’été'],
-    ]) it(`${why} → ${open ? 'ouvert' : 'fermé'}`, () => assert.equal(shopIsOpen(new Date(iso)), open));
-});
-
 describe('position du soleil à Chancy', () => {
     it('23 novembre : lever vers 07:49, coucher vers 16:57, hauteur maximale ≈ 23,5°', () => {
         const day = Date.UTC(2026, 10, 23);
@@ -106,68 +100,65 @@ describe('position du soleil à Chancy', () => {
 });
 
 describe('ambiances (lib/mood.ts)', () => {
-    const OPACITIES = ['--wx-shade', '--wx-vignette', '--wx-warm', '--wx-sky', '--wx-sky-clouds', '--wx-stars', '--wx-windows', '--wx-snowcover', '--wx-fog-a', '--wx-fog-b', '--wx-veil', '--wx-page-fog'];
-
-    it('toutes les opacités restent dans [0, 1], aucune valeur NaN, quelle que soit la combinaison', () => {
+    it('toutes les valeurs restent bornées, aucune valeur NaN, quelle que soit la combinaison', () => {
         let combinations = 0;
         for (const cloud of [0, 0.3, 0.6, 1]) for (const fog of [0, 0.5, 1]) for (const rain of [0, 0.4, 1]) for (const snow of [0, 0.5])
             for (const temperature of [-5, 5]) for (const elevation of [-40, -20, -10, -5, -1, 0, 3, 8, 15, 30, 60]) {
                 if (rain && snow) continue;
                 const mood = computeMood({ temperature, condition: 'cloudy', cloud, fog, rain, snow, wind: 12, windDir: 200 }, elevation);
-                for (const name of OPACITIES) { const v = sky(mood, name); assert.ok(v >= 0 && v <= 1, `${name}=${v}`); }
+                const fogVar = sky(mood, '--wx-page-fog');
+                assert.ok(fogVar >= 0 && fogVar <= PAGE_FOG_MAX + 1e-9, `--wx-page-fog=${fogVar}`);
+                for (const name of ['--wx-page-top', '--wx-page-bottom', '--wx-page-warm']) { const a = alphaOf(mood, name); assert.ok(a >= 0 && a <= PAGE_ALPHA_MAX + 1e-9, `${name}=${a}`); }
                 for (const [name, value] of Object.entries(mood.vars)) assert.ok(!/NaN|undefined|Infinity/.test(value), `${name}=${value}`);
+                for (const value of [mood.night, mood.lum, mood.particles.rain, mood.particles.snow]) assert.ok(value >= 0 && value <= 1, `valeur ${value}`);
                 combinations++;
             }
         assert.ok(combinations > 500);
     });
-    it('sans données par plein jour : la photo d’origine, rien d’ajouté', () => {
-        const mood = computeMood(null, 46);
-        assert.equal(sky(mood, '--wx-sky'), 0); assert.equal(sky(mood, '--wx-windows'), 0); assert.equal(sky(mood, '--wx-fog-a'), 0); assert.equal(mood.particles.rain, 0);
-    });
-    it('plein jour dégagé : rien ; nuit : vitrines éclairées, étoiles, ciel remplacé ; l’enseigne n’est jamais rétro-éclairée', () => {
-        const noon = computeMood(PRESETS.soleil.weather, 46);
-        assert.equal(sky(noon, '--wx-sky'), 0); assert.equal(sky(noon, '--wx-windows'), 0); assert.ok(sky(noon, '--wx-warm') < 0.01); assert.ok(noon.daylight);
-        const night = computeMood(PRESETS.nuit.weather, -32);
-        assert.ok(sky(night, '--wx-windows') > 0.99 && sky(night, '--wx-stars') > 0.9 && sky(night, '--wx-sky') === 1 && night.night > 0.99 && !night.daylight);
-    });
-    it('il n’y a plus de rétro-éclairage de l’enseigne : ni variable, ni calque, ni image', () => {
-        for (const [, p] of Object.entries(PRESETS)) {
-            const mood = computeMood(p.weather, p.elevation, true);
-            assert.equal(mood.vars['--wx-lights'], undefined);
-            assert.equal('lights' in mood.needs, false);
+    it('la photo d’accueil n’est jamais touchée : seules des variables de la page, aucune texture de photo', () => {
+        for (const [name, mood] of everyState()) {
+            for (const variable of Object.keys(mood.vars)) assert.match(variable, /^--wx-page-/, `${name} : ${variable}`);
+            assert.deepEqual(Object.keys(mood.needs), ['pagefog'], name);
         }
     });
-    it('les vitrines ne s’allument que si le shop est ouvert', () => {
-        const closed = computeMood(PRESETS.nuit.weather, -32, false);
-        const open = computeMood(PRESETS.nuit.weather, -32, true);
-        assert.equal(sky(closed, '--wx-windows'), 0);
-        assert.ok(sky(open, '--wx-windows') > 0.99);
+    it('sans données par plein jour : ni voile, ni brume, ni particule', () => {
+        const mood = computeMood(null, 46);
+        assert.equal(alphaOf(mood, '--wx-page-top'), 0); assert.equal(sky(mood, '--wx-page-fog'), 0); assert.equal(mood.needs.pagefog, false);
+        assert.equal(mood.particles.rain, 0); assert.equal(mood.particles.snow, 0); assert.equal(mood.storm, false);
     });
-    it('brouillard, pluie, neige, heure dorée, éclaircies, orage : chacun produit les bons calques', () => {
+    it('plein jour dégagé : à peine un voile ; nuit : voile bleu marine, et le jour se lève bien', () => {
+        const noon = computeMood(PRESETS.soleil.weather, 46);
+        assert.ok(alphaOf(noon, '--wx-page-top') < 0.01 && alphaOf(noon, '--wx-page-warm') < 0.06 && noon.night < 0.01 && noon.daylight);
+        const night = computeMood(PRESETS.nuit.weather, -32);
+        const { tint, alpha } = readVeil(night);
+        assert.ok(alpha > 0.15 && tint[2] > tint[0] + 30 && night.night > 0.99 && !night.daylight && night.lum === 0);
+    });
+    it('brouillard, pluie, neige, heure dorée, éclaircies, orage : chacun produit l’atmosphère attendue', () => {
+        const clear = alphaOf(computeMood(PRESETS.soleil.weather, 46), '--wx-page-top');
         const fog = computeMood(PRESETS.brouillard.weather, 14);
-        assert.ok(sky(fog, '--wx-fog-a') > 0.45 && sky(fog, '--wx-veil') > 0.6 && fog.needs.fog);
+        assert.ok(sky(fog, '--wx-page-fog') > 0.2 && fog.needs.pagefog && alphaOf(fog, '--wx-page-top') > clear + 0.1);
         const rain = computeMood(PRESETS.pluie.weather, 20);
-        assert.ok(rain.particles.rain > 0.6 && rain.particles.snow === 0 && sky(rain, '--wx-sky') > 0.9);
+        const drizzle = computeMood(PRESETS.bruine.weather, 22);
+        assert.ok(drizzle.particles.rain > 0.15 && drizzle.particles.rain < rain.particles.rain);
+        assert.ok(rain.particles.rain > 0.6 && rain.particles.snow === 0 && rain.needs.pagefog && alphaOf(rain, '--wx-page-top') > clear + 0.04);
         const snow = computeMood(PRESETS.neige.weather, 20);
-        assert.ok(snow.particles.snow > 0.5 && snow.particles.rain === 0 && sky(snow, '--wx-snowcover') > 0.9 && snow.needs.snow);
+        assert.ok(snow.particles.snow > 0.5 && snow.particles.rain === 0 && snow.needs.pagefog);
         const gold = computeMood(PRESETS.dore.weather, 3);
-        assert.ok(sky(gold, '--wx-warm') > 0.4 && sky(gold, '--wx-sky') > 0.8);
+        assert.ok(alphaOf(gold, '--wx-page-warm') > 0.1);
         const partly = computeMood(PRESETS.eclaircies.weather, 34);
-        assert.ok(sky(partly, '--wx-shade') > 0.2 && partly.needs.shade);
-        assert.ok(computeMood(PRESETS.orage.weather, 24).storm);
-    });
-    it('la neige ne couvre pas le toit quand il fait doux', () => {
-        const mood = computeMood({ ...PRESETS.neige.weather, temperature: 6 }, 20);
-        assert.equal(sky(mood, '--wx-snowcover'), 0);
+        assert.ok(alphaOf(partly, '--wx-page-top') < 0.05 && !partly.needs.pagefog);
+        const storm = computeMood(PRESETS.orage.weather, 24);
+        assert.ok(storm.storm && alphaOf(storm, '--wx-page-top') > alphaOf(rain, '--wx-page-top'));
     });
     it('la lumière évolue sans saut brutal quand le soleil se lève ou se couche', () => {
         let worst = 0, previous = computeMood(PRESETS.soleil.weather, -40);
         for (let e = -39.5; e <= 60; e += 0.5) {
             const mood = computeMood(PRESETS.soleil.weather, e);
-            for (const name of ['--wx-sky', '--wx-windows', '--wx-warm', '--wx-stars', '--wx-vignette']) worst = Math.max(worst, Math.abs(sky(mood, name) - sky(previous, name)));
+            for (const name of ['--wx-page-top', '--wx-page-warm']) worst = Math.max(worst, Math.abs(alphaOf(mood, name) - alphaOf(previous, name)));
+            worst = Math.max(worst, Math.abs(mood.night - previous.night), Math.abs(mood.lum - previous.lum));
             previous = mood;
         }
-        assert.ok(worst < 0.2, `variation maximale ${worst}`);
+        assert.ok(worst < 0.1, `variation maximale ${worst}`);
     });
     it('le vent d’ouest pousse brume et pluie vers la droite, le vent d’est vers la gauche', () => {
         assert.equal(computeMood({ ...PRESETS.pluie.weather, windDir: 270 }, 20).drift.direction, 1);
@@ -176,8 +167,8 @@ describe('ambiances (lib/mood.ts)', () => {
         assert.ok(computeMood({ ...PRESETS.pluie.weather, windDir: 90, wind: 30 }, 20).particles.slant < 0);
     });
     it('chaque heure et chaque ambiance de démonstration se calcule', () => {
-        for (const hour of Object.values(HOURS)) assert.ok(computeMood(PRESETS.soleil.weather, hour.elevation, hour.open).vars['--wx-grade']);
-        for (const preset of Object.values(PRESETS)) assert.ok(computeMood(preset.weather, preset.elevation, preset.open ?? true).vars['--wx-grade']);
+        for (const hour of Object.values(HOURS)) assert.ok(computeMood(PRESETS.soleil.weather, hour.elevation).vars['--wx-page-top']);
+        for (const preset of Object.values(PRESETS)) assert.ok(computeMood(preset.weather, preset.elevation).vars['--wx-page-top']);
     });
 });
 
@@ -200,8 +191,8 @@ const readVeil = (mood) => {
     return { tint: [Number(r), Number(g), Number(b)], alpha: Number(a) };
 };
 const everyState = () => [
-    ...Object.entries(PRESETS).map(([name, p]) => [name, computeMood(p.weather, p.elevation, p.open ?? true)]),
-    ...Object.entries(HOURS).map(([name, h]) => [`heure ${name}`, computeMood(PRESETS.soleil.weather, h.elevation, h.open)]),
+    ...Object.entries(PRESETS).map(([name, p]) => [name, computeMood(p.weather, p.elevation)]),
+    ...Object.entries(HOURS).map(([name, h]) => [`heure ${name}`, computeMood(PRESETS.soleil.weather, h.elevation)]),
 ];
 
 describe('lisibilité sous le voile de la page', () => {

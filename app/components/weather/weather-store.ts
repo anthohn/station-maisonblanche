@@ -131,11 +131,10 @@ export function setPreview(preview: Preview | null) {
     update({ preview: clean });
 }
 
-/** Ce que l'aperçu impose : météo, hauteur du soleil, shop ouvert ou non, feuilles (null = on garde le réel). */
+/** Ce que l'aperçu impose : météo, hauteur du soleil, feuilles (null = on garde le réel). */
 export interface Simulation {
     weather: Omit<Weather, 'at'> | null;
     elevation: number | null;
-    open: boolean | null;
     leaves: boolean | null;
 }
 
@@ -146,7 +145,6 @@ export function resolvePreview(preview: Preview | null, live: Weather | null): S
     return {
         weather: preset ? preset.weather : live,
         elevation: hour?.elevation ?? preset?.elevation ?? null,
-        open: hour?.open ?? (preset ? (preset.open ?? true) : null),
         leaves: preset?.leaves ?? null,
     };
 }

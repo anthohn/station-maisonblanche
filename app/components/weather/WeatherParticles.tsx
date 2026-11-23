@@ -87,7 +87,7 @@ function snowSprite(radius: number): HTMLCanvasElement {
     sprite.width = sprite.height = size;
     const ctx = sprite.getContext('2d');
     if (ctx) {
-        // Cœur blanc, bord bleuté très doux : le flocon se lit aussi bien sur la photo sombre que sur le fond blanc du site.
+        // Cœur blanc, bord bleuté très doux : le flocon se lit aussi bien sur la photo que sur le fond blanc du site.
         const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
         gradient.addColorStop(0, 'rgba(255,255,255,1)');
         gradient.addColorStop(0.45, 'rgba(252,253,255,0.95)');

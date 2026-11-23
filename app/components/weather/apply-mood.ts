@@ -1,41 +1,25 @@
 import type { Mood } from '@/lib/mood';
 
 /**
- * Pose une ambiance (lib/mood.ts) sur la page : variables CSS sur <html>, textures à charger,
- * vitesse et sens de dérive du brouillard.
+ * Pose une ambiance (lib/mood.ts) sur la page : variables CSS sur <html>, texture de brume à charger,
+ * vitesse et sens de dérive de la brume.
  *
- * Soin particulier pour que tout apparaisse en fondu, jamais d'un coup : un calque à texture
- * (brouillard, ciel, vitrines…) n'est révélé qu'une fois sa texture chargée ; le reste (étalonnage
- * de la photo, lumière) est appliqué tout de suite.
+ * Soin particulier pour que tout apparaisse en fondu, jamais d'un coup : la brume (qui a une texture)
+ * n'est révélée qu'une fois sa texture chargée ; le voile de lumière est appliqué tout de suite.
  */
 
 const TEXTURES = {
-    fog: ['/weather/fog-a.webp', '/weather/fog-b.webp'],
     pagefog: ['/weather/fog-page.webp'],
-    sky: ['/weather/sky-mask.webp'],
-    shade: ['/weather/clouds.webp'],
-    deck: ['/weather/sky-clouds.webp'],
-    stars: ['/weather/stars.svg'],
-    windows: ['/weather/windows-lit.webp'],
-    snow: ['/weather/snow-roof.webp'],
 } as const;
 type Need = keyof typeof TEXTURES;
 
 /** Variables qui commandent un calque à texture, et ce dont il a besoin. */
 const NEEDS_OF: Record<string, Need[]> = {
-    '--wx-sky': ['sky'],
-    '--wx-sky-clouds': ['sky', 'deck'],
-    '--wx-stars': ['sky', 'stars'],
-    '--wx-windows': ['windows'],
-    '--wx-snowcover': ['snow'],
-    '--wx-fog-a': ['fog'],
-    '--wx-fog-b': ['fog'],
     '--wx-page-fog': ['pagefog'],
-    '--wx-shade': ['shade', 'sky'],
 };
 
-/** Vitesse de chaque couche par rapport à la dérive de base (profondeur : le lointain bouge moins). */
-const LAYER_SPEED: Record<string, number> = { 'fog-a': 1, 'fog-b': 0.68, 'page-fog': 0.8, clouds: 0.55, shade: 1.25 };
+/** Vitesse de chaque couche par rapport à la dérive de base. */
+const LAYER_SPEED: Record<string, number> = { 'page-fog': 0.8 };
 
 /** Quand le système demande moins d'animations, la brume ne fait plus que flotter. */
 const CALM_FACTOR = 0.2;
@@ -125,17 +109,13 @@ function driftLayers(mood: Mood, calm: boolean) {
 }
 
 /**
- * Éclair d'orage : rejoue l'animation du calque « flash » de la photo (en l'éclairant) et lève un instant le voile
- * de toute la page (elle s'éclaircit). Voir .wx-flash et .wx-page-veil dans weather.css.
+ * Éclair d'orage : lève un instant le voile de toute la page (elle s'éclaircit). Voir .wx-page-veil dans weather.css.
  */
 export function flashLightning() {
-    const replay = (selector: string, className: string) =>
-        document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
-            element.classList.remove(className);
-            void element.offsetWidth;
-            element.classList.add(className);
-            element.addEventListener('animationend', () => element.classList.remove(className), { once: true });
-        });
-    replay('.wx-flash', 'is-on');
-    replay('.wx-page-veil', 'is-flash');
+    document.querySelectorAll<HTMLElement>('.wx-page-veil').forEach((element) => {
+        element.classList.remove('is-flash');
+        void element.offsetWidth;
+        element.classList.add('is-flash');
+        element.addEventListener('animationend', () => element.classList.remove('is-flash'), { once: true });
+    });
 }

@@ -24,8 +24,8 @@ function useReducedMotion(): boolean {
 /**
  * Sécurité de fluidité : si, alors que quelque chose bouge (pluie, neige, feuilles, brume), l'appareil reste sous
  * ~30 images/s pendant deux mesures de 2 secondes, la page retire d'elle-même le voile et la brume (attribut
- * `data-wx-lite` : voir weather.css) ; la photo d'accueil et des particules plus légères restent. Mieux vaut un peu
- * moins d'atmosphère qu'un site qui rame. Le choix vaut pour la visite (sessionStorage). Jamais en aperçu.
+ * `data-wx-lite` : voir weather.css) ; des particules plus légères restent. Mieux vaut un peu moins d'atmosphère
+ * qu'un site qui rame. Le choix vaut pour la visite (sessionStorage). Jamais en aperçu.
  */
 const LITE_KEY = 'wx:lite';
 
@@ -86,7 +86,7 @@ function useFluidityGuard(watch: boolean) {
  *  - déclenche les éclairs en cas d'orage ;
  *  - propose le « pad » (la barre d'aperçu) : avec ?meteo=, ?heure= ou ?pad, et tout seul sur les aperçus Vercel
  *    (`padByDefault`, jamais en production).
- * Le calque de la photo d'accueil, lui, est dans HeroPhoto.tsx ; la légende dans WeatherCaption.tsx.
+ * La photo d'accueil n'est jamais modifiée par la météo ; la légende qui s'y pose est dans WeatherCaption.tsx.
  *
  * Respect du visiteur :
  *  - s'il a demandé moins d'animations (réglage du système), les effets sont adoucis (moins de particules, plus

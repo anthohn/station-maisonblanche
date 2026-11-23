@@ -154,28 +154,6 @@ export function seasonOf(date: Date = new Date()): Season {
     return 'autumn';
 }
 
-/* ───────────────────────── Ouverture du shop ───────────────────────── */
-
-/**
- * Le shop est-il ouvert ? Mêmes horaires que le pied de page, le bloc « ouvert / fermé » et les
- * données structurées (JsonLd) : lundi-vendredi dès 06:00, samedi dès 07:00, dimanche dès 07:30,
- * fermeture à 20:30. Sert à n'allumer les vitrines de la photo que quand le shop est vraiment ouvert.
- */
-export function shopIsOpen(date: Date = new Date()): boolean {
-    const parts = new Intl.DateTimeFormat('en-GB', {
-        timeZone: STATION.timeZone,
-        weekday: 'short',
-        hour: 'numeric',
-        minute: 'numeric',
-        hourCycle: 'h23',
-    }).formatToParts(date);
-    const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '';
-    const minutes = Number(get('hour')) * 60 + Number(get('minute'));
-    const weekday = get('weekday');
-    const opens = weekday === 'Sat' ? 7 * 60 : weekday === 'Sun' ? 7 * 60 + 30 : 6 * 60;
-    return minutes >= opens && minutes < 20 * 60 + 30;
-}
-
 /* ───────────────────────── Ambiances de démonstration ───────────────────────── */
 
 export interface Preset {
@@ -185,8 +163,6 @@ export interface Preset {
     elevation: number;
     /** Force l'affichage des feuilles d'automne (sinon : selon la vraie saison). */
     leaves?: boolean;
-    /** Le shop est-il ouvert dans cette démonstration ? (vrai par défaut ; faux pour la nuit noire) */
-    open?: boolean;
 }
 
 const base = { fog: 0, rain: 0, snow: 0, wind: 8, windDir: 250 };
@@ -205,15 +181,15 @@ export const PRESETS: Record<string, Preset> = {
     orage: { label: 'Orage', weather: { ...base, temperature: 19, condition: 'storm', cloud: 1, rain: 1, wind: 38, windDir: 235 }, elevation: 24 },
     neige: { label: 'Neige', weather: { ...base, temperature: -2, condition: 'snow', cloud: 0.97, snow: 0.62, wind: 7 }, elevation: 20 },
     dore: { label: 'Heure dorée', weather: { ...base, temperature: 12, condition: 'clear', cloud: 0.18 }, elevation: 3 },
-    nuit: { label: 'Nuit', weather: { ...base, temperature: 5, condition: 'clear', cloud: 0.1, wind: 5 }, elevation: -32, open: false },
+    nuit: { label: 'Nuit', weather: { ...base, temperature: 5, condition: 'clear', cloud: 0.1, wind: 5 }, elevation: -32 },
     automne: { label: 'Automne', weather: { ...base, temperature: 11, condition: 'partly', cloud: 0.4, wind: 22 }, elevation: 28, leaves: true },
 };
 
-/** Heures simulables avec `?heure=` : hauteur du soleil (degrés) et shop ouvert ou non. */
-export const HOURS: Record<string, { label: string; elevation: number; open: boolean }> = {
-    matin: { label: 'Matin', elevation: 22, open: true },
-    midi: { label: 'Midi', elevation: 46, open: true },
-    dore: { label: 'Heure dorée', elevation: 3, open: true },
-    bleue: { label: 'Heure bleue', elevation: -5, open: true },
-    nuit: { label: 'Nuit', elevation: -32, open: false },
+/** Heures simulables avec `?heure=` : hauteur du soleil (degrés). */
+export const HOURS: Record<string, { label: string; elevation: number }> = {
+    matin: { label: 'Matin', elevation: 22 },
+    midi: { label: 'Midi', elevation: 46 },
+    dore: { label: 'Heure dorée', elevation: 3 },
+    bleue: { label: 'Heure bleue', elevation: -5 },
+    nuit: { label: 'Nuit', elevation: -32 },
 };

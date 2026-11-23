@@ -112,7 +112,7 @@ export default function RootLayout({
         <JsonLd />
 
         <Header />
-        {/* Météo en direct à Chancy : pluie, neige, feuilles d'automne, ambiance de la photo d'accueil */}
+        {/* Météo en direct à Chancy : voile de lumière, brume, pluie, neige, feuilles d'automne (la photo d'accueil n'est pas touchée) */}
         <WeatherAtmosphere padByDefault={padByDefault} />
         <main className="flex-1">{children}</main>
         <Footer />

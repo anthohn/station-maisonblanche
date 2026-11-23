@@ -1,6 +1,6 @@
 import { computeMood, type Mood } from '@/lib/mood';
 import { sunElevation } from '@/lib/sun';
-import { describe, formatTemperature, HOURS, PRESETS, seasonOf, shopIsOpen, STATION, type Weather } from '@/lib/weather';
+import { describe, formatTemperature, HOURS, PRESETS, seasonOf, STATION, type Weather } from '@/lib/weather';
 import { isScenario, resolvePreview, type WeatherSnapshot } from './weather-store';
 
 export interface Ambience {
@@ -15,7 +15,8 @@ export interface Ambience {
 
 /**
  * Tout ce que la page affiche découle de ce calcul : le magasin de données (météo réelle, aperçu, heure)
- * entre, une ambiance sort. Même fonction pour la photo, les particules, les feuilles et la légende.
+ * entre, une ambiance sort. Même fonction pour le voile et la brume de la page, les particules, les feuilles
+ * et la légende.
  */
 export function deriveAmbience(snapshot: WeatherSnapshot): Ambience | null {
     const { now, preview, weather: live } = snapshot;
@@ -24,8 +25,7 @@ export function deriveAmbience(snapshot: WeatherSnapshot): Ambience | null {
     const simulation = resolvePreview(preview, live);
     const weather = simulation ? simulation.weather : live;
     const elevation = simulation?.elevation ?? sunElevation(now, STATION.lat, STATION.lon);
-    const open = simulation?.open ?? shopIsOpen(new Date(now));
-    const mood = computeMood(weather, elevation, open);
+    const mood = computeMood(weather, elevation);
 
     // Les feuilles tombent en automne, mais pas sous la neige, la forte pluie ou dans le brouillard dense.
     const autumn = simulation?.leaves ?? seasonOf(new Date(now)) === 'autumn';

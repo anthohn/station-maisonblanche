@@ -4,8 +4,7 @@ import { setEffects, useWeatherStore } from './weather-store';
 
 /**
  * Lien du pied de page : le visiteur suspend (ou rétablit) les effets météo de la page, c'est-à-dire le voile,
- * la brume, la pluie, la neige et les feuilles. Son choix est mémorisé. La photo d'accueil garde son étalonnage,
- * qui est fixe. Voir WeatherAtmosphere.
+ * la brume, la pluie, la neige et les feuilles. Son choix est mémorisé. Voir WeatherAtmosphere.
  */
 export default function WeatherToggle() {
     const { effects, now } = useWeatherStore();

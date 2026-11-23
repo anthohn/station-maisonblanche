@@ -1,8 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
-import HeroPhoto from '@/app/components/weather/HeroPhoto';
 import WeatherCaption from '@/app/components/weather/WeatherCaption';
 
 const stats = [
@@ -25,7 +25,8 @@ export default function HeroSection() {
             {/* Dégradé chaleureux d'automne subtil */}
             <div className="absolute inset-0 bg-linear-to-b from-amber-100/35 via-orange-50/25 to-white pointer-events-none" />
 
-            <div className="container mx-auto px-6 max-w-7xl relative z-10">
+            {/* Pas de z-index ici : un contexte d'empilement enfermerait la photo (z-[25], plus bas) sous le voile météo de la page */}
+            <div className="container mx-auto px-6 max-w-7xl relative">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-10 items-center">
 
                     {/* Left — text content (sur mobile : sous la photo et ses cartes flottantes) */}
@@ -95,7 +96,8 @@ export default function HeroSection() {
                         </motion.div>
                     </div>
 
-                    {/* Right — shop image. Mobile/tablette : en premier, pleine largeur, collée sous l'en-tête */}
+                    {/* Right — shop image. Mobile/tablette : en premier, pleine largeur, collée sous l'en-tête.
+                        z-[25] : au-dessus du voile météo de la page (z 22), la photo reste exactement l'originale. */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -103,8 +105,14 @@ export default function HeroSection() {
                         className="relative z-[25] order-first lg:order-none -mx-6 lg:mx-0"
                     >
                         <div className="relative w-full overflow-hidden lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
-                            {/* La photo et ses calques météo (ciel, brouillard, vitrines allumées…) : voir HeroPhoto.tsx */}
-                            <HeroPhoto />
+                            <Image
+                                src="/shop-accueil.jpg"
+                                alt="Shop et épicerie de proximité à la Station-Service Maison-Blanche, Chancy, Genève"
+                                fill
+                                className="object-cover hero-zoom"
+                                priority
+                                sizes="(max-width: 1024px) 100vw, 50vw"
+                            />
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
                             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
                                 <MapPin size={13} aria-hidden="true" />
