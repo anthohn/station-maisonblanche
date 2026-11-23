@@ -66,6 +66,13 @@ export default function MentionsLegalesPage() {
                                 L'ensemble du contenu de ce site (textes, images, logos, photographies, etc.) est protégé par le droit d'auteur.
                                 Toute reproduction, modification, ou distribution totale ou partielle de ces éléments sans l'autorisation écrite préalable de Station-Service Maison-Blanche SA est strictement interdite.
                             </p>
+                            <p className="mt-3">
+                                Les données météo de la page d’accueil (température, ciel, précipitations et vent à Chancy) proviennent d’
+                                <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">Open-Meteo.com</a>
+                                {' '}et sont publiées sous licence{' '}
+                                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">CC BY 4.0</a>.
+                                Elles sont lues par le serveur du site : aucune information sur votre visite n’est transmise à ce service.
+                            </p>
                         </section>
 
                         <section>

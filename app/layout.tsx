@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
-import AutumnLeaves from "@/app/components/AutumnLeaves";
+import WeatherAtmosphere from "@/app/components/weather/WeatherAtmosphere";
 import MobileContactBar from "@/app/components/MobileContactBar";
 import OfferCard from "@/app/components/OfferCard";
 import "./globals.css";
@@ -107,7 +107,8 @@ export default function RootLayout({
         <JsonLd />
 
         <Header />
-        <AutumnLeaves />
+        {/* Météo en direct à Chancy : pluie, neige, feuilles d'automne, ambiance de la photo d'accueil */}
+        <WeatherAtmosphere />
         <main className="flex-1">{children}</main>
         <Footer />
 

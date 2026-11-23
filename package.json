@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:meteo": "node --experimental-strip-types --no-warnings --test scripts/weather/weather.test.mjs",
+    "test:meteo:route": "node scripts/weather/route.e2e.mjs"
   },
   "dependencies": {
     "@types/qrcode": "^1.5.6",
