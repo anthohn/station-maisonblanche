@@ -17,7 +17,6 @@
   --wx-sky-bot: rgb(206 222 238);
   --wx-sky-clouds: 0;
   --wx-stars: 0;
-  --wx-lights: 0;
   --wx-windows: 0;
   --wx-snowcover: 0;
   --wx-fog-a: 0;
@@ -53,7 +52,7 @@ html {
 }
 
 /* « Boîte de couverture » : exactement la zone qu'occupe la photo (object-fit: cover, centrée), même
-   quand le cadre la recadre. Les calques qui doivent coïncider avec la photo (ciel, enseigne, vitrines)
+   quand le cadre la recadre. Les calques qui doivent coïncider avec la photo (ciel, vitrines)
    y sont placés en pourcentages de la photo. Pas de transform ici : il isolerait les fusions. */
 .wx-box { display: none; position: absolute; pointer-events: none; }
 @supports (width: 1cqw) {
@@ -150,7 +149,7 @@ html[data-wx~="deck"] .wx-sky-clouds { background-image: url(/weather/sky-clouds
 }
 html[data-wx~="stars"] .wx-sky::after { background-image: url(/weather/stars.svg); }
 
-/* Enseigne « Shop » et vitrines allumées (calques cuits dans la photo : voir public/weather) */
+/* Vitrines allumées (calque cuit dans la photo : voir public/weather) */
 .wx-lit {
   display: none;
   left: 20.8333%; top: 31.1111%; width: 55%; height: 48.8889%;
@@ -158,9 +157,7 @@ html[data-wx~="stars"] .wx-sky::after { background-image: url(/weather/stars.svg
   background-size: 100% 100%;
   transition: opacity 2.4s ease;
 }
-.wx-sign { opacity: var(--wx-lights); }
 .wx-windows { opacity: var(--wx-windows); }
-html[data-wx~="lights"] .wx-sign { display: block; background-image: url(/weather/sign-lit.webp); }
 html[data-wx~="windows"] .wx-windows { display: block; background-image: url(/weather/windows-lit.webp); }
 
 /* Brouillard : deux couches de brume qui dérivent à des vitesses différentes. Plus légère au premier plan : cet

@@ -1,7 +1,7 @@
 # Météo en direct
 
 Le site réagit au temps qu'il fait **à la station**, sur la page entière :
-- la **photo d'accueil** passe au brouillard, à la pluie, à la neige, à l'heure dorée ou à la nuit (l'enseigne « Shop » s'allume, la neige blanchit le toit) ;
+- la **photo d'accueil** passe au brouillard, à la pluie, à la neige, à l'heure dorée ou à la nuit (les vitrines s'éclairent quand le shop est ouvert, la neige blanchit le toit) ;
 - toute la **page** prend la lumière du moment (un voile léger, plus marqué en haut comme un ciel), une brume dérive par-dessus, et pluie, neige ou feuilles d'automne tombent sur tout l'écran ; un éclair éclaire la page en cas d'orage ;
 - une légende dit la température et le temps (« 4 °C · Brouillard dense »).
 
@@ -19,10 +19,10 @@ Open-Meteo ──► app/api/meteo/route.ts ──► weather-store.ts ──►
 
 - **`lib/weather.ts`** : lit la réponse d'Open-Meteo et la ramène à des valeurs continues (nuages, brouillard, pluie, neige de 0 à 1), libellés français, saisons, horaires d'ouverture du shop, ambiances de démonstration.
 - **`lib/sun.ts`** : hauteur du soleil à Chancy (algorithme NOAA), sans réseau.
-- **`lib/mood.ts`** : fonction pure `computeMood(météo, hauteur du soleil, shop ouvert)` → variables CSS et réglages des particules. **C'est ici qu'on règle l'allure** de chaque ambiance (couleurs du ciel, force du brouillard, teinte et intensité du voile de la page, moment où l'enseigne s'allume…).
+- **`lib/mood.ts`** : fonction pure `computeMood(météo, hauteur du soleil, shop ouvert)` → variables CSS et réglages des particules. **C'est ici qu'on règle l'allure** de chaque ambiance (couleurs du ciel, force du brouillard, teinte et intensité du voile de la page, moment où les vitrines s'éclairent…).
 - **`app/api/meteo/route.ts`** : le serveur interroge Open-Meteo avec les coordonnées de la station (pas celles du visiteur : aucune autorisation à demander, aucune donnée personnelle ne part chez un tiers). Réponse gardée 10 minutes (serveur et CDN) : Open-Meteo reçoit au plus quelques requêtes par heure, quel que soit le nombre de visiteurs. En cas d'échec : HTTP 200 `{ "weather": null }`.
 - **`weather.css`** : tous les styles (importé par `app/layout.tsx`). Volontairement **hors de `globals.css`** : moins de conflits avec les branches qui modifient celui-ci.
-- **`HeroPhoto.tsx`** : la photo et ses calques (neige sur le toit, ombres de nuages, lumière, ciel remplacé, enseigne et vitrines allumées, brouillard, voile, éclair). Le balisage est identique pour tout le monde ; seules les variables CSS changent.
+- **`HeroPhoto.tsx`** : la photo et ses calques (neige sur le toit, ombres de nuages, lumière, ciel remplacé, vitrines allumées, brouillard, voile, éclair). Le balisage est identique pour tout le monde ; seules les variables CSS changent.
 - **`WeatherAtmosphere.tsx`** : chef d'orchestre (monté dans `app/layout.tsx`) : applique l'ambiance, dresse l'atmosphère de la page, déclenche les éclairs, surveille la fluidité.
 - **`WeatherParticles.tsx`** : pluie, neige et feuilles d'automne en canvas (trois plans de profondeur, poussées par le même vent, plus présentes en haut de l'écran qu'en bas).
 - **`WeatherToggle.tsx`** : le lien « Effets météo : activés / suspendus » du pied de page.
@@ -43,7 +43,7 @@ Les sections du site ont des fonds opaques : un effet « derrière » le contenu
 - **Fluidité** : si, quand quelque chose bouge, l'appareil reste sous ~30 images/s (deux mesures de 2 s), la page retire d'elle-même le voile et la brume (`data-wx-lite`) ; la photo et des particules plus légères restent. Les particules s'allègent aussi seules. Mieux vaut moins d'atmosphère qu'un site qui rame.
 - Quand un **temps ou une heure sont imposés** (`?meteo=`, `?heure=`), tout est toujours montré, malgré le mouvement réduit ou la pause : c'est une démonstration voulue. Un pad ouvert sans rien d'imposé montre la visite telle quelle.
 
-Autres détails : tout apparaît en fondu (une texture n'est révélée qu'une fois chargée) ; rien n'est téléchargé par beau temps ; la brume dérive dans le sens du vent et change de vitesse sans à-coup ; les vitrines ne s'éclairent que **pendant les heures d'ouverture réelles** du shop (l'enseigne, elle, brille dès la tombée du jour).
+Autres détails : tout apparaît en fondu (une texture n'est révélée qu'une fois chargée) ; rien n'est téléchargé par beau temps ; la brume dérive dans le sens du vent et change de vitesse sans à-coup ; les vitrines ne s'éclairent que **pendant les heures d'ouverture réelles** du shop. L'enseigne « Shop » n'est volontairement **jamais rétro-éclairée** : elle garde l'aspect de la photo.
 
 > `app/components/AutumnLeaves.tsx` n'est plus utilisé : les feuilles sont dessinées par `WeatherParticles` (mêmes formes et mêmes couleurs, mais poussées par le vent réel, et tombant seulement en automne, par temps adapté). Le fichier est conservé tel quel.
 
@@ -78,4 +78,4 @@ Le pad reste ouvert pendant la visite, de page en page, jusqu'à « Quitter l'ap
 
 ## Les calques de la photo sont taillés pour `public/shop-accueil.jpg`
 
-Le masque du ciel, l'enseigne et les vitrines allumées, la neige sur le toit sont découpés **d'après cette photo précise** (`public/weather/sky-mask.webp`, `sign-lit.webp`, `windows-lit.webp`, `snow-roof.webp`) et placés en pourcentages de la photo (`weather.css`, `.wx-*`). Si la photo change, ces fichiers ne correspondent plus : il faut les régénérer (voir `scripts/weather/`), ou retirer le bloc `wx-box` de `HeroPhoto.tsx` pour ne garder que l'atmosphère de la page, les particules et la légende. Les textures de brouillard et de nuages (`fog-a`, `fog-b`, `fog-page`, `clouds`, `sky-clouds`, `stars.svg`) ne dépendent pas de la photo.
+Le masque du ciel, les vitrines allumées, la neige sur le toit sont découpés **d'après cette photo précise** (`public/weather/sky-mask.webp`, `windows-lit.webp`, `snow-roof.webp`) et placés en pourcentages de la photo (`weather.css`, `.wx-*`). Si la photo change, ces fichiers ne correspondent plus : il faut les régénérer (voir `scripts/weather/`), ou retirer le bloc `wx-box` de `HeroPhoto.tsx` pour ne garder que l'atmosphère de la page, les particules et la légende. Les textures de brouillard et de nuages (`fog-a`, `fog-b`, `fog-page`, `clouds`, `sky-clouds`, `stars.svg`) ne dépendent pas de la photo.

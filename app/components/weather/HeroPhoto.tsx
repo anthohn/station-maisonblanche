@@ -6,7 +6,7 @@ import Image from 'next/image';
  * l'ambiance. Voir `.wx-*` dans globals.css et lib/mood.ts.
  *
  * Ordre des calques, du dessous au dessus : photo étalonnée → neige sur le toit → ombres de nuages → lumière du soleil
- * (dim, vignette, doré) → ciel remplacé → enseigne et vitrines allumées → brouillard → voile → éclair.
+ * (dim, vignette, doré) → ciel remplacé → vitrines allumées → brouillard → voile → éclair.
  */
 export default function HeroPhoto() {
     return (
@@ -30,7 +30,6 @@ export default function HeroPhoto() {
                 <div className="wx-sky">
                     <i className="wx-sky-clouds wx-drift" data-wx-layer="clouds" />
                 </div>
-                <div className="wx-lit wx-sign" />
                 <div className="wx-lit wx-windows" />
                 <div className="wx-fog wx-fog-b wx-drift" data-wx-layer="fog-b" />
                 <div className="wx-fog wx-fog-a wx-drift" data-wx-layer="fog-a" />

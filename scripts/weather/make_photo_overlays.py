@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Calques de la photo d'accueil `public/shop-accueil.jpg` : masque du ciel, enseigne « Shop » et vitrines
-allumées, neige sur le toit. Dépendances : numpy, Pillow.
+"""Calques de la photo d'accueil `public/shop-accueil.jpg` : masque du ciel, vitrines allumées, neige sur le toit. Dépendances : numpy, Pillow.
 
     python3 scripts/weather/make_photo_overlays.py            # écrit dans public/weather
     python3 scripts/weather/make_photo_overlays.py --out DIR  # ailleurs (pour comparer)
@@ -99,12 +98,10 @@ def sky_mask(out: Path):
     rgba.save(out / "sky-mask.webp", "WEBP", quality=50, alpha_quality=55, method=6, exact=True)
 
 
-# ───────────────────────── Enseigne et vitrines allumées ─────────────────────────
-def lights(out: Path):
-    """Enseigne « Shop » allumée (caisson rétro-éclairé + halo sur la façade) et vitrines éclairées de l'intérieur.
-
-    On garde le relief de la photo : l'enseigne est la photo éclaircie et saturée, découpée sur sa forme réelle
-    (détectée par ses couleurs) ; les vitrines sont la photo ramenée à une échelle de jaunes chauds.
+# ───────────────────────── Vitrines allumées ─────────────────────────
+def windows(out: Path):
+    """Vitrines et porte vitrée éclairées de l'intérieur : la photo ramenée à une échelle de jaunes chauds, qui garde
+    le relief des rayons. (L'enseigne « Shop » n'est volontairement jamais rétro-éclairée.)
     Zone exportée : x 500..1820, y 560..1440 (pixels de la photo), à l'échelle 0,6.
     """
     a = np.asarray(Image.open(PHOTO).convert("RGB")).astype(np.float32)
@@ -112,35 +109,12 @@ def lights(out: Path):
     R, G, B = a[..., 0], a[..., 1], a[..., 2]
     x0, y0, x1, y1 = 500, 560, 1820, 1440
     scale = 0.6
-    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    xx = np.mgrid[0:h, 0:w][1].astype(np.float32)
 
     def save(rgb, alpha, name):
         sub = np.dstack([rgb[y0:y1, x0:x1], alpha[y0:y1, x0:x1, None] * 255]).astype(np.uint8)
         img = Image.fromarray(sub, "RGBA").resize((int((x1 - x0) * scale), int((y1 - y0) * scale)), Image.LANCZOS)
         img.save(out / name, "WEBP", quality=84, alpha_quality=100, method=6, exact=True)
-
-    # — Enseigne : forme réelle (jaune + rouge, lettres comprises)
-    yellow = (R > 120) & (B < 0.24 * R) & (G > 0.58 * R) & (G < 0.9 * R)
-    red = (R > 100) & (R - G > 85) & (B < 0.2 * R + 8) & (G < 0.2 * R + 10)
-    m = yellow | red
-    zone = np.zeros_like(m)
-    zone[880:1160, 800:1520] = True
-    m &= zone
-    m = erode(dilate(m, 31), 31)  # ferme les lettres « Shop »
-    m = erode(m, 3)  # rogne la frange de bois
-    sign = blur(m.astype(np.float32), 1.1)
-
-    lit = clamp(np.power(a / 255.0, 0.74) * np.array([1.42, 1.24, 1.30], np.float32)) * 255
-    cx, cy = (839 + 1495) / 2, (959 + 1093) / 2  # centre du caisson : un peu plus lumineux
-    rad = np.sqrt(((xx - cx) / 340) ** 2 + ((yy - cy) / 120) ** 2)
-    lit = clamp(lit + (1 - clamp(rad))[..., None] * np.array([16, 12, 4], np.float32), 0, 255)
-
-    halo = 1 - (1 - blur(sign, 26) * 0.50) * (1 - blur(sign, 95) * 0.34)  # lueur serrée + lueur large
-    warm = np.array([255, 196, 84], np.float32)
-    sign_rgb = lit * sign[..., None] + warm * (1 - sign[..., None])
-    alpha = clamp(np.maximum(sign, halo * (1 - sign)))  # opaque sur l'enseigne, halo ailleurs
-    rgb = np.where(sign[..., None] > 0.02, sign_rgb, warm[None, None, :] * np.ones((h, w, 1), np.float32))
-    save(rgb, alpha, "sign-lit.webp")
 
     # — Vitrines et porte vitrée (rectangles en pixels de la photo)
     win = np.zeros((h, w), np.float32)
@@ -205,7 +179,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     sky_mask(args.out)
-    lights(args.out)
+    windows(args.out)
     roof_snow(args.out)
-    for name in ("sky-mask.webp", "sign-lit.webp", "windows-lit.webp", "snow-roof.webp"):
+    for name in ("sky-mask.webp", "windows-lit.webp", "snow-roof.webp"):
         print(f"{name:18s} {os.path.getsize(args.out / name) // 1024:3d} Ko")

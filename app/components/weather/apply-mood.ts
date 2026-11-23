@@ -5,7 +5,7 @@ import type { Mood } from '@/lib/mood';
  * vitesse et sens de dérive du brouillard.
  *
  * Soin particulier pour que tout apparaisse en fondu, jamais d'un coup : un calque à texture
- * (brouillard, ciel, enseigne…) n'est révélé qu'une fois sa texture chargée ; le reste (étalonnage
+ * (brouillard, ciel, vitrines…) n'est révélé qu'une fois sa texture chargée ; le reste (étalonnage
  * de la photo, lumière) est appliqué tout de suite.
  */
 
@@ -16,7 +16,6 @@ const TEXTURES = {
     shade: ['/weather/clouds.webp'],
     deck: ['/weather/sky-clouds.webp'],
     stars: ['/weather/stars.svg'],
-    lights: ['/weather/sign-lit.webp'],
     windows: ['/weather/windows-lit.webp'],
     snow: ['/weather/snow-roof.webp'],
 } as const;
@@ -27,7 +26,6 @@ const NEEDS_OF: Record<string, Need[]> = {
     '--wx-sky': ['sky'],
     '--wx-sky-clouds': ['sky', 'deck'],
     '--wx-stars': ['sky', 'stars'],
-    '--wx-lights': ['lights'],
     '--wx-windows': ['windows'],
     '--wx-snowcover': ['snow'],
     '--wx-fog-a': ['fog'],

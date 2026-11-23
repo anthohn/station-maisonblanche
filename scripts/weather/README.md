@@ -15,7 +15,7 @@ Python 3 avec `numpy` et `Pillow` (`pip install numpy pillow`). Tout est déterm
 
 ```bash
 python3 scripts/weather/make_textures.py        # brouillard (photo et page), ombres de nuages, ciel couvert, étoiles
-python3 scripts/weather/make_photo_overlays.py  # masque du ciel, enseigne et vitrines allumées, neige sur le toit
+python3 scripts/weather/make_photo_overlays.py  # masque du ciel, vitrines allumées, neige sur le toit
 ```
 
 Les textures (`make_textures.py`) ne dépendent pas de la photo. Les calques de `make_photo_overlays.py` sont **découpés d'après `public/shop-accueil.jpg`** (seuils de couleur, repères en pixels) : si la photo d'accueil change, il faut les ajuster, relancer le script, et vérifier la géométrie `.wx-lit` / `.wx-snow` de `app/globals.css`.

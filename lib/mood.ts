@@ -101,7 +101,6 @@ export interface Mood {
         shade: boolean;
         deck: boolean;
         stars: boolean;
-        lights: boolean;
         windows: boolean;
         snow: boolean;
     };
@@ -176,9 +175,9 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
     const skyClouds = skyAlpha * smooth(0.3, 0.9, cloud) * (1 - 0.6 * fog) * (0.35 + 0.65 * dayLevel);
     const stars = smooth(-8, -16, e) * (1 - smooth(0.05, 0.6, cloud)) * (1 - fog);
 
-    // ── Éclairage : l'enseigne s'allume quand il fait sombre ; les vitrines, seulement si le shop est ouvert ──
-    const lights = smooth(0.62, 0.2, lum);
-    const windows = shopOpen ? lights : 0;
+    // ── Éclairage : les vitrines s'éclairent quand il fait sombre, mais seulement si le shop est ouvert.
+    //    L'enseigne « Shop » n'est jamais rétro-éclairée : elle garde l'aspect de la photo. ──
+    const windows = shopOpen ? smooth(0.62, 0.2, lum) : 0;
 
     // ── Brume, brouillard, voile ──────────────────────────
     const lowMist = 0.16 * rain + 0.1 * snow;
@@ -235,7 +234,6 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
         '--wx-sky-clouds': num(skyClouds),
         '--wx-stars': num(stars),
         '--wx-snowcover': num(snowCover),
-        '--wx-lights': num(lights),
         '--wx-windows': num(windows),
         '--wx-fog-a': num(fogA),
         '--wx-fog-b': num(fogB),
@@ -258,7 +256,6 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
             shade: shadows > 0.02,
             deck: skyClouds > 0.02,
             stars: stars > 0.02,
-            lights: lights > 0.02,
             windows: windows > 0.02,
             snow: snowCover > 0.02,
         },

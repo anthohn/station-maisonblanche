@@ -106,7 +106,7 @@ describe('position du soleil à Chancy', () => {
 });
 
 describe('ambiances (lib/mood.ts)', () => {
-    const OPACITIES = ['--wx-shade', '--wx-vignette', '--wx-warm', '--wx-sky', '--wx-sky-clouds', '--wx-stars', '--wx-lights', '--wx-windows', '--wx-snowcover', '--wx-fog-a', '--wx-fog-b', '--wx-veil', '--wx-page-fog'];
+    const OPACITIES = ['--wx-shade', '--wx-vignette', '--wx-warm', '--wx-sky', '--wx-sky-clouds', '--wx-stars', '--wx-windows', '--wx-snowcover', '--wx-fog-a', '--wx-fog-b', '--wx-veil', '--wx-page-fog'];
 
     it('toutes les opacités restent dans [0, 1], aucune valeur NaN, quelle que soit la combinaison', () => {
         let combinations = 0;
@@ -122,18 +122,25 @@ describe('ambiances (lib/mood.ts)', () => {
     });
     it('sans données par plein jour : la photo d’origine, rien d’ajouté', () => {
         const mood = computeMood(null, 46);
-        assert.equal(sky(mood, '--wx-sky'), 0); assert.equal(sky(mood, '--wx-lights'), 0); assert.equal(sky(mood, '--wx-fog-a'), 0); assert.equal(mood.particles.rain, 0);
+        assert.equal(sky(mood, '--wx-sky'), 0); assert.equal(sky(mood, '--wx-windows'), 0); assert.equal(sky(mood, '--wx-fog-a'), 0); assert.equal(mood.particles.rain, 0);
     });
-    it('plein jour dégagé : rien ; nuit : enseigne allumée, étoiles, ciel remplacé', () => {
+    it('plein jour dégagé : rien ; nuit : vitrines éclairées, étoiles, ciel remplacé ; l’enseigne n’est jamais rétro-éclairée', () => {
         const noon = computeMood(PRESETS.soleil.weather, 46);
-        assert.equal(sky(noon, '--wx-sky'), 0); assert.equal(sky(noon, '--wx-lights'), 0); assert.ok(sky(noon, '--wx-warm') < 0.01); assert.ok(noon.daylight);
+        assert.equal(sky(noon, '--wx-sky'), 0); assert.equal(sky(noon, '--wx-windows'), 0); assert.ok(sky(noon, '--wx-warm') < 0.01); assert.ok(noon.daylight);
         const night = computeMood(PRESETS.nuit.weather, -32);
-        assert.ok(sky(night, '--wx-lights') > 0.99 && sky(night, '--wx-stars') > 0.9 && sky(night, '--wx-sky') === 1 && night.night > 0.99 && !night.daylight);
+        assert.ok(sky(night, '--wx-windows') > 0.99 && sky(night, '--wx-stars') > 0.9 && sky(night, '--wx-sky') === 1 && night.night > 0.99 && !night.daylight);
     });
-    it('les vitrines ne s’allument que si le shop est ouvert ; l’enseigne s’allume toujours', () => {
+    it('il n’y a plus de rétro-éclairage de l’enseigne : ni variable, ni calque, ni image', () => {
+        for (const [, p] of Object.entries(PRESETS)) {
+            const mood = computeMood(p.weather, p.elevation, true);
+            assert.equal(mood.vars['--wx-lights'], undefined);
+            assert.equal('lights' in mood.needs, false);
+        }
+    });
+    it('les vitrines ne s’allument que si le shop est ouvert', () => {
         const closed = computeMood(PRESETS.nuit.weather, -32, false);
         const open = computeMood(PRESETS.nuit.weather, -32, true);
-        assert.equal(sky(closed, '--wx-windows'), 0); assert.ok(sky(closed, '--wx-lights') > 0.99);
+        assert.equal(sky(closed, '--wx-windows'), 0);
         assert.ok(sky(open, '--wx-windows') > 0.99);
     });
     it('brouillard, pluie, neige, heure dorée, éclaircies, orage : chacun produit les bons calques', () => {
@@ -157,7 +164,7 @@ describe('ambiances (lib/mood.ts)', () => {
         let worst = 0, previous = computeMood(PRESETS.soleil.weather, -40);
         for (let e = -39.5; e <= 60; e += 0.5) {
             const mood = computeMood(PRESETS.soleil.weather, e);
-            for (const name of ['--wx-sky', '--wx-lights', '--wx-warm', '--wx-stars', '--wx-vignette']) worst = Math.max(worst, Math.abs(sky(mood, name) - sky(previous, name)));
+            for (const name of ['--wx-sky', '--wx-windows', '--wx-warm', '--wx-stars', '--wx-vignette']) worst = Math.max(worst, Math.abs(sky(mood, name) - sky(previous, name)));
             previous = mood;
         }
         assert.ok(worst < 0.2, `variation maximale ${worst}`);

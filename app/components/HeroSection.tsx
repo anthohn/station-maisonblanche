@@ -103,7 +103,7 @@ export default function HeroSection() {
                         className="relative z-[25] order-first lg:order-none -mx-6 lg:mx-0"
                     >
                         <div className="relative w-full overflow-hidden lg:rounded-2xl aspect-[4/3] sm:aspect-auto sm:h-[400px] md:h-[440px] lg:h-[520px] shadow-xl lg:shadow-2xl">
-                            {/* La photo et ses calques météo (ciel, brouillard, enseigne allumée…) : voir HeroPhoto.tsx */}
+                            {/* La photo et ses calques météo (ciel, brouillard, vitrines allumées…) : voir HeroPhoto.tsx */}
                             <HeroPhoto />
                             {/* Badge de lieu (mobile/tablette) : même style que les badges sur photo du reste du site */}
                             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md lg:hidden">
