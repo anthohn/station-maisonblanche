@@ -41,24 +41,28 @@ Les sections du site ont des fonds opaques : un effet « derrière » le contenu
 - **Mouvement réduit** (réglage du système) : on **adoucit au lieu de couper** : pluie, neige et feuilles à 40 % de densité et deux fois plus lentes, brume presque immobile, **pas d'éclairs**.
 - **Pause** : le lien « Effets météo » du pied de page suspend voile, brume, pluie, neige, feuilles et dérive ; le choix est mémorisé. La photo d'accueil garde son étalonnage, qui est fixe.
 - **Fluidité** : si, quand quelque chose bouge, l'appareil reste sous ~30 images/s (deux mesures de 2 s), la page retire d'elle-même le voile et la brume (`data-wx-lite`) ; la photo et des particules plus légères restent. Les particules s'allègent aussi seules. Mieux vaut moins d'atmosphère qu'un site qui rame.
-- En **aperçu** (`?meteo=`), tout est toujours montré, malgré le mouvement réduit ou la pause : c'est une démonstration voulue.
+- Quand un **temps ou une heure sont imposés** (`?meteo=`, `?heure=`), tout est toujours montré, malgré le mouvement réduit ou la pause : c'est une démonstration voulue. Un pad ouvert sans rien d'imposé montre la visite telle quelle.
 
 Autres détails : tout apparaît en fondu (une texture n'est révélée qu'une fois chargée) ; rien n'est téléchargé par beau temps ; la brume dérive dans le sens du vent et change de vitesse sans à-coup ; les vitrines ne s'éclairent que **pendant les heures d'ouverture réelles** du shop (l'enseigne, elle, brille dès la tombée du jour).
 
 > `app/components/AutumnLeaves.tsx` n'est plus utilisé : les feuilles sont dessinées par `WeatherParticles` (mêmes formes et mêmes couleurs, mais poussées par le vent réel, et tombant seulement en automne, par temps adapté). Le fichier est conservé tel quel.
 
-## Voir une ambiance sans attendre le bon temps
+## Le pad : voir une ambiance sans attendre le bon temps
 
-Ajouter un paramètre à l'adresse (aucun effet pour les autres visiteurs, seulement sur votre écran) :
+Le **pad** (la barre d'aperçu, en bas à gauche) permet de passer d'une ambiance à l'autre d'un clic. Il n'existe que pour vous, jamais pour un visiteur normal :
+
+- **sur les aperçus Vercel et en développement** (`next dev`), il s'ouvre tout seul : c'est décidé à la compilation d'après `VERCEL_ENV` (voir `app/layout.tsx`) ;
+- **partout ailleurs, production comprise**, on l'ouvre avec un paramètre dans l'adresse :
 
 | Adresse | Effet |
 | --- | --- |
-| `/?meteo=pluie` | Temps : `soleil`, `eclaircies`, `couvert`, `brouillard`, `bruine`, `pluie`, `orage`, `neige`, `dore`, `nuit`, `automne` |
-| `/?heure=nuit` | Heure : `matin`, `midi`, `dore`, `bleue`, `nuit` (météo réelle, heure simulée) |
+| `/?pad` | Ouvre le pad sans rien imposer (météo et heure réelles) |
+| `/?meteo=pluie` | Impose un temps : `soleil`, `eclaircies`, `couvert`, `brouillard`, `bruine`, `pluie`, `orage`, `neige`, `dore`, `nuit`, `automne` |
+| `/?heure=nuit` | Impose une heure : `matin`, `midi`, `dore`, `bleue`, `nuit` (météo réelle, heure simulée) |
 | `/?meteo=neige&heure=matin` | Les deux |
-| `/?meteo=live` | Retour à la météo réelle |
+| `/?meteo=live` | Ferme le pad |
 
-Une barre apparaît alors en bas à gauche pour changer d'ambiance d'un clic ; l'aperçu reste actif pendant la visite (de page en page) jusqu'à « Quitter l'aperçu ». La légende de la photo indique « Aperçu » : elle ne fait jamais passer une simulation pour la météo réelle.
+Le pad reste ouvert pendant la visite, de page en page, jusqu'à « Quitter l'aperçu » (il reste alors fermé pour la visite ; `?pad` le rouvre). Quand un temps ou une heure sont imposés, la légende de la photo indique « Aperçu » (une simulation n'est jamais présentée comme la météo réelle) et tous les effets sont montrés, même avec le mouvement réduit ou la pause.
 
 ## Réglages (variables d'environnement, facultatives)
 

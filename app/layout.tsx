@@ -95,6 +95,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Le « pad » (barre d'aperçu météo) s'ouvre tout seul sur les aperçus Vercel et en développement, jamais en production
+// (évalué à la compilation : chaque déploiement a sa propre valeur). Ailleurs : ?pad, ?meteo= ou ?heure= dans l'adresse.
+const padByDefault = process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -109,7 +113,7 @@ export default function RootLayout({
 
         <Header />
         {/* Météo en direct à Chancy : pluie, neige, feuilles d'automne, ambiance de la photo d'accueil */}
-        <WeatherAtmosphere />
+        <WeatherAtmosphere padByDefault={padByDefault} />
         <main className="flex-1">{children}</main>
         <Footer />
 

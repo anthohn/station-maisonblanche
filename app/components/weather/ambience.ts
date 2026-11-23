@@ -1,7 +1,7 @@
 import { computeMood, type Mood } from '@/lib/mood';
 import { sunElevation } from '@/lib/sun';
 import { describe, formatTemperature, HOURS, PRESETS, seasonOf, shopIsOpen, STATION, type Weather } from '@/lib/weather';
-import { resolvePreview, type WeatherSnapshot } from './weather-store';
+import { isScenario, resolvePreview, type WeatherSnapshot } from './weather-store';
 
 export interface Ambience {
     mood: Mood;
@@ -32,7 +32,7 @@ export function deriveAmbience(snapshot: WeatherSnapshot): Ambience | null {
     const leaves = autumn && !mood.particles.snow && (weather?.rain ?? 0) < 0.55 && (weather?.fog ?? 0) < 0.8;
 
     let caption: Ambience['caption'] = null;
-    if (preview) {
+    if (preview && isScenario(preview)) {
         const parts = [preview.meteo ? PRESETS[preview.meteo].label : null, preview.heure ? HOURS[preview.heure].label : null];
         caption = { text: parts.filter(Boolean).join(' · '), preview: true };
     } else if (live) {

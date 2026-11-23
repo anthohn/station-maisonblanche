@@ -6,7 +6,7 @@ import { setPreview, useWeatherStore, type Preview } from './weather-store';
 /**
  * Barre de démonstration, visible uniquement avec `?meteo=…` ou `?heure=…` dans l'adresse (jamais pour
  * un visiteur normal) : elle permet de passer d'une ambiance à l'autre sans attendre le bon temps.
- * `?meteo=live` (ou « Quitter ») revient à la météo réelle.
+ * `?meteo=live` (ou « Quitter ») la ferme. Voir weather-store.ts pour les façons de l'ouvrir.
  */
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
     return (
@@ -30,8 +30,7 @@ export default function WeatherPreviewBar() {
     if (!preview) return null;
 
     const choose = (patch: Partial<Preview>) => {
-        const next = { ...preview, ...patch };
-        setPreview(next.meteo || next.heure ? next : null);
+        setPreview({ ...preview, ...patch });
     };
 
     return (

@@ -46,47 +46,87 @@ export function useWeatherStore(): WeatherSnapshot {
     return useSyncExternalStore(subscribe, () => snapshot, () => SERVER_SNAPSHOT);
 }
 
-/* ───────────────────────── Aperçu (?meteo=, ?heure=) ───────────────────────── */
+/* ───────────────────────── Aperçu et « pad » (?meteo=, ?heure=, ?pad) ───────────────────────── */
 
 const PREVIEW_KEY = 'wx:preview';
+const PAD_KEY = 'wx:pad'; // « closed » : le visiteur a fermé le pad pour cette visite
 const has = (object: object, key: string) => Object.prototype.hasOwnProperty.call(object, key);
 
-function cleanPreview(raw: { meteo?: unknown; heure?: unknown } | null): Preview | null {
-    const meteo = typeof raw?.meteo === 'string' && has(PRESETS, raw.meteo) ? raw.meteo : null;
-    const heure = typeof raw?.heure === 'string' && has(HOURS, raw.heure) ? raw.heure : null;
-    return meteo || heure ? { meteo, heure } : null;
-}
-
-/**
- * L'aperçu vient de l'adresse (`/?meteo=pluie&heure=nuit`) et reste actif pendant la visite
- * (sessionStorage) : on peut naviguer dans le site sans le perdre. `?meteo=live` le désactive.
- */
-function readPreview(): Preview | null {
-    try {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('meteo') === 'live') {
-            sessionStorage.removeItem(PREVIEW_KEY);
+/** Le stockage de la visite peut être bloqué (cookies refusés) : on ne s'y fie jamais pour l'essentiel. */
+const visit = {
+    get: (key: string) => {
+        try {
+            return sessionStorage.getItem(key);
+        } catch {
             return null;
         }
-        const fromUrl = cleanPreview({ meteo: params.get('meteo'), heure: params.get('heure') });
-        if (fromUrl) {
-            sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(fromUrl));
-            return fromUrl;
+    },
+    set: (key: string, value: string) => {
+        try {
+            sessionStorage.setItem(key, value);
+        } catch {
+            /* sans stockage, le choix vaut pour la page en cours seulement */
         }
-        const saved = sessionStorage.getItem(PREVIEW_KEY);
-        return saved ? cleanPreview(JSON.parse(saved)) : null;
-    } catch {
-        return null; // stockage bloqué (navigation privée, par exemple) : pas d'aperçu mémorisé
+    },
+    remove: (key: string) => {
+        try {
+            sessionStorage.removeItem(key);
+        } catch {
+            /* idem */
+        }
+    },
+};
+
+function cleanPreview(raw: { meteo?: unknown; heure?: unknown }): Preview {
+    return {
+        meteo: typeof raw.meteo === 'string' && has(PRESETS, raw.meteo) ? raw.meteo : null,
+        heure: typeof raw.heure === 'string' && has(HOURS, raw.heure) ? raw.heure : null,
+    };
+}
+
+/** Un temps ou une heure sont-ils imposés ? (un « pad » ouvert sans rien d'imposé montre la météo et l'heure réelles) */
+export const isScenario = (preview: Preview | null): boolean => !!preview && (preview.meteo !== null || preview.heure !== null);
+
+/**
+ * Le « pad » (la barre d'aperçu) s'ouvre :
+ *  - avec `?meteo=pluie` et/ou `?heure=nuit` : on impose un temps et/ou une heure ;
+ *  - avec `?pad` : on l'ouvre sans rien imposer (météo et heure réelles) ;
+ *  - tout seul sur les aperçus Vercel et en développement (`padByDefault`, voir app/layout.tsx), jamais en production.
+ * Il reste ouvert pendant la visite (sessionStorage), page après page, jusqu'à « Quitter l'aperçu »
+ * (il reste alors fermé pour la visite ; `?pad` le rouvre). `?meteo=live` le ferme aussi.
+ */
+function readPreview(padByDefault: boolean): Preview | null {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('meteo') === 'live') {
+        visit.remove(PREVIEW_KEY);
+        visit.set(PAD_KEY, 'closed');
+        return null;
     }
+    const fromUrl = cleanPreview({ meteo: params.get('meteo'), heure: params.get('heure') });
+    if (isScenario(fromUrl) || params.has('pad')) {
+        visit.set(PREVIEW_KEY, JSON.stringify(fromUrl));
+        visit.remove(PAD_KEY);
+        return fromUrl;
+    }
+    const saved = visit.get(PREVIEW_KEY);
+    if (saved) {
+        try {
+            return cleanPreview(JSON.parse(saved));
+        } catch {
+            visit.remove(PREVIEW_KEY);
+        }
+    }
+    return padByDefault && visit.get(PAD_KEY) !== 'closed' ? { meteo: null, heure: null } : null;
 }
 
 export function setPreview(preview: Preview | null) {
     const clean = preview ? cleanPreview(preview) : null;
-    try {
-        if (clean) sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(clean));
-        else sessionStorage.removeItem(PREVIEW_KEY);
-    } catch {
-        /* sans stockage, l'aperçu vaut pour la page en cours seulement */
+    if (clean) {
+        visit.set(PREVIEW_KEY, JSON.stringify(clean));
+        visit.remove(PAD_KEY);
+    } else {
+        visit.remove(PREVIEW_KEY);
+        visit.set(PAD_KEY, 'closed');
     }
     update({ preview: clean });
 }
@@ -192,11 +232,11 @@ async function refresh() {
 let started = false;
 
 /** À appeler une fois, côté navigateur (WeatherAtmosphere). */
-export function startWeatherStore() {
+export function startWeatherStore(padByDefault = false) {
     if (started || typeof window === 'undefined') return;
     started = true;
 
-    update({ preview: readPreview(), weather: recall(), now: Date.now(), effects: readEffects() });
+    update({ preview: readPreview(padByDefault), weather: recall(), now: Date.now(), effects: readEffects() });
     void refresh();
 
     setInterval(() => update({ now: Date.now() }), 60_000);

@@ -5,7 +5,7 @@ import { deriveAmbience } from './ambience';
 import { applyMood, flashLightning } from './apply-mood';
 import WeatherParticles from './WeatherParticles';
 import WeatherPreviewBar from './WeatherPreviewBar';
-import { startWeatherStore, useWeatherStore } from './weather-store';
+import { isScenario, startWeatherStore, useWeatherStore } from './weather-store';
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 
@@ -84,27 +84,29 @@ function useFluidityGuard(watch: boolean) {
  *  - dresse l'atmosphère de la page entière : un voile de lumière et une brume par-dessus le contenu
  *    (ils ne gênent ni les clics ni la lecture), puis pluie, neige et feuilles d'automne ;
  *  - déclenche les éclairs en cas d'orage ;
- *  - propose la barre d'aperçu quand on la demande (?meteo=, ?heure=).
+ *  - propose le « pad » (la barre d'aperçu) : avec ?meteo=, ?heure= ou ?pad, et tout seul sur les aperçus Vercel
+ *    (`padByDefault`, jamais en production).
  * Le calque de la photo d'accueil, lui, est dans HeroPhoto.tsx ; la légende dans WeatherCaption.tsx.
  *
  * Respect du visiteur :
  *  - s'il a demandé moins d'animations (réglage du système), les effets sont adoucis (moins de particules, plus
  *    lentes, brume presque immobile, pas d'éclairs) plutôt que coupés ;
  *  - il peut tout suspendre avec le lien « Effets météo » du pied de page (WeatherToggle) ;
- *  - en aperçu (?meteo=), on montre tout : c'est une démonstration voulue.
+ *  - quand un temps ou une heure sont imposés (?meteo=, ?heure=), on montre tout : c'est une démonstration voulue.
  */
-export default function WeatherAtmosphere() {
+export default function WeatherAtmosphere({ padByDefault = false }: { padByDefault?: boolean }) {
     const snapshot = useWeatherStore();
     const reducedMotion = useReducedMotion();
     const ambience = useMemo(() => deriveAmbience(snapshot), [snapshot]);
 
-    const demo = snapshot.preview !== null;
+    // Démonstration : un temps ou une heure imposés. Un pad ouvert sans rien d'imposé montre la visite telle quelle.
+    const demo = isScenario(snapshot.preview);
     const paused = !snapshot.effects && !demo;
     const calm = reducedMotion && !demo;
 
     useEffect(() => {
-        startWeatherStore();
-    }, []);
+        startWeatherStore(padByDefault);
+    }, [padByDefault]);
 
     useEffect(() => {
         document.documentElement.toggleAttribute('data-wx-paused', paused);
