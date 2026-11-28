@@ -118,6 +118,17 @@ function leafSprite(shape: (typeof LEAF_SHAPES)[number], color: string): HTMLCan
     return sprite;
 }
 
+// Les sprites ne sont dessinées qu'à la première utilisation : par beau temps (la plupart des visites), rien n'est
+// construit ni gardé en mémoire. Feuilles : une sprite par forme et par couleur, au premier plan (vives) et au loin (sourdes).
+let snowSprites: HTMLCanvasElement[] | undefined;
+let leafSprites: { near: HTMLCanvasElement[]; far: HTMLCanvasElement[] } | undefined;
+const getSnowSprites = () => (snowSprites ??= SNOW_LAYERS.map(([radius]) => snowSprite(radius)));
+const getLeafSprites = () =>
+    (leafSprites ??= {
+        near: LEAF_SHAPES.flatMap((shape) => LEAF_COLORS_NEAR.map((color) => leafSprite(shape, color))),
+        far: LEAF_SHAPES.flatMap((shape) => LEAF_COLORS_FAR.map((color) => leafSprite(shape, color))),
+    });
+
 export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm }: Props) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const target = useRef({ rain: 0, snow: 0, leaves: 0, slant: 0, lum: 1, calm: false });
@@ -160,7 +171,6 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         const rx = new Float32Array(RAIN_MAX);
         const ry = new Float32Array(RAIN_MAX);
         const rv = new Float32Array(RAIN_MAX);
-        const rl = new Uint8Array(RAIN_MAX); // plan 0 (loin) → 2 (près)
         const sx = new Float32Array(SNOW_MAX);
         const sy = new Float32Array(SNOW_MAX);
         const sv = new Float32Array(SNOW_MAX);
@@ -168,11 +178,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         const sFreq = new Float32Array(SNOW_MAX);
         const sSway = new Float32Array(SNOW_MAX);
         const sl = new Uint8Array(SNOW_MAX);
-        const sprites = SNOW_LAYERS.map(([radius]) => snowSprite(radius));
 
-        // Feuilles : une sprite par forme et par couleur, au premier plan (vives) et au loin (sourdes)
-        const nearSprites = LEAF_SHAPES.flatMap((shape) => LEAF_COLORS_NEAR.map((color) => leafSprite(shape, color)));
-        const farSprites = LEAF_SHAPES.flatMap((shape) => LEAF_COLORS_FAR.map((color) => leafSprite(shape, color)));
         const lx = new Float32Array(LEAF_MAX);
         const ly = new Float32Array(LEAF_MAX);
         const lSize = new Float32Array(LEAF_MAX);
@@ -183,7 +189,11 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         const lAngle = new Float32Array(LEAF_MAX);
         const lSpin = new Float32Array(LEAF_MAX);
         const lAlpha = new Float32Array(LEAF_MAX);
-        const lSprite: HTMLCanvasElement[] = [];
+        const lSprite: (HTMLCanvasElement | undefined)[] = []; // choisie au premier dessin de la feuille
+        const leafSpriteOf = (i: number) => {
+            const pool = getLeafSprites()[i % 5 < 3 ? 'near' : 'far'];
+            return pool[Math.floor(Math.random() * pool.length)];
+        };
 
         const spanX = (s: number) => (s > 0 ? [-height * s, width] : [0, width - height * s]);
         const place = (i: number, s: number, anywhere: boolean) => {
@@ -192,9 +202,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
             ry[i] = anywhere ? Math.random() * height : -60 - Math.random() * height * 0.25;
         };
         for (let i = 0; i < RAIN_MAX; i++) {
-            const layer = i % 3 === 2 ? 2 : i % 3;
-            rl[i] = layer;
-            const [lo, hi] = RAIN_LAYERS[layer];
+            const [lo, hi] = RAIN_LAYERS[i % 3]; // plan d'une goutte : i % 3, de 0 (loin) à 2 (près)
             rv[i] = lo + Math.random() * (hi - lo);
             place(i, 0, true);
         }
@@ -210,8 +218,6 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         }
         for (let i = 0; i < LEAF_MAX; i++) {
             const near = i % 5 < 3;
-            const pool = near ? nearSprites : farSprites;
-            lSprite[i] = pool[Math.floor(Math.random() * pool.length)];
             lSize[i] = near ? 36 + Math.random() * 10 : 18 + Math.random() * 8;
             lVy[i] = near ? 52 + Math.random() * 26 : 30 + Math.random() * 16;
             lSway[i] = near ? 38 + Math.random() * 24 : 22 + Math.random() * 14;
@@ -228,6 +234,14 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         let last = 0;
         let frameId = 0;
         let running = false;
+        // Plus rien à montrer ni à éteindre : ni cible, ni reste visible. Alors aucune image n'est dessinée.
+        const idle = () =>
+            current.rain < 0.004 &&
+            current.snow < 0.004 &&
+            current.leaves < 0.004 &&
+            target.current.rain === 0 &&
+            target.current.snow === 0 &&
+            target.current.leaves === 0;
 
         const frame = (time: number) => {
             const elapsed = (time - last) / 1000;
@@ -263,8 +277,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
                 for (let layer = 0; layer < 3; layer++) {
                     const [, , lineWidth, alpha] = RAIN_LAYERS[layer];
                     ctx.beginPath();
-                    for (let i = 0; i < rainCount; i++) {
-                        if (rl[i] !== layer) continue;
+                    for (let i = layer; i < rainCount; i += 3) {
                         const speed = rv[i] * speedScale;
                         const length = speed * 0.021 * lengthScale;
                         ry[i] += speed * dt;
@@ -280,6 +293,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
             }
 
             if (snowCount > 0) {
+                const sprites = getSnowSprites();
                 const drift = goal.slant * 190 * motion;
                 for (let i = 0; i < snowCount; i++) {
                     const layer = sl[i];
@@ -318,7 +332,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
                     // Elle apparaît en haut et s'efface en bas, comme les anciennes feuilles
                     const visible = Math.min(1, (ly[i] + size) / 100, (height + size - ly[i]) / 140);
                     if (visible <= 0) continue;
-                    const sprite = lSprite[i];
+                    const sprite = (lSprite[i] ??= leafSpriteOf(i));
                     const k = size / LEAF_SPRITE_SIZE;
                     ctx.globalAlpha = lAlpha[i] * visible * dim;
                     ctx.save();
@@ -336,14 +350,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
             ctx.fillRect(0, 0, width, height);
             ctx.globalCompositeOperation = 'source-over';
 
-            if (
-                current.rain < 0.004 &&
-                current.snow < 0.004 &&
-                current.leaves < 0.004 &&
-                goal.rain === 0 &&
-                goal.snow === 0 &&
-                goal.leaves === 0
-            ) {
+            if (idle()) {
                 running = false;
                 ctx.clearRect(0, 0, width, height);
                 return; // plus rien à animer : la boucle s'arrête jusqu'à la prochaine averse
@@ -352,7 +359,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
         };
 
         const start = () => {
-            if (running || document.hidden) return;
+            if (running || document.hidden || idle()) return;
             running = true;
             last = performance.now();
             frameId = requestAnimationFrame(frame);
@@ -364,8 +371,7 @@ export default function WeatherParticles({ rain, snow, leaves, slant, lum, calm 
                 cancelAnimationFrame(frameId);
                 running = false;
             } else {
-                const goal = target.current;
-                if (goal.rain > 0 || goal.snow > 0 || goal.leaves > 0) start();
+                start();
             }
         };
         document.addEventListener('visibilitychange', onVisibility);

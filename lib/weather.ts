@@ -9,7 +9,8 @@
 
 export const STATION = { lat: 46.1567, lon: 5.9874, timeZone: 'Europe/Zurich' } as const;
 
-export type Condition = 'clear' | 'partly' | 'cloudy' | 'fog' | 'drizzle' | 'rain' | 'snow' | 'storm';
+export const CONDITIONS = ['clear', 'partly', 'cloudy', 'fog', 'drizzle', 'rain', 'snow', 'storm'] as const;
+export type Condition = (typeof CONDITIONS)[number];
 
 /** Le temps à la station, en valeurs continues (0 → 1) pour pouvoir mélanger brume et bruine, par exemple. */
 export interface Weather {
@@ -33,6 +34,9 @@ export interface Weather {
     at: number;
 }
 
+/** Ce que l'ambiance (lib/mood.ts) lit de la météo : tout sauf la mesure de température, qui ne sert qu'à la légende. */
+export type Sky = Omit<Weather, 'at' | 'temperature'>;
+
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const num = (x: unknown): number | null => (typeof x === 'number' && Number.isFinite(x) ? x : null);
 
@@ -41,11 +45,7 @@ const num = (x: unknown): number | null => (typeof x === 'number' && Number.isFi
 /** Variables demandées à Open-Meteo (« current »). */
 export const OPEN_METEO_CURRENT = [
     'temperature_2m',
-    'relative_humidity_2m',
-    'is_day',
     'precipitation',
-    'rain',
-    'showers',
     'snowfall',
     'weather_code',
     'cloud_cover',
@@ -145,9 +145,16 @@ export function describe(weather: Weather, daylight: boolean): string {
 
 export type Season = 'winter' | 'spring' | 'summer' | 'autumn';
 
+let monthFormat: Intl.DateTimeFormat | undefined;
+
 /** Saison météorologique (l'automne va du 1er septembre au 30 novembre), à l'heure de Genève. */
 export function seasonOf(date: Date = new Date()): Season {
-    const month = Number(new Intl.DateTimeFormat('en-GB', { timeZone: STATION.timeZone, month: 'numeric' }).format(date));
+    // Genève avance d'une ou deux heures sur UTC : jusqu'au 27 du mois, son mois est celui d'UTC. Intl (une dizaine de
+    // millisecondes au premier appel de la page) ne sert donc que les derniers jours du mois, avec un formateur gardé.
+    const month =
+        date.getUTCDate() <= 27
+            ? date.getUTCMonth() + 1
+            : Number((monthFormat ??= new Intl.DateTimeFormat('en-GB', { timeZone: STATION.timeZone, month: 'numeric' })).format(date));
     if (month === 12 || month <= 2) return 'winter';
     if (month <= 5) return 'spring';
     if (month <= 8) return 'summer';
@@ -158,7 +165,7 @@ export function seasonOf(date: Date = new Date()): Season {
 
 export interface Preset {
     label: string;
-    weather: Omit<Weather, 'at'>;
+    weather: Sky;
     /** Hauteur du soleil simulée, en degrés (45 = plein jour, 3 = heure dorée, −30 = nuit). */
     elevation: number;
     /** Force l'affichage des feuilles d'automne (sinon : selon la vraie saison). */
@@ -172,17 +179,17 @@ const base = { fog: 0, rain: 0, snow: 0, wind: 8, windDir: 250 };
  * sans attendre la bonne météo. Inoffensif : ça ne change que l'écran de celui qui l'utilise.
  */
 export const PRESETS: Record<string, Preset> = {
-    soleil: { label: 'Soleil', weather: { ...base, temperature: 17, condition: 'clear', cloud: 0.04 }, elevation: 46 },
-    eclaircies: { label: 'Éclaircies', weather: { ...base, temperature: 14, condition: 'partly', cloud: 0.5, wind: 14 }, elevation: 34 },
-    couvert: { label: 'Couvert', weather: { ...base, temperature: 9, condition: 'cloudy', cloud: 0.97 }, elevation: 26 },
-    brouillard: { label: 'Brouillard', weather: { ...base, temperature: 4, condition: 'fog', cloud: 1, fog: 0.88, wind: 3 }, elevation: 14 },
-    bruine: { label: 'Bruine', weather: { ...base, temperature: 8, condition: 'drizzle', cloud: 0.95, rain: 0.22, wind: 9 }, elevation: 22 },
-    pluie: { label: 'Pluie', weather: { ...base, temperature: 9, condition: 'rain', cloud: 1, rain: 0.68, wind: 18, windDir: 245 }, elevation: 20 },
-    orage: { label: 'Orage', weather: { ...base, temperature: 19, condition: 'storm', cloud: 1, rain: 1, wind: 38, windDir: 235 }, elevation: 24 },
-    neige: { label: 'Neige', weather: { ...base, temperature: -2, condition: 'snow', cloud: 0.97, snow: 0.62, wind: 7 }, elevation: 20 },
-    dore: { label: 'Heure dorée', weather: { ...base, temperature: 12, condition: 'clear', cloud: 0.18 }, elevation: 3 },
-    nuit: { label: 'Nuit', weather: { ...base, temperature: 5, condition: 'clear', cloud: 0.1, wind: 5 }, elevation: -32 },
-    automne: { label: 'Automne', weather: { ...base, temperature: 11, condition: 'partly', cloud: 0.4, wind: 22 }, elevation: 28, leaves: true },
+    soleil: { label: 'Soleil', weather: { ...base, condition: 'clear', cloud: 0.04 }, elevation: 46 },
+    eclaircies: { label: 'Éclaircies', weather: { ...base, condition: 'partly', cloud: 0.5, wind: 14 }, elevation: 34 },
+    couvert: { label: 'Couvert', weather: { ...base, condition: 'cloudy', cloud: 0.97 }, elevation: 26 },
+    brouillard: { label: 'Brouillard', weather: { ...base, condition: 'fog', cloud: 1, fog: 0.88, wind: 3 }, elevation: 14 },
+    bruine: { label: 'Bruine', weather: { ...base, condition: 'drizzle', cloud: 0.95, rain: 0.22, wind: 9 }, elevation: 22 },
+    pluie: { label: 'Pluie', weather: { ...base, condition: 'rain', cloud: 1, rain: 0.68, wind: 18, windDir: 245 }, elevation: 20 },
+    orage: { label: 'Orage', weather: { ...base, condition: 'storm', cloud: 1, rain: 1, wind: 38, windDir: 235 }, elevation: 24 },
+    neige: { label: 'Neige', weather: { ...base, condition: 'snow', cloud: 0.97, snow: 0.62, wind: 7 }, elevation: 20 },
+    dore: { label: 'Heure dorée', weather: { ...base, condition: 'clear', cloud: 0.18 }, elevation: 3 },
+    nuit: { label: 'Nuit', weather: { ...base, condition: 'clear', cloud: 0.1, wind: 5 }, elevation: -32 },
+    automne: { label: 'Automne', weather: { ...base, condition: 'partly', cloud: 0.4, wind: 22 }, elevation: 28, leaves: true },
 };
 
 /** Heures simulables avec `?heure=` : hauteur du soleil (degrés). */

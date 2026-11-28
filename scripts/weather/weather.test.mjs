@@ -19,6 +19,8 @@ const response = (current) => ({
 });
 const read = (current) => fromOpenMeteo(response(current), 1);
 const sky = (m, name) => parseFloat(m.vars[name]);
+/** Ambiance d'une ambiance de démonstration, à sa propre hauteur de soleil (pas de copie du chiffre dans les tests). */
+const preset = (name) => computeMood(PRESETS[name].weather, PRESETS[name].elevation);
 /** Opacité d'une couleur `rgb(r g b / a)` posée par computeMood (voile de la page). */
 const alphaOf = (m, name) => Number(m.vars[name].match(/\/ ([\d.]+)\)/)[1]);
 /** Brume de la page au maximum : 30 % par brouillard seul, jusqu'à 38 % avec de la pluie par-dessus (0,3 × brouillard + 0,5 × 0,16 × pluie). */
@@ -79,6 +81,13 @@ describe('saisons (heure de Genève)', () => {
         ['2026-11-23T12:00:00Z', 'autumn'], ['2026-11-30T22:30:00Z', 'autumn'], ['2026-11-30T23:30:00Z', 'winter'],
         ['2026-12-01T12:00:00Z', 'winter'], ['2026-03-01T12:00:00Z', 'spring'], ['2026-08-31T23:30:00Z', 'autumn'], ['2026-07-14T12:00:00Z', 'summer'],
     ]) it(`${iso} → ${expected}`, () => assert.equal(seasonOf(new Date(iso)), expected));
+
+    it('le raccourci UTC (jusqu’au 27) donne le même mois qu’Intl, toutes les 30 minutes sur trois ans', () => {
+        const genevaMonth = new Intl.DateTimeFormat('en-GB', { timeZone: STATION.timeZone, month: 'numeric' });
+        const seasonOfMonth = (m) => (m === 12 || m <= 2 ? 'winter' : m <= 5 ? 'spring' : m <= 8 ? 'summer' : 'autumn');
+        const end = Date.UTC(2028, 0, 1);
+        for (let t = Date.UTC(2025, 0, 1); t < end; t += 30 * 60000) assert.equal(seasonOf(new Date(t)), seasonOfMonth(Number(genevaMonth.format(t))), new Date(t).toISOString());
+    });
 });
 
 describe('position du soleil à Chancy', () => {
@@ -103,14 +112,14 @@ describe('ambiances (lib/mood.ts)', () => {
     it('toutes les valeurs restent bornées, aucune valeur NaN, quelle que soit la combinaison', () => {
         let combinations = 0;
         for (const cloud of [0, 0.3, 0.6, 1]) for (const fog of [0, 0.5, 1]) for (const rain of [0, 0.4, 1]) for (const snow of [0, 0.5])
-            for (const temperature of [-5, 5]) for (const elevation of [-40, -20, -10, -5, -1, 0, 3, 8, 15, 30, 60]) {
+            for (const elevation of [-40, -20, -10, -5, -1, 0, 3, 8, 15, 30, 60]) {
                 if (rain && snow) continue;
-                const mood = computeMood({ temperature, condition: 'cloudy', cloud, fog, rain, snow, wind: 12, windDir: 200 }, elevation);
+                const mood = computeMood({ condition: 'cloudy', cloud, fog, rain, snow, wind: 12, windDir: 200 }, elevation);
                 const fogVar = sky(mood, '--wx-page-fog');
                 assert.ok(fogVar >= 0 && fogVar <= PAGE_FOG_MAX + 1e-9, `--wx-page-fog=${fogVar}`);
                 for (const name of ['--wx-page-top', '--wx-page-bottom', '--wx-page-warm']) { const a = alphaOf(mood, name); assert.ok(a >= 0 && a <= PAGE_ALPHA_MAX + 1e-9, `${name}=${a}`); }
                 for (const [name, value] of Object.entries(mood.vars)) assert.ok(!/NaN|undefined|Infinity/.test(value), `${name}=${value}`);
-                for (const value of [mood.night, mood.lum, mood.particles.rain, mood.particles.snow]) assert.ok(value >= 0 && value <= 1, `valeur ${value}`);
+                for (const value of [mood.lum, mood.particles.rain, mood.particles.snow]) assert.ok(value >= 0 && value <= 1, `valeur ${value}`);
                 combinations++;
             }
         assert.ok(combinations > 500);
@@ -127,27 +136,27 @@ describe('ambiances (lib/mood.ts)', () => {
         assert.equal(mood.particles.rain, 0); assert.equal(mood.particles.snow, 0); assert.equal(mood.storm, false);
     });
     it('plein jour dégagé : à peine un voile ; nuit : voile bleu marine, et le jour se lève bien', () => {
-        const noon = computeMood(PRESETS.soleil.weather, 46);
-        assert.ok(alphaOf(noon, '--wx-page-top') < 0.01 && alphaOf(noon, '--wx-page-warm') < 0.06 && noon.night < 0.01 && noon.daylight);
-        const night = computeMood(PRESETS.nuit.weather, -32);
+        const noon = preset('soleil');
+        assert.ok(alphaOf(noon, '--wx-page-top') < 0.01 && alphaOf(noon, '--wx-page-warm') < 0.06 && noon.daylight);
+        const night = preset('nuit');
         const { tint, alpha } = readVeil(night);
-        assert.ok(alpha > 0.15 && tint[2] > tint[0] + 30 && night.night > 0.99 && !night.daylight && night.lum === 0);
+        assert.ok(alpha > 0.15 && tint[2] > tint[0] + 30 && !night.daylight && night.lum === 0);
     });
     it('brouillard, pluie, neige, heure dorée, éclaircies, orage : chacun produit l’atmosphère attendue', () => {
-        const clear = alphaOf(computeMood(PRESETS.soleil.weather, 46), '--wx-page-top');
-        const fog = computeMood(PRESETS.brouillard.weather, 14);
+        const clear = alphaOf(preset('soleil'), '--wx-page-top');
+        const fog = preset('brouillard');
         assert.ok(sky(fog, '--wx-page-fog') > 0.2 && fog.needs.pagefog && alphaOf(fog, '--wx-page-top') > clear + 0.1);
-        const rain = computeMood(PRESETS.pluie.weather, 20);
-        const drizzle = computeMood(PRESETS.bruine.weather, 22);
+        const rain = preset('pluie');
+        const drizzle = preset('bruine');
         assert.ok(drizzle.particles.rain > 0.15 && drizzle.particles.rain < rain.particles.rain);
         assert.ok(rain.particles.rain > 0.6 && rain.particles.snow === 0 && rain.needs.pagefog && alphaOf(rain, '--wx-page-top') > clear + 0.04);
-        const snow = computeMood(PRESETS.neige.weather, 20);
+        const snow = preset('neige');
         assert.ok(snow.particles.snow > 0.5 && snow.particles.rain === 0 && snow.needs.pagefog);
-        const gold = computeMood(PRESETS.dore.weather, 3);
+        const gold = preset('dore');
         assert.ok(alphaOf(gold, '--wx-page-warm') > 0.1);
-        const partly = computeMood(PRESETS.eclaircies.weather, 34);
+        const partly = preset('eclaircies');
         assert.ok(alphaOf(partly, '--wx-page-top') < 0.05 && !partly.needs.pagefog);
-        const storm = computeMood(PRESETS.orage.weather, 24);
+        const storm = preset('orage');
         assert.ok(storm.storm && alphaOf(storm, '--wx-page-top') > alphaOf(rain, '--wx-page-top'));
     });
     it('la lumière évolue sans saut brutal quand le soleil se lève ou se couche', () => {
@@ -155,7 +164,7 @@ describe('ambiances (lib/mood.ts)', () => {
         for (let e = -39.5; e <= 60; e += 0.5) {
             const mood = computeMood(PRESETS.soleil.weather, e);
             for (const name of ['--wx-page-top', '--wx-page-warm']) worst = Math.max(worst, Math.abs(alphaOf(mood, name) - alphaOf(previous, name)));
-            worst = Math.max(worst, Math.abs(mood.night - previous.night), Math.abs(mood.lum - previous.lum));
+            worst = Math.max(worst, Math.abs(mood.lum - previous.lum));
             previous = mood;
         }
         assert.ok(worst < 0.1, `variation maximale ${worst}`);
@@ -165,10 +174,6 @@ describe('ambiances (lib/mood.ts)', () => {
         assert.equal(computeMood({ ...PRESETS.pluie.weather, windDir: 90 }, 20).drift.direction, -1);
         assert.ok(computeMood({ ...PRESETS.pluie.weather, windDir: 270, wind: 30 }, 20).particles.slant > 0);
         assert.ok(computeMood({ ...PRESETS.pluie.weather, windDir: 90, wind: 30 }, 20).particles.slant < 0);
-    });
-    it('chaque heure et chaque ambiance de démonstration se calcule', () => {
-        for (const hour of Object.values(HOURS)) assert.ok(computeMood(PRESETS.soleil.weather, hour.elevation).vars['--wx-page-top']);
-        for (const preset of Object.values(PRESETS)) assert.ok(computeMood(preset.weather, preset.elevation).vars['--wx-page-top']);
     });
 });
 
@@ -221,9 +226,9 @@ describe('lisibilité sous le voile de la page', () => {
         });
     }
     it('la brume de la page n’est chargée que s’il y a de la brume', () => {
-        assert.equal(computeMood(PRESETS.soleil.weather, 46).needs.pagefog, false);
-        assert.equal(computeMood(PRESETS.brouillard.weather, 14).needs.pagefog, true);
-        assert.ok(sky(computeMood(PRESETS.brouillard.weather, 14), '--wx-page-fog') <= 0.3 + 1e-9);
+        assert.equal(preset('soleil').needs.pagefog, false);
+        assert.equal(preset('brouillard').needs.pagefog, true);
+        assert.ok(sky(preset('brouillard'), '--wx-page-fog') <= 0.3 + 1e-9);
     });
 });
 

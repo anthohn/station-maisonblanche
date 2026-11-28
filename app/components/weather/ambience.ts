@@ -1,12 +1,10 @@
 import { computeMood, type Mood } from '@/lib/mood';
 import { sunElevation } from '@/lib/sun';
-import { describe, formatTemperature, HOURS, PRESETS, seasonOf, STATION, type Weather } from '@/lib/weather';
+import { describe, formatTemperature, HOURS, PRESETS, seasonOf, STATION } from '@/lib/weather';
 import { isScenario, resolvePreview, type WeatherSnapshot } from './weather-store';
 
 export interface Ambience {
     mood: Mood;
-    /** Météo prise en compte (réelle ou d'aperçu) ; null si on ne la connaît pas. */
-    weather: Omit<Weather, 'at'> | null;
     /** Faut-il des feuilles d'automne ? */
     leaves: boolean;
     /** Légende de la photo : null s'il n'y a rien d'honnête à afficher. */
@@ -39,5 +37,5 @@ export function deriveAmbience(snapshot: WeatherSnapshot): Ambience | null {
         caption = { text: `${formatTemperature(live.temperature)} · ${describe(live, mood.daylight)}`, preview: false };
     }
 
-    return { mood, weather, leaves, caption };
+    return { mood, leaves, caption };
 }

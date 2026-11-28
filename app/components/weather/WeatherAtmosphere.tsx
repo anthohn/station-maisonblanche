@@ -5,21 +5,21 @@ import { deriveAmbience } from './ambience';
 import { applyMood, flashLightning } from './apply-mood';
 import WeatherParticles from './WeatherParticles';
 import WeatherPreviewBar from './WeatherPreviewBar';
-import { isScenario, startWeatherStore, useWeatherStore } from './weather-store';
+import { isScenario, startWeatherStore, useWeatherStore, visit } from './weather-store';
 
-const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
+let reducedMotionQuery: MediaQueryList | undefined;
+const reducedMotion = () => (reducedMotionQuery ??= window.matchMedia('(prefers-reduced-motion: reduce)'));
 
-function useReducedMotion(): boolean {
-    return useSyncExternalStore(
-        (notify) => {
-            const query = window.matchMedia(REDUCED_MOTION);
-            query.addEventListener('change', notify);
-            return () => query.removeEventListener('change', notify);
-        },
-        () => window.matchMedia(REDUCED_MOTION).matches,
-        () => true, // par prudence tant qu'on ne sait pas : on adoucit
-    );
-}
+// Fonctions stables (hors du composant) : React ne se réabonne pas à chaque rendu.
+const subscribeReducedMotion = (notify: () => void) => {
+    const query = reducedMotion();
+    query.addEventListener('change', notify);
+    return () => query.removeEventListener('change', notify);
+};
+const getReducedMotion = () => reducedMotion().matches;
+const getReducedMotionOnServer = () => true; // par prudence tant qu'on ne sait pas : on adoucit
+
+const useReducedMotion = () => useSyncExternalStore(subscribeReducedMotion, getReducedMotion, getReducedMotionOnServer);
 
 /**
  * Sécurité de fluidité : si, alors que quelque chose bouge (pluie, neige, feuilles, brume), l'appareil reste sous
@@ -32,11 +32,7 @@ const LITE_KEY = 'wx:lite';
 function useFluidityGuard(watch: boolean) {
     useEffect(() => {
         const root = document.documentElement;
-        try {
-            if (sessionStorage.getItem(LITE_KEY)) root.setAttribute('data-wx-lite', '');
-        } catch {
-            /* stockage bloqué : la mesure suffit */
-        }
+        if (visit.get(LITE_KEY)) root.setAttribute('data-wx-lite', '');
         if (!watch || root.hasAttribute('data-wx-lite')) return;
 
         let frameId = 0;
@@ -56,11 +52,7 @@ function useFluidityGuard(watch: boolean) {
                     frames = 0;
                     if (slowWindows >= 2) {
                         root.setAttribute('data-wx-lite', '');
-                        try {
-                            sessionStorage.setItem(LITE_KEY, '1');
-                        } catch {
-                            /* sans importance */
-                        }
+                        visit.set(LITE_KEY, '1');
                         return;
                     }
                 }
@@ -109,10 +101,6 @@ export default function WeatherAtmosphere({ padByDefault = false }: { padByDefau
     }, [padByDefault]);
 
     useEffect(() => {
-        document.documentElement.toggleAttribute('data-wx-paused', paused);
-    }, [paused]);
-
-    useEffect(() => {
         if (ambience) applyMood(ambience.mood, calm);
     }, [ambience, calm]);
 
@@ -142,7 +130,7 @@ export default function WeatherAtmosphere({ padByDefault = false }: { padByDefau
                 <div aria-hidden="true" className="wx-page">
                     <div className="wx-page-veil" />
                     <div className="wx-page-fogwrap">
-                        <div className="wx-page-fog wx-drift" data-wx-layer="page-fog" />
+                        <div className="wx-page-fog wx-drift" />
                     </div>
                 </div>
             )}

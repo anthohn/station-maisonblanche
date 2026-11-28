@@ -12,7 +12,7 @@
  * place (lib/sun.ts), donc le jour, la nuit et l'heure dorée restent justes.
  */
 
-import type { Weather } from './weather';
+import type { Sky } from './weather';
 
 type RGB = [number, number, number];
 
@@ -25,8 +25,8 @@ function smooth(e0: number, e1: number, x: number): number {
     return t * t * (3 - 2 * t);
 }
 
-const cssAlpha = (c: RGB, alpha: number) => `rgb(${Math.round(c[0])} ${Math.round(c[1])} ${Math.round(c[2])} / ${Number(alpha.toFixed(3))})`;
 const num = (x: number, digits = 3) => String(Number(x.toFixed(digits)));
+const cssAlpha = (c: RGB, alpha: number) => `rgb(${Math.round(c[0])} ${Math.round(c[1])} ${Math.round(c[2])} / ${num(alpha)})`;
 
 /** Superpose des voiles colorés (couleur, opacité) comme le fait un navigateur ; l'opacité finale est plafonnée. */
 function composite(layers: [RGB, number][], cap: number): [RGB, number] {
@@ -60,8 +60,6 @@ export interface Mood {
     drift: { direction: 1 | -1; rate: number };
     /** Particules : intensité 0 → 1 et inclinaison (vent). */
     particles: { rain: number; snow: number; slant: number };
-    /** 0 = plein jour, 1 = nuit noire. */
-    night: number;
     /** Le soleil est levé (pour dire « ensoleillé » ou « ciel dégagé »). */
     daylight: boolean;
     /** Orage : éclairs occasionnels. */
@@ -70,8 +68,8 @@ export interface Mood {
     lum: number;
 }
 
-export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: number): Mood {
-    const w = weather ?? { temperature: 10, condition: 'clear' as const, cloud: 0, fog: 0, rain: 0, snow: 0, wind: 6, windDir: 250 };
+export function computeMood(weather: Sky | null, elevation: number): Mood {
+    const w = weather ?? { condition: 'clear' as const, cloud: 0, fog: 0, rain: 0, snow: 0, wind: 6, windDir: 250 };
     const cloud = clamp01(w.cloud);
     const fog = clamp01(w.fog);
     const rain = clamp01(w.rain);
@@ -127,7 +125,6 @@ export function computeMood(weather: Omit<Weather, 'at'> | null, elevation: numb
         needs: { pagefog: pageFog > 0.02 },
         drift: { direction, rate },
         particles: { rain: rain > 0.03 ? rain : 0, snow: snow > 0.03 ? snow : 0, slant },
-        night,
         daylight: e > -1,
         storm,
         lum: clamp01(lum),

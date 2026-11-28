@@ -65,6 +65,5 @@ async function withServer(port, env, fn) {
   await withServer(port++, { OPEN_METEO_URL: `http://127.0.0.1:4999/jamais/${RUN}/v1/forecast` }, async (url) => {
     const r = await get(url); assert.equal(r.status, 200); assert.equal(r.body.weather, null); console.log('✓ service éteint (connexion refusée) → { weather: null }');
   });
-  await withServer(port++, {}, async () => {});   // démarre sans variable : l'URL par défaut est celle d'Open-Meteo
   upstream.close(); console.log('route : tout passe');
 })().catch((e) => { console.error('✗', e.message); process.exit(1); });

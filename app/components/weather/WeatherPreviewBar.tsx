@@ -3,11 +3,6 @@
 import { HOURS, PRESETS } from '@/lib/weather';
 import { setPreview, useWeatherStore, type Preview } from './weather-store';
 
-/**
- * Barre de démonstration, visible uniquement avec `?meteo=…` ou `?heure=…` dans l'adresse (jamais pour
- * un visiteur normal) : elle permet de passer d'une ambiance à l'autre sans attendre le bon temps.
- * `?meteo=live` (ou « Quitter ») la ferme. Voir weather-store.ts pour les façons de l'ouvrir.
- */
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
     return (
         <button
@@ -25,6 +20,11 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
     );
 }
 
+/**
+ * Le « pad » : barre de démonstration pour passer d'une ambiance à l'autre sans attendre le bon temps (jamais
+ * ouverte pour un visiteur normal). `?meteo=live` (ou « Quitter l'aperçu ») la ferme ; voir weather-store.ts
+ * pour les façons de l'ouvrir.
+ */
 export default function WeatherPreviewBar() {
     const { preview } = useWeatherStore();
     if (!preview) return null;

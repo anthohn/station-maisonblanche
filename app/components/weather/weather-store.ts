@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import { HOURS, PRESETS, type Condition, type Weather } from '@/lib/weather';
+import { CONDITIONS, HOURS, PRESETS, type Condition, type Sky, type Weather } from '@/lib/weather';
 
 /**
  * Données météo côté navigateur : la météo réelle (lue sur /api/meteo, renouvelée toutes les 10 minutes)
@@ -42,46 +42,54 @@ const subscribe = (listener: () => void) => {
     };
 };
 
+const getSnapshot = () => snapshot;
+const getServerSnapshot = () => SERVER_SNAPSHOT;
+
 export function useWeatherStore(): WeatherSnapshot {
-    return useSyncExternalStore(subscribe, () => snapshot, () => SERVER_SNAPSHOT);
+    return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 /* ───────────────────────── Aperçu et « pad » (?meteo=, ?heure=, ?pad) ───────────────────────── */
 
-const PREVIEW_KEY = 'wx:preview';
-const PAD_KEY = 'wx:pad'; // « closed » : le visiteur a fermé le pad pour cette visite
-const has = (object: object, key: string) => Object.prototype.hasOwnProperty.call(object, key);
+const PAD_KEY = 'wx:pad'; // l'aperçu choisi (JSON), ou « closed » : le visiteur a fermé le pad pour cette visite
 
-/** Le stockage de la visite peut être bloqué (cookies refusés) : on ne s'y fie jamais pour l'essentiel. */
-const visit = {
+/** Le stockage du navigateur peut être bloqué (cookies refusés) : on ne s'y fie jamais pour l'essentiel. */
+const safeStorage = (area: () => Storage) => ({
     get: (key: string) => {
         try {
-            return sessionStorage.getItem(key);
+            return area().getItem(key);
         } catch {
             return null;
         }
     },
     set: (key: string, value: string) => {
         try {
-            sessionStorage.setItem(key, value);
+            area().setItem(key, value);
         } catch {
             /* sans stockage, le choix vaut pour la page en cours seulement */
         }
     },
     remove: (key: string) => {
         try {
-            sessionStorage.removeItem(key);
+            area().removeItem(key);
         } catch {
             /* idem */
         }
     },
-};
+});
+/** Mémoire de la visite (jusqu'à la fermeture de l'onglet) et mémoire de l'appareil (d'une visite à l'autre). */
+export const visit = safeStorage(() => sessionStorage);
+const device = safeStorage(() => localStorage);
 
 function cleanPreview(raw: { meteo?: unknown; heure?: unknown }): Preview {
     return {
-        meteo: typeof raw.meteo === 'string' && has(PRESETS, raw.meteo) ? raw.meteo : null,
-        heure: typeof raw.heure === 'string' && has(HOURS, raw.heure) ? raw.heure : null,
+        meteo: typeof raw.meteo === 'string' && Object.hasOwn(PRESETS, raw.meteo) ? raw.meteo : null,
+        heure: typeof raw.heure === 'string' && Object.hasOwn(HOURS, raw.heure) ? raw.heure : null,
     };
+}
+
+function persistPreview(preview: Preview | null) {
+    visit.set(PAD_KEY, preview ? JSON.stringify(preview) : 'closed');
 }
 
 /** Un temps ou une heure sont-ils imposés ? (un « pad » ouvert sans rien d'imposé montre la météo et l'heure réelles) */
@@ -98,42 +106,33 @@ export const isScenario = (preview: Preview | null): boolean => !!preview && (pr
 function readPreview(padByDefault: boolean): Preview | null {
     const params = new URLSearchParams(window.location.search);
     if (params.get('meteo') === 'live') {
-        visit.remove(PREVIEW_KEY);
-        visit.set(PAD_KEY, 'closed');
+        persistPreview(null);
         return null;
     }
     const fromUrl = cleanPreview({ meteo: params.get('meteo'), heure: params.get('heure') });
     if (isScenario(fromUrl) || params.has('pad')) {
-        visit.set(PREVIEW_KEY, JSON.stringify(fromUrl));
-        visit.remove(PAD_KEY);
+        persistPreview(fromUrl);
         return fromUrl;
     }
-    const saved = visit.get(PREVIEW_KEY);
-    if (saved) {
+    const saved = visit.get(PAD_KEY);
+    if (saved && saved !== 'closed') {
         try {
             return cleanPreview(JSON.parse(saved));
         } catch {
-            visit.remove(PREVIEW_KEY);
+            visit.remove(PAD_KEY);
         }
     }
-    return padByDefault && visit.get(PAD_KEY) !== 'closed' ? { meteo: null, heure: null } : null;
+    return padByDefault && saved !== 'closed' ? { meteo: null, heure: null } : null;
 }
 
 export function setPreview(preview: Preview | null) {
-    const clean = preview ? cleanPreview(preview) : null;
-    if (clean) {
-        visit.set(PREVIEW_KEY, JSON.stringify(clean));
-        visit.remove(PAD_KEY);
-    } else {
-        visit.remove(PREVIEW_KEY);
-        visit.set(PAD_KEY, 'closed');
-    }
-    update({ preview: clean });
+    persistPreview(preview);
+    update({ preview });
 }
 
 /** Ce que l'aperçu impose : météo, hauteur du soleil, feuilles (null = on garde le réel). */
 export interface Simulation {
-    weather: Omit<Weather, 'at'> | null;
+    weather: Sky | null;
     elevation: number | null;
     leaves: boolean | null;
 }
@@ -153,22 +152,12 @@ export function resolvePreview(preview: Preview | null, live: Weather | null): S
 
 const EFFECTS_KEY = 'wx:effects';
 
-function readEffects(): boolean {
-    try {
-        return localStorage.getItem(EFFECTS_KEY) !== 'off';
-    } catch {
-        return true;
-    }
-}
+const readEffects = (): boolean => device.get(EFFECTS_KEY) !== 'off';
 
 /** Suspend ou rétablit les effets météo de la page (mémorisé). En aperçu (?meteo=), ils restent visibles. */
 export function setEffects(on: boolean) {
-    try {
-        if (on) localStorage.removeItem(EFFECTS_KEY);
-        else localStorage.setItem(EFFECTS_KEY, 'off');
-    } catch {
-        /* sans stockage, le choix vaut pour la page en cours seulement */
-    }
+    if (on) device.remove(EFFECTS_KEY);
+    else device.set(EFFECTS_KEY, 'off');
     update({ effects: on });
 }
 
@@ -178,8 +167,6 @@ const CACHE_KEY = 'wx:last';
 const REFRESH_EVERY_MS = 10 * 60_000;
 const CACHE_MAX_AGE_MS = 45 * 60_000; // on réutilise la dernière météo connue d'une visite à l'autre
 const STALE_AFTER_MS = 90 * 60_000; // au-delà, on ne la présente plus comme actuelle
-
-const CONDITIONS: readonly Condition[] = ['clear', 'partly', 'cloudy', 'fog', 'drizzle', 'rain', 'snow', 'storm'];
 
 /** La réponse du serveur est vérifiée champ par champ : une donnée douteuse vaut « pas de donnée ». */
 function parseWeather(raw: unknown): Weather | null {
@@ -191,17 +178,11 @@ function parseWeather(raw: unknown): Weather | null {
     return w as unknown as Weather;
 }
 
-function remember(weather: Weather) {
-    try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify(weather));
-    } catch {
-        /* stockage indisponible : sans importance */
-    }
-}
+const remember = (weather: Weather) => device.set(CACHE_KEY, JSON.stringify(weather));
 
 function recall(): Weather | null {
     try {
-        const saved = localStorage.getItem(CACHE_KEY);
+        const saved = device.get(CACHE_KEY);
         const weather = saved ? parseWeather(JSON.parse(saved)) : null;
         return weather && Date.now() - weather.at < CACHE_MAX_AGE_MS ? weather : null;
     } catch {

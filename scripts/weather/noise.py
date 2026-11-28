@@ -3,17 +3,17 @@ import numpy as np
 from PIL import Image
 
 
-def fractal(w, h, octaves, cutoff, seed, hp=0.0, ax=1.0):
+def fractal(w, h, octaves, cutoff, seed, hp=0.0):
     """Bruit fractal PÉRIODIQUE (il se raccorde à lui-même), filtré dans le spectre.
 
     octaves : liste de (exposant, poids) ; cutoff : filtre passe-bas (plus petit = formes plus larges) ;
-    hp : filtre passe-haut (retire les très grandes structures) ; ax > 1 étire les formes à l'horizontale.
+    hp : filtre passe-haut (retire les très grandes structures).
     Résultat normalisé entre 0 et 1.
     """
     rng = np.random.default_rng(seed)
     fy = np.fft.fftfreq(h)[:, None]
     fx = np.fft.fftfreq(w)[None, :]
-    r = np.sqrt((fx * ax) ** 2 + fy ** 2)
+    r = np.sqrt(fx ** 2 + fy ** 2)
     r[0, 0] = 1
     lowpass = np.exp(-(r / cutoff) ** 2)
     if hp:
@@ -25,7 +25,7 @@ def fractal(w, h, octaves, cutoff, seed, hp=0.0, ax=1.0):
         f[0, 0] = 0
         n = np.real(np.fft.ifft2(f))
         out += weight * (n - n.mean()) / n.std()
-    lo, hi = np.percentile(out, [2, 98] if ax == 1.0 else [1, 99])
+    lo, hi = np.percentile(out, [2, 98])
     return np.clip((out - lo) / (hi - lo), 0, 1)
 
 
